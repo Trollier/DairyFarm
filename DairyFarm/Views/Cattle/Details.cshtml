@@ -1,0 +1,102 @@
+﻿@model DairyFarm.Models.CattleDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CattleDetailViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeCattle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodeCattle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cattletype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cattletype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Herd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Herd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MalParent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MalParent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FemaleParent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FemaleParent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        @if (Model.CurrentGestation != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentGestation.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CurrentGestation.StartDate)
+            </dd>
+        }
+        @if (Model.CurrentDisease != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentDisease.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CurrentDisease.StartDate)
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

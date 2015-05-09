@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DairyFarm.Models.CattleViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CodeCattle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cattletype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Herd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCattle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentGestation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentDisease)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodeCattle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cattletype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Herd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdCattle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentGestation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentDisease)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
