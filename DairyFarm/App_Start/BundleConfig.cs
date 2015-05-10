@@ -40,6 +40,12 @@ namespace DairyFarm
                       "~/Content/css/sb-admin.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/css/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                "~/Content/Scripts/dairy-farm.js",
+                "~/Content/Scripts/jquery-ui-1.11.4.js"
+                ));
+            
         }
     }
 }

@@ -22,6 +22,12 @@ namespace DairyFarm.Controllers
             var cattleViewModels = new List<CattleViewModel>();
             foreach (var cattle in cattles)
             {
+                var currentDisease = "";
+                var diseasesHistories = cattle.DiseasesHistories.FirstOrDefault(d => d.EndDate == null);
+                if (diseasesHistories != null)
+                {
+                    currentDisease = diseasesHistories.Disease.Label;
+                }
                 var cattleViewModel = new CattleViewModel
                 {
                     CodeCattle = cattle.CodeCattle,
@@ -30,8 +36,8 @@ namespace DairyFarm.Controllers
                     State = cattle.HealthState.Label,
 
 
-                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDate == null)==null? true:false,
-                    CurrentDisease = cattle.DiseasesHistories.FirstOrDefault(d => d.EndDate == null).Disease.Label,
+                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDate == null)==null,
+                    CurrentDisease = currentDisease
                 };
                 cattleViewModels.Add(cattleViewModel);
             }
@@ -68,23 +74,37 @@ namespace DairyFarm.Controllers
         // GET: Cattle/Create
         public ActionResult Create()
         {
+            ViewBag.IdCattletype = new SelectList(db.CattleTypes, "IdCattletype", "Label");
+            ViewBag.IdHerd = new SelectList(db.Herds, "IdHerd", "Label");
+            ViewBag.IdState = new SelectList(db.HealthStates, "IdState", "Label");
+            //ViewBag.Sex = new SelectList(new List<string>{"M","F"}, "Sex", "Label");
             return View();
         }
 
         // POST: Cattle/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CattleCreateViewModel cattleCreateViewModel)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
+            if (ModelState.IsValid)
+            {
+                var cattle = new Cattle
+                {
+                    CodeCattle = cattleCreateViewModel.CodeCattle,
+                    IdHerd = cattleCreateViewModel.IdHerd,
+                    IdState = cattleCreateViewModel.IdState,
+                    Sex = cattleCreateViewModel.Sex,
+                    DateBirth = cattleCreateViewModel.DateBirth,
+                };
+                db.Cattles.Add(cattle);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewBag.IdCattletype = new SelectList(db.CattleTypes, "IdCattletype", "Label", cattleCreateViewModel.IdCattletype);
+            ViewBag.IdHerd = new SelectList(db.Herds, "IdHerd", "Label", cattleCreateViewModel.IdHerd);
+            ViewBag.IdState = new SelectList(db.HealthStates, "IdState", "Label", cattleCreateViewModel.IdState);
+            return View(cattleCreateViewModel);
         }
 
         // GET: Cattle/Edit/5

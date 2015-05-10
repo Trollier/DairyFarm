@@ -12,7 +12,7 @@ namespace DairyFarm.Models
         public int IdCattletype { get; set; }
         public int IdHerd { get; set; }
         public int IdState { get; set; }
-        public int Age { get; set; }
+        public System.DateTime DateBirth { get; set; }
         public Nullable<int> MalParent { get; set; }
         public Nullable<int> FemaleParent { get; set; }
         public string Sex { get; set; }
