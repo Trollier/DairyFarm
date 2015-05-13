@@ -39,6 +39,8 @@ namespace DairyFarm
                       "~/Content/css/bootstrap.css",
                       "~/Content/css/sb-admin.css",
                       "~/Content/font-awesome/css/font-awesome.css",
+                      "~/Content/themes/ui-darkness/jquery-ui.ui-darkness.css",
+                      "~/Content/themes/base/dialog.css",
                       "~/Content/css/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(

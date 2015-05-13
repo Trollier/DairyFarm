@@ -24,7 +24,6 @@ namespace DairyFarm.DAL
         public int IdCattle { get; set; }
         public string CodeCattle { get; set; }
         public int IdHerd { get; set; }
-        public int IdState { get; set; }
         public bool Active { get; set; }
         public System.DateTime DateBirth { get; set; }
         public Nullable<int> MalParent { get; set; }
@@ -35,6 +34,5 @@ namespace DairyFarm.DAL
         public virtual Herd Herd { get; set; }
         public virtual ICollection<DiseasesHistory> DiseasesHistories { get; set; }
         public virtual ICollection<Gestation> Gestations { get; set; }
-        public virtual HealthState HealthState { get; set; }
     }
 }

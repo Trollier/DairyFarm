@@ -13,34 +13,29 @@ namespace DairyFarm.Controllers
 {
     public class CattleController : Controller
     {
-        private DairyFarmEntities db = new DairyFarmEntities();
+        private readonly DairyFarmEntities _db = new DairyFarmEntities();
 
         // GET: Cattle
         public ActionResult Index()
         {
-            var cattles = db.Cattles.Include(c => c.Herd).Include(c => c.HealthState);
+            var cattles = _db.Cattles.Include(c => c.Herd);
             var cattleViewModels = new List<CattleViewModel>();
+
             foreach (var cattle in cattles)
             {
-                var currentDisease = "";
-                var diseasesHistories = cattle.DiseasesHistories.FirstOrDefault(d => d.EndDate == null);
-                if (diseasesHistories != null)
-                {
-                    currentDisease = diseasesHistories.Disease.Label;
-                }
                 var cattleViewModel = new CattleViewModel
                 {
                     CodeCattle = cattle.CodeCattle,
                     Cattletype = cattle.Herd.CattleType.Label,
                     Herd = cattle.Herd.Label,
-                    State = cattle.HealthState.Label,
+                    Age =  DateTime.Now.Year- cattle.DateBirth.Year ,
 
-
-                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDate == null)==null,
-                    CurrentDisease = currentDisease
+                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDate == null)!=null,
+                    CurrentDisease = cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null
                 };
                 cattleViewModels.Add(cattleViewModel);
             }
+           
             return View(cattleViewModels);
         }
 
@@ -51,7 +46,7 @@ namespace DairyFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cattle cattle = db.Cattles.Find(id);
+            Cattle cattle = _db.Cattles.Find(id);
             if (cattle == null)
             {
                 return HttpNotFound();
@@ -63,7 +58,6 @@ namespace DairyFarm.Controllers
                 CodeCattle = cattle.CodeCattle,
                 Cattletype = cattle.Herd.CattleType.Label,
                 Herd = cattle.Herd.Label,
-                State = cattle.HealthState.Label,
                 Sex = cattle.Sex,
                 CurrentGestation = currentGestation,
                 CurrentDisease = currentDisease
@@ -74,9 +68,8 @@ namespace DairyFarm.Controllers
         // GET: Cattle/Create
         public ActionResult Create()
         {
-            ViewBag.IdCattletype = new SelectList(db.CattleTypes, "IdCattletype", "Label");
-            ViewBag.IdHerd = new SelectList(db.Herds, "IdHerd", "Label");
-            ViewBag.IdState = new SelectList(db.HealthStates, "IdState", "Label");
+            ViewBag.IdCattletype = new SelectList(_db.CattleTypes, "IdCattletype", "Label");
+            ViewBag.IdHerd = new SelectList(new List<Herd>(), "IdHerd", "Label");
             //ViewBag.Sex = new SelectList(new List<string>{"M","F"}, "Sex", "Label");
             return View();
         }
@@ -92,18 +85,16 @@ namespace DairyFarm.Controllers
                 {
                     CodeCattle = cattleCreateViewModel.CodeCattle,
                     IdHerd = cattleCreateViewModel.IdHerd,
-                    IdState = cattleCreateViewModel.IdState,
                     Sex = cattleCreateViewModel.Sex,
                     DateBirth = cattleCreateViewModel.DateBirth,
                 };
-                db.Cattles.Add(cattle);
-                db.SaveChanges();
+                _db.Cattles.Add(cattle);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdCattletype = new SelectList(db.CattleTypes, "IdCattletype", "Label", cattleCreateViewModel.IdCattletype);
-            ViewBag.IdHerd = new SelectList(db.Herds, "IdHerd", "Label", cattleCreateViewModel.IdHerd);
-            ViewBag.IdState = new SelectList(db.HealthStates, "IdState", "Label", cattleCreateViewModel.IdState);
+            ViewBag.IdCattletype = new SelectList(_db.CattleTypes, "IdCattletype", "Label", cattleCreateViewModel.IdCattletype);
+            ViewBag.IdHerd = new SelectList(_db.Herds, "IdHerd", "Label", cattleCreateViewModel.IdHerd);
             return View(cattleCreateViewModel);
         }
 

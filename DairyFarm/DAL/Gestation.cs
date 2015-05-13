@@ -21,7 +21,7 @@ namespace DairyFarm.DAL
         public Nullable<System.DateTime> DateCalve { get; set; }
         public string CalveSex { get; set; }
         public string Comment { get; set; }
-        public bool DeathCalve { get; set; }
+        public Nullable<bool> DeathCalve { get; set; }
     
         public virtual Cattle Cattle { get; set; }
     }

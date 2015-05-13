@@ -33,7 +33,6 @@ namespace DairyFarm.DAL
         public virtual DbSet<DiseasesHistory> DiseasesHistories { get; set; }
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<Gestation> Gestations { get; set; }
-        public virtual DbSet<HealthState> HealthStates { get; set; }
         public virtual DbSet<Herd> Herds { get; set; }
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<MedicalTreatment> MedicalTreatments { get; set; }

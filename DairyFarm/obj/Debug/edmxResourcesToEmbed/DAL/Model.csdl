@@ -18,7 +18,6 @@
     <Property Name="IdCattle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CodeCattle" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
     <Property Name="IdHerd" Type="Int32" Nullable="false" />
-    <Property Name="IdState" Type="Int32" Nullable="false" />
     <Property Name="Active" Type="Boolean" Nullable="false" />
     <Property Name="DateBirth" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="MalParent" Type="Int32" />
@@ -28,7 +27,6 @@
     <NavigationProperty Name="Herd" Relationship="Self.FK_CATTLES_HERDS" FromRole="Cattles" ToRole="Herds" />
     <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="Cattles" ToRole="DiseasesHistories" />
     <NavigationProperty Name="Gestations" Relationship="Self.FK_Gestations_Cattles" FromRole="Cattles" ToRole="Gestations" />
-    <NavigationProperty Name="HealthState" Relationship="Self.FK_HEALTHSTATES_CATTLES" FromRole="Cattles" ToRole="HealthStates" />
   </EntityType>
   <EntityType Name="CattleType">
     <Key>
@@ -95,16 +93,8 @@
     <Property Name="DateCalve" Type="DateTime" Precision="3" />
     <Property Name="CalveSex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-    <Property Name="DeathCalve" Type="Boolean" Nullable="false" />
+    <Property Name="DeathCalve" Type="Boolean" />
     <NavigationProperty Name="Cattle" Relationship="Self.FK_Gestations_Cattles" FromRole="Gestations" ToRole="Cattles" />
-  </EntityType>
-  <EntityType Name="HealthState">
-    <Key>
-      <PropertyRef Name="IdState" />
-    </Key>
-    <Property Name="IdState" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Cattles" Relationship="Self.FK_HEALTHSTATES_CATTLES" FromRole="HealthStates" ToRole="Cattles" />
   </EntityType>
   <EntityType Name="Herd">
     <Key>
@@ -199,18 +189,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HEALTHSTATES_CATTLES">
-    <End Role="HealthStates" Type="Self.HealthState" Multiplicity="1" />
-    <End Role="Cattles" Type="Self.Cattle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="HealthStates">
-        <PropertyRef Name="IdState" />
-      </Principal>
-      <Dependent Role="Cattles">
-        <PropertyRef Name="IdState" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Herds_CattleTypes">
     <End Role="CattleTypes" Type="Self.CattleType" Multiplicity="1" />
     <End Role="Herds" Type="Self.Herd" Multiplicity="*" />
@@ -300,7 +278,6 @@
     <EntitySet Name="DiseasesHistories" EntityType="Self.DiseasesHistory" />
     <EntitySet Name="Foods" EntityType="Self.Food" />
     <EntitySet Name="Gestations" EntityType="Self.Gestation" />
-    <EntitySet Name="HealthStates" EntityType="Self.HealthState" />
     <EntitySet Name="Herds" EntityType="Self.Herd" />
     <EntitySet Name="Meals" EntityType="Self.Meal" />
     <EntitySet Name="MedicalTreatments" EntityType="Self.MedicalTreatment" />
@@ -320,10 +297,6 @@
     <AssociationSet Name="FK_Gestations_Cattles" Association="Self.FK_Gestations_Cattles">
       <End Role="Cattles" EntitySet="Cattles" />
       <End Role="Gestations" EntitySet="Gestations" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HEALTHSTATES_CATTLES" Association="Self.FK_HEALTHSTATES_CATTLES">
-      <End Role="HealthStates" EntitySet="HealthStates" />
-      <End Role="Cattles" EntitySet="Cattles" />
     </AssociationSet>
     <AssociationSet Name="FK_Herds_CattleTypes" Association="Self.FK_Herds_CattleTypes">
       <End Role="CattleTypes" EntitySet="CattleTypes" />

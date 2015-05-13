@@ -18,7 +18,6 @@
           <ScalarProperty Name="IdCattle" ColumnName="IdCattle" />
           <ScalarProperty Name="CodeCattle" ColumnName="CodeCattle" />
           <ScalarProperty Name="IdHerd" ColumnName="IdHerd" />
-          <ScalarProperty Name="IdState" ColumnName="IdState" />
           <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
           <ScalarProperty Name="MalParent" ColumnName="MalParent" />
@@ -86,14 +85,6 @@
           <ScalarProperty Name="CalveSex" ColumnName="CalveSex" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="DeathCalve" ColumnName="DeathCalve" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="HealthStates">
-      <EntityTypeMapping TypeName="DairyFarmModel.HealthState">
-        <MappingFragment StoreEntitySet="HealthStates">
-          <ScalarProperty Name="IdState" ColumnName="IdState" />
-          <ScalarProperty Name="Label" ColumnName="Label" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

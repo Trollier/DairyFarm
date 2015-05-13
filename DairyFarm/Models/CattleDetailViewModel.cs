@@ -17,9 +17,7 @@ namespace DairyFarm.Models
         public Nullable<int> FemaleParent { get; set; }
         public string Sex { get; set; }
         public Gestation CurrentGestation { get; set; }
-        public DiseasesHistory CurrentDisease
-
-        { get; set; }
+        public DiseasesHistory CurrentDisease { get; set; }
 
     }
 }

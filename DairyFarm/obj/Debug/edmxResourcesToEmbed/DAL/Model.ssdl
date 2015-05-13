@@ -17,7 +17,6 @@
     <Property Name="IdCattle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CodeCattle" Type="varchar" MaxLength="11" />
     <Property Name="IdHerd" Type="int" Nullable="false" />
-    <Property Name="IdState" Type="int" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="DateBirth" Type="date" Nullable="false" />
     <Property Name="MalParent" Type="int" />
@@ -94,14 +93,7 @@
     <Property Name="DateCalve" Type="datetime" />
     <Property Name="CalveSex" Type="char" MaxLength="1" />
     <Property Name="Comment" Type="varchar" MaxLength="256" />
-    <Property Name="DeathCalve" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="HealthStates">
-    <Key>
-      <PropertyRef Name="IdState" />
-    </Key>
-    <Property Name="IdState" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeathCalve" Type="bit" />
   </EntityType>
   <EntityType Name="Herds">
     <Key>
@@ -273,18 +265,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HEALTHSTATES_CATTLES">
-    <End Role="HealthStates" Type="Self.HealthStates" Multiplicity="1" />
-    <End Role="Cattles" Type="Self.Cattles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="HealthStates">
-        <PropertyRef Name="IdState" />
-      </Principal>
-      <Dependent Role="Cattles">
-        <PropertyRef Name="IdState" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Herds_CattleTypes">
     <End Role="CattleTypes" Type="Self.CattleTypes" Multiplicity="1" />
     <End Role="Herds" Type="Self.Herds" Multiplicity="*" />
@@ -332,7 +312,6 @@
     <EntitySet Name="DiseasesHistories" EntityType="Self.DiseasesHistories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Foods" EntityType="Self.Foods" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Gestations" EntityType="Self.Gestations" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="HealthStates" EntityType="Self.HealthStates" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Herds" EntityType="Self.Herds" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Meals" EntityType="Self.Meals" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MedicalTreatments" EntityType="Self.MedicalTreatments" Schema="dbo" store:Type="Tables" />
@@ -380,10 +359,6 @@
     <AssociationSet Name="FK_Gestations_Cattles" Association="Self.FK_Gestations_Cattles">
       <End Role="Cattles" EntitySet="Cattles" />
       <End Role="Gestations" EntitySet="Gestations" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HEALTHSTATES_CATTLES" Association="Self.FK_HEALTHSTATES_CATTLES">
-      <End Role="HealthStates" EntitySet="HealthStates" />
-      <End Role="Cattles" EntitySet="Cattles" />
     </AssociationSet>
     <AssociationSet Name="FK_Herds_CattleTypes" Association="Self.FK_Herds_CattleTypes">
       <End Role="CattleTypes" EntitySet="CattleTypes" />
