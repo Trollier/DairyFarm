@@ -70,7 +70,7 @@
     <Property Name="VeterinaryVisit" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Cattle" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="DiseasesHistories" ToRole="Cattles" />
     <NavigationProperty Name="Disease" Relationship="Self.FK_DISEASESHISTORIES_DISEASES" FromRole="DiseasesHistories" ToRole="Diseases" />
-    <NavigationProperty Name="MedicalTreatment" Relationship="Self.FK_DISEASESHISTORIES_MEDICALTREATMENTS" FromRole="DiseasesHistories" ToRole="MedicalTreatments" />
+    <NavigationProperty Name="MedicalTreatments" Relationship="Self.DiseaseHistories_MedicalTreatments" FromRole="DiseasesHistories" ToRole="MedicalTreatments" />
   </EntityType>
   <EntityType Name="Food">
     <Key>
@@ -88,11 +88,11 @@
     </Key>
     <Property Name="IdGestation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IdCattle" Type="Int32" Nullable="false" />
-    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Precision="3" />
-    <Property Name="DateCalve" Type="DateTime" Precision="3" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <Property Name="DateCalve" Type="DateTime" Precision="0" />
     <Property Name="CalveSex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-    <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
     <Property Name="DeathCalve" Type="Boolean" />
     <NavigationProperty Name="Cattle" Relationship="Self.FK_Gestations_Cattles" FromRole="Gestations" ToRole="Cattles" />
   </EntityType>
@@ -129,7 +129,7 @@
     </Key>
     <Property Name="IdTreatment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DISEASESHISTORIES_MEDICALTREATMENTS" FromRole="MedicalTreatments" ToRole="DiseasesHistories" />
+    <NavigationProperty Name="DiseasesHistories" Relationship="Self.DiseaseHistories_MedicalTreatments" FromRole="MedicalTreatments" ToRole="DiseasesHistories" />
   </EntityType>
   <EntityType Name="Season">
     <Key>
@@ -225,18 +225,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_DISEASESHISTORIES_MEDICALTREATMENTS">
-    <End Role="MedicalTreatments" Type="Self.MedicalTreatment" Multiplicity="1" />
-    <End Role="DiseasesHistories" Type="Self.DiseasesHistory" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MedicalTreatments">
-        <PropertyRef Name="IdTreatment" />
-      </Principal>
-      <Dependent Role="DiseasesHistories">
-        <PropertyRef Name="IdTreatment" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_MEALS_FOODS">
     <End Role="Foods" Type="Self.Food" Multiplicity="1" />
     <End Role="Meals" Type="Self.Meal" Multiplicity="*" />
@@ -268,6 +256,10 @@
   <Association Name="Diets_Foods">
     <End Role="Diets" Type="Self.Diet" Multiplicity="*" />
     <End Role="Foods" Type="Self.Food" Multiplicity="*" />
+  </Association>
+  <Association Name="DiseaseHistories_MedicalTreatments">
+    <End Role="MedicalTreatments" Type="Self.MedicalTreatment" Multiplicity="*" />
+    <End Role="DiseasesHistories" Type="Self.DiseasesHistory" Multiplicity="*" />
   </Association>
   <EntityContainer Name="DairyFarmEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="CattleProductions" EntityType="Self.CattleProduction" />
@@ -310,10 +302,6 @@
       <End Role="Diseases" EntitySet="Diseases" />
       <End Role="DiseasesHistories" EntitySet="DiseasesHistories" />
     </AssociationSet>
-    <AssociationSet Name="FK_DISEASESHISTORIES_MEDICALTREATMENTS" Association="Self.FK_DISEASESHISTORIES_MEDICALTREATMENTS">
-      <End Role="MedicalTreatments" EntitySet="MedicalTreatments" />
-      <End Role="DiseasesHistories" EntitySet="DiseasesHistories" />
-    </AssociationSet>
     <AssociationSet Name="FK_MEALS_FOODS" Association="Self.FK_MEALS_FOODS">
       <End Role="Foods" EntitySet="Foods" />
       <End Role="Meals" EntitySet="Meals" />
@@ -329,6 +317,10 @@
     <AssociationSet Name="Diets_Foods" Association="Self.Diets_Foods">
       <End Role="Diets" EntitySet="Diets" />
       <End Role="Foods" EntitySet="Foods" />
+    </AssociationSet>
+    <AssociationSet Name="DiseaseHistories_MedicalTreatments" Association="Self.DiseaseHistories_MedicalTreatments">
+      <End Role="MedicalTreatments" EntitySet="MedicalTreatments" />
+      <End Role="DiseasesHistories" EntitySet="DiseasesHistories" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -146,5 +146,13 @@
         <ScalarProperty Name="IdFood" ColumnName="IdFood" />
       </EndProperty>
     </AssociationSetMapping>
+    <AssociationSetMapping Name="DiseaseHistories_MedicalTreatments" TypeName="DairyFarmModel.DiseaseHistories_MedicalTreatments" StoreEntitySet="DiseaseHistories_MedicalTreatments">
+      <EndProperty Name="MedicalTreatments">
+        <ScalarProperty Name="IdTreatment" ColumnName="idTreatment" />
+      </EndProperty>
+      <EndProperty Name="DiseasesHistories">
+        <ScalarProperty Name="IdDiseasesHistory" ColumnName="IdDiseasesHistory" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

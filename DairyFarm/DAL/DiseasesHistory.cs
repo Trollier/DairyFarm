@@ -14,6 +14,11 @@ namespace DairyFarm.DAL
     
     public partial class DiseasesHistory
     {
+        public DiseasesHistory()
+        {
+            this.MedicalTreatments = new HashSet<MedicalTreatment>();
+        }
+    
         public int IdDiseasesHistory { get; set; }
         public int IdTreatment { get; set; }
         public int IdDisease { get; set; }
@@ -24,6 +29,6 @@ namespace DairyFarm.DAL
     
         public virtual Cattle Cattle { get; set; }
         public virtual Disease Disease { get; set; }
-        public virtual MedicalTreatment MedicalTreatment { get; set; }
+        public virtual ICollection<MedicalTreatment> MedicalTreatments { get; set; }
     }
 }

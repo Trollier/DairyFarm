@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="05560b3ba3d3494cad5d98ac4db5e534" Name="Diagram1">
+      <Diagram DiagramId="561d27aad9ee4445a82ecc7eee2e0e76" Name="Diagram1">
         <EntityTypeShape EntityType="DairyFarmModel.CattleProduction" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DairyFarmModel.Cattle" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DairyFarmModel.CattleType" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
@@ -24,11 +24,11 @@
         <AssociationConnector Association="DairyFarmModel.FK_Herds_CattleTypes" ManuallyRouted="false" />
         <AssociationConnector Association="DairyFarmModel.FK_Diets_Seasons" ManuallyRouted="false" />
         <AssociationConnector Association="DairyFarmModel.FK_DISEASESHISTORIES_DISEASES" ManuallyRouted="false" />
-        <AssociationConnector Association="DairyFarmModel.FK_DISEASESHISTORIES_MEDICALTREATMENTS" ManuallyRouted="false" />
         <AssociationConnector Association="DairyFarmModel.FK_MEALS_FOODS" ManuallyRouted="false" />
         <AssociationConnector Association="DairyFarmModel.FK_MEALS_HERDS" ManuallyRouted="false" />
         <AssociationConnector Association="DairyFarmModel.Diets_CattleTypes" ManuallyRouted="false" />
         <AssociationConnector Association="DairyFarmModel.Diets_Foods" ManuallyRouted="false" />
+        <AssociationConnector Association="DairyFarmModel.DiseaseHistories_MedicalTreatments" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
