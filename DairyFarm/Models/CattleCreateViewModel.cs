@@ -16,6 +16,11 @@ namespace DairyFarm.Models
         public Nullable<int> MalParent { get; set; }
         public Nullable<int> FemaleParent { get; set; }
         public string Sex { get; set; }
+        public List<int> IdTreatment { get; set; }
+        public int IdDisease { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public bool VeterinaryVisit { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
         public Gestation CurrentGestation { get; set; }
         public DiseasesHistory CurrentDisease { get; set; }
 

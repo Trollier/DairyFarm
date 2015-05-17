@@ -32,23 +32,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdHerd, "IdHerd", htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.IdHerd, "IdHerd", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdHerd", null, "selct Herd", htmlAttributes: new { @class = "form-control" })
                 <input id="btnNewHerd" type="button" value="New Herd" class="btn btn-default" />
-                @Html.ValidationMessageFor(model => model.IdHerd, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HealthState, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.HealthState, new { htmlAttributes = new { @class = "control-label col-md-3" } })
-                    @Html.ValidationMessageFor(model => model.HealthState, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -67,30 +59,84 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FemaleParent, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.FemaleParent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FemaleParent, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.FemaleParent, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.FemaleParent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FemaleParent, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Sex, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Sex, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Sex, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            @Html.LabelFor(model => model.HealthState, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.HealthState, new {htmlAttributes = new {@class = "control-label col-md-3"}})
+                    @Html.ValidationMessageFor(model => model.HealthState, "", new {@class = "text-danger"})
+                </div>
             </div>
         </div>
-    </div>
+        <div id="dialogHealth" title="This is a dialog box" style="display: none">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdTreatment, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IdTreatment, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.IdTreatment, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.IdDisease)
+                @Html.LabelFor(model => model.IdDisease, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.IdDisease, new {htmlAttributes = new {@class = "form-control"}})*@
+                    <input id="labelDisease" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.IdDisease, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.VeterinaryVisit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.VeterinaryVisit)
+                        @Html.ValidationMessageFor(model => model.VeterinaryVisit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
 }
 
-<div id="dialogContent"  title="This is a dialog box" style="display: none">
+<div id="dialogContent" title="This is a dialog box" style="display: none">
     <p>Faut créer un nouveau troupeau</p>
 
     <form action="#" method="post" id="editForm">
@@ -99,18 +145,6 @@
         <input type="text" id="Label" name="Label" placeholder="label" />
         <input id="btnCreateHerd" type="button" value="Create Herd" class="btn btn-default" />
         <label id="idMsgError"></label>
-    </form>
-</div>
-
-
-<div id="dialogHealth" title="This is a dialog box" style="display: none">
-    <p>Faut créer une maladie</p>
-
-    <form action="#" class="form-horizontal" method="post" id="diseaseForm">
-        <select id="medicalTreatment"></select>
-        <select id="disease"></select>
-        <input type="date" id="startDate" placeholder="maxAnimals">
-        <input type="date" id="endDate" placeholder="maxAnimals">
     </form>
 </div>
 

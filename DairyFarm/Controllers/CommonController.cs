@@ -49,26 +49,29 @@ namespace DairyFarm.Controllers
             return Json(herds);
         }
 
-        public ActionResult GetDisease(int? idCattleType)
+        public ActionResult GetDisease(string proposition)
         {
             
             var diseases = new List<Object>();
-            foreach (var disease in _db.Diseases.ToList())
+            foreach (var disease in _db.Diseases.Where(d => d.Label.Contains(proposition)).Take(15))
             {
-                diseases.Add(new { Value = disease.IdDisease, Text = disease.Label });
+                 diseases.Add(new {Id = disease.IdDisease, Label = disease.Label});
             }
             return Json(diseases,JsonRequestBehavior.AllowGet);
             
         }
 
 
-        public ActionResult GetMedicalTreatment(int? idCattleType)
+        public ActionResult GetMedicalTreatment(string proposition)
         {
             
             var treatments = new List<Object>();
             foreach (var treatment in _db.MedicalTreatments.ToList())
             {
-                treatments.Add(new { Value = treatment.IdTreatment, Text = treatment.Label });
+                if (treatment.Label.Contains(proposition))
+                {
+                    treatments.Add(new {Id = treatment.IdTreatment, Label = treatment.Label});
+                }
             }
             return Json(treatments,JsonRequestBehavior.AllowGet);
         }

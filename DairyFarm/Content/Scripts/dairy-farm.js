@@ -111,69 +111,41 @@ $(document).ready(function () {
 //jquery action for disease
 $('#HealthState').click(function() {
     var $this = $(this);
-    var isSend = true;
-     
+
+
     if ($this.is(':checked')) {
-        
+        $('#dialogHealth').show();
 
-        $.ajax({
-            type: "POST",
-            url: '/Common/GetDisease' ,
-            contentType: "application/json",
-            success: function(data) {
-                var optionStr = document.getElementById("medicalTreatment");
-                optionStr.length = 0;
-                optionStr.options[0] = new Option('Select maladie', '');
-                var notEmpty = true;
-                $.each(data, function(key, value) {
-                    notEmpty = false;
-                    $('#medicalTreatment')
-                        .append($("<option></option>")
-                            .attr("value", value.Value)
-                            .text(value.Text));
-                });
-            }
-        });
-
-        $.ajax({
-            type: "POST",
-            url: '/Common/GetMedicalTreatment',
-            contentType: "application/json",
-            success: function (data) {
-                var optionStr = document.getElementById("disease");
-                optionStr.length = 0;
-                optionStr.options[0] = new Option('Select traitement', '');
-                var notEmpty = true;
-                $.each(data, function (key, value) {
-                    notEmpty = false;
-                    $('#disease')
-                        .append($("<option></option>")
-                            .attr("value", value.Value)
-                            .text(value.Text));
-                });
-            }
-        });
-
-
-
-
-        var opt = {
-            autoOpen: false,
-            bgiframe: true,
-            modal: true,
-            width: 550,
-            height: 650,
-            title: 'Details'
-        };
-
-        $(document).ready(function() {
-            $("#dialogHealth").dialog(opt).dialog("open");
-        });
+    } else {
+        $('#dialogHealth').hide();
     }
 
-    if (isSend) {
-        
-        $('#HealthState').attr('checked', false);
+});
+
+
+$('#labelDisease').autocomplete({
+    minLength: 2,
+    scrollHeight: 150,
+    source : function(request,response){ // la fonction anonyme permet de maintenir une requête AJAX directement dans le plugin
+        $.ajax({
+            url : '/Common/GetDisease', // on appelle le script JSON
+            dataType : 'json', // on spécifie bien que le type de données est en JSON
+            data: "proposition="+$('#labelDisease').val(),
+            success: function (data) {
+                var suggestions = [];
+                $.each(data, function(key , value) {
+                    suggestions.push({ "id": value.Id, "label" : value.Label });
+                });
+                response(suggestions);
+            }
+        });
+    },
+    select:  function (event, ui) {
+        $("#labelDisease").val(ui.item.label + " ok");
+        $("#IdDisease").val(ui.item.id );
+
+        cityID = ui.item.id;
+        return false;
     }
 });
 
