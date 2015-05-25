@@ -16,8 +16,8 @@ namespace DairyFarm.DAL
     {
         public int IdGestation { get; set; }
         public int IdCattle { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
+        public System.DateTime StartDateGestation { get; set; }
+        public Nullable<System.DateTime> EndDateGestation { get; set; }
         public Nullable<System.DateTime> DateCalve { get; set; }
         public string CalveSex { get; set; }
         public string Comment { get; set; }

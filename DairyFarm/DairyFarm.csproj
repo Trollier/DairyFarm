@@ -119,8 +119,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CattleController.cs" />
+    <Compile Include="Controllers\CattleProductionsController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicalTreatmentsController.cs" />
     <Compile Include="DAL\Cattle.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -178,7 +180,20 @@
     <Compile Include="Models\CattleCreateViewModel.cs" />
     <Compile Include="Models\CattleDetailViewModel.cs" />
     <Compile Include="Models\CattleViewModel.cs" />
+    <Compile Include="Models\DiseasesHistoryModel.cs" />
+    <Compile Include="Models\GestationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IServices\IServiceCattle.cs" />
+    <Compile Include="IServices\ServiceDiseaseHistory.cs" />
+    <Compile Include="IServices\ServiceGestation.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ServiceCattle.cs" />
+    <Compile Include="Services\ServiceDiseaseHistory.cs" />
+    <Compile Include="Services\ServiceGestation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-rtl.css" />
@@ -187,11 +202,94 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\css\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\css\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\css\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\css\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\css\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\css\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\css\jquery-ui-smoothness.css" />
+    <Content Include="Content\css\jquery.dataTables.css" />
+    <Content Include="Content\css\jquery.dataTables.min.css" />
+    <Content Include="Content\css\jquery.dataTables_themeroller.css" />
     <Content Include="Content\css\sb-admin-rtl.css" />
     <Content Include="Content\css\sb-admin.css" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\sort_asc.png" />
+    <Content Include="Content\images\sort_asc_disabled.png" />
+    <Content Include="Content\images\sort_both.png" />
+    <Content Include="Content\images\sort_desc.png" />
+    <Content Include="Content\images\sort_desc_disabled.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\plugins\morris.css" />
     <Content Include="Content\Scripts\dairy-farm.js" />
+    <Content Include="Content\Scripts\i18n\az.js" />
+    <Content Include="Content\Scripts\i18n\bg.js" />
+    <Content Include="Content\Scripts\i18n\ca.js" />
+    <Content Include="Content\Scripts\i18n\cs.js" />
+    <Content Include="Content\Scripts\i18n\da.js" />
+    <Content Include="Content\Scripts\i18n\de.js" />
+    <Content Include="Content\Scripts\i18n\en.js" />
+    <Content Include="Content\Scripts\i18n\es.js" />
+    <Content Include="Content\Scripts\i18n\et.js" />
+    <Content Include="Content\Scripts\i18n\eu.js" />
+    <Content Include="Content\Scripts\i18n\fa.js" />
+    <Content Include="Content\Scripts\i18n\fi.js" />
+    <Content Include="Content\Scripts\i18n\fr.js" />
+    <Content Include="Content\Scripts\i18n\gl.js" />
+    <Content Include="Content\Scripts\i18n\he.js" />
+    <Content Include="Content\Scripts\i18n\hi.js" />
+    <Content Include="Content\Scripts\i18n\hr.js" />
+    <Content Include="Content\Scripts\i18n\hu.js" />
+    <Content Include="Content\Scripts\i18n\id.js" />
+    <Content Include="Content\Scripts\i18n\is.js" />
+    <Content Include="Content\Scripts\i18n\it.js" />
+    <Content Include="Content\Scripts\i18n\ko.js" />
+    <Content Include="Content\Scripts\i18n\lt.js" />
+    <Content Include="Content\Scripts\i18n\lv.js" />
+    <Content Include="Content\Scripts\i18n\mk.js" />
+    <Content Include="Content\Scripts\i18n\nb.js" />
+    <Content Include="Content\Scripts\i18n\nl.js" />
+    <Content Include="Content\Scripts\i18n\pl.js" />
+    <Content Include="Content\Scripts\i18n\pt-BR.js" />
+    <Content Include="Content\Scripts\i18n\pt.js" />
+    <Content Include="Content\Scripts\i18n\ro.js" />
+    <Content Include="Content\Scripts\i18n\ru.js" />
+    <Content Include="Content\Scripts\i18n\sk.js" />
+    <Content Include="Content\Scripts\i18n\sr.js" />
+    <Content Include="Content\Scripts\i18n\sv.js" />
+    <Content Include="Content\Scripts\i18n\th.js" />
+    <Content Include="Content\Scripts\i18n\tr.js" />
+    <Content Include="Content\Scripts\i18n\uk.js" />
+    <Content Include="Content\Scripts\i18n\vi.js" />
+    <Content Include="Content\Scripts\i18n\zh-CN.js" />
+    <Content Include="Content\Scripts\i18n\zh-TW.js" />
+    <Content Include="Content\Scripts\jquery.dataTables.js" />
+    <Content Include="Content\Scripts\jquery.dataTables.min.js" />
+    <Content Include="Content\Scripts\jquery.js" />
     <Content Include="Content\Scripts\plugins\flot\excanvas.min.js" />
     <Content Include="Content\Scripts\plugins\flot\flot-data.js" />
     <Content Include="Content\Scripts\plugins\flot\jquery.flot.js" />
@@ -204,6 +302,10 @@
     <Content Include="Content\Scripts\plugins\morris\morris.min.js" />
     <Content Include="Content\Scripts\plugins\morris\raphael.js" />
     <Content Include="Content\Scripts\plugins\morris\raphael.min.js" />
+    <Content Include="Content\Scripts\select2.full.js" />
+    <Content Include="Content\Scripts\select2.full.min.js" />
+    <Content Include="Content\Scripts\select2.js" />
+    <Content Include="Content\Scripts\select2.min.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -237,22 +339,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_glass_40_0078a3_1x400.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_glass_40_ffc73d_1x400.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_gloss-wave_25_333333_500x100.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_inset-soft_25_000000_1x100.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-bg_inset-soft_30_f58400_1x100.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-icons_4b8e0b_256x240.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-icons_a83300_256x240.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-icons_cccccc_256x240.png" />
-    <Content Include="Content\themes\ui-darkness\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\themes\ui-darkness\jquery-ui.ui-darkness.css" />
-    <Content Include="Content\themes\ui-darkness\jquery-ui.ui-darkness.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -265,6 +351,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\images\Sorting icons.psd" />
     <None Include="Content\Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Content\Scripts\bootstrap.js" />
@@ -286,7 +373,11 @@
     <Content Include="Content\Scripts\_references.js" />
     <Content Include="Content\Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Content\Scripts\jquery-ui-1.11.4.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -303,6 +394,23 @@
     <Content Include="Views\Cattle\Index.cshtml" />
     <Content Include="Views\Cattle\Details.cshtml" />
     <Content Include="Views\Cattle\Create.cshtml" />
+    <Content Include="Views\MedicalTreatments\Create.cshtml" />
+    <Content Include="Views\MedicalTreatments\Delete.cshtml" />
+    <Content Include="Views\MedicalTreatments\Details.cshtml" />
+    <Content Include="Views\MedicalTreatments\Edit.cshtml" />
+    <Content Include="Views\MedicalTreatments\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MedicalTreatment.cshtml" />
+    <Content Include="Views\Shared\_MedicalTreatment.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DiseasesHistory.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Gestation.cshtml" />
+    <Content Include="Views\Shared\_Gestation.cshtml" />
+    <Content Include="Views\Shared\_DiseasesHistory.cshtml" />
+    <Content Include="Views\CattleProductions\Create.cshtml" />
+    <Content Include="Views\CattleProductions\Delete.cshtml" />
+    <Content Include="Views\CattleProductions\Details.cshtml" />
+    <Content Include="Views\CattleProductions\Edit.cshtml" />
+    <Content Include="Views\CattleProductions\Index.cshtml" />
+    <Content Include="Views\CattleProductions\SetProductions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -361,6 +469,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

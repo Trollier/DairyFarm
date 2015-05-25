@@ -20,7 +20,6 @@ namespace DairyFarm.DAL
         }
     
         public int IdDiseasesHistory { get; set; }
-        public int IdTreatment { get; set; }
         public int IdDisease { get; set; }
         public int IdCattle { get; set; }
         public System.DateTime StartDate { get; set; }

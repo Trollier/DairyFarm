@@ -89,7 +89,7 @@ $('#btnCreateHerd').click(function() {
 });
 
 
-$(document).ready(function () {
+$(function () {
 
     (function ($) {
 
@@ -114,38 +114,61 @@ $('#HealthState').click(function() {
 
 
     if ($this.is(':checked')) {
-        $('#dialogHealth').show();
+        $('#newDisease').click();
 
     } else {
-        $('#dialogHealth').hide();
+        $('#divDisease').empty();
     }
 
 });
 
 
-$('#labelDisease').autocomplete({
-    minLength: 2,
-    scrollHeight: 150,
-    source : function(request,response){ // la fonction anonyme permet de maintenir une requête AJAX directement dans le plugin
-        $.ajax({
-            url : '/Common/GetDisease', // on appelle le script JSON
-            dataType : 'json', // on spécifie bien que le type de données est en JSON
-            data: "proposition="+$('#labelDisease').val(),
-            success: function (data) {
-                var suggestions = [];
-                $.each(data, function(key , value) {
-                    suggestions.push({ "id": value.Id, "label" : value.Label });
-                });
-                response(suggestions);
-            }
-        });
-    },
-    select:  function (event, ui) {
-        $("#labelDisease").val(ui.item.label + " ok");
-        $("#IdDisease").val(ui.item.id );
+$('#IsGestation').click(function () {
+    var $this = $(this);
 
-        cityID = ui.item.id;
-        return false;
+
+    if ($this.is(':checked')) {
+        $('#newGestation').click();
+
+    } else {
+        $('#divGestation').empty();
     }
+
 });
 
+var setSelect2Disease = function () {
+
+    $("#CurrentDisease_IdDisease").select2();
+    $("#IdMedicalTreatments").select2();
+    $("#IdMedicalTreatments").attr("name", "IdMedicalTreatments");
+    $("#CurrentDisease_StartDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#CurrentDisease_EndDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+
+}
+
+var setSelect2Gestation = function () {
+
+    $("#CurrentGestation_DeathCalve").select2();
+    $("#CurrentGestation_StartDateGestation").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+  
+    $("#CurrentGestation_EndDateGestation").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+  $("#CurrentGestation_DateCalve").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+}
+
+$(function () {
+    $("#DateBirth").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+   
+   
+});

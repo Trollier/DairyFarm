@@ -8,13 +8,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Net;
 using DairyFarm.Models;
+using DairyFarm.Services;
 
 namespace DairyFarm.Controllers
 {
     public class CattleController : Controller
     {
         private readonly DairyFarmEntities _db = new DairyFarmEntities();
-
+        
         // GET: Cattle
         public ActionResult Index()
         {
@@ -30,7 +31,7 @@ namespace DairyFarm.Controllers
                     Herd = cattle.Herd.Label,
                     Age =  DateTime.Now.Year- cattle.DateBirth.Year ,
 
-                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDate == null)!=null,
+                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null)!=null,
                     CurrentDisease = cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null
                 };
                 cattleViewModels.Add(cattleViewModel);
@@ -51,7 +52,7 @@ namespace DairyFarm.Controllers
             {
                 return HttpNotFound();
             }
-            var currentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDate == null);
+            var currentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null);
             var currentDisease = cattle.DiseasesHistories.FirstOrDefault(d => d.EndDate == null);
             var cattleDetailViewModel = new CattleDetailViewModel
             {
@@ -66,11 +67,24 @@ namespace DairyFarm.Controllers
         }
 
         // GET: Cattle/Create
+        public ActionResult NewDisease()
+        {
+            // (liste a retourner, value, text)
+            ViewBag.IdMedicalTreatments = new SelectList(_db.MedicalTreatments, "IdTreatment", "Label");
+            ViewBag.IdDisease = new SelectList(_db.Diseases, "IdDisease", "Label");
+            return PartialView("_DiseasesHistory");
+        }
+
+        public ActionResult NewGestation()
+        {
+            return PartialView("_Gestation");
+        }
+        // GET: Cattle/Create
         public ActionResult Create()
         {
             ViewBag.IdCattletype = new SelectList(_db.CattleTypes, "IdCattletype", "Label");
             ViewBag.IdHerd = new SelectList(new List<Herd>(), "IdHerd", "Label");
-            //ViewBag.Sex = new SelectList(new List<string>{"M","F"}, "Sex", "Label");
+         
             return View();
         }
 
@@ -90,6 +104,29 @@ namespace DairyFarm.Controllers
                 };
                 _db.Cattles.Add(cattle);
                 _db.SaveChanges();
+
+                if (cattleCreateViewModel.CurrentDisease != null)
+                {
+                    cattleCreateViewModel.CurrentDisease.IdCattle = cattle.IdCattle;
+
+                    foreach (var idTreatment in cattleCreateViewModel.IdMedicalTreatments)
+                    {
+                        var medic = _db.MedicalTreatments.Find(idTreatment);
+                        cattleCreateViewModel.CurrentDisease.MedicalTreatments.Add(medic);
+                    }
+                    _db.DiseasesHistories.Add(cattleCreateViewModel.CurrentDisease);
+                    _db.SaveChanges();
+
+                }
+                
+
+                if (cattleCreateViewModel.CurrentGestation!=null)
+                {
+                    cattleCreateViewModel.CurrentGestation.IdCattle = cattle.IdCattle;
+                    _db.Gestations.Add(cattleCreateViewModel.CurrentGestation);
+                    _db.SaveChanges();
+
+                }
                 return RedirectToAction("Index");
             }
 
@@ -130,9 +167,10 @@ namespace DairyFarm.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            
             try
             {
-                // TODO: Add delete logic here
+                
 
                 return RedirectToAction("Index");
             }

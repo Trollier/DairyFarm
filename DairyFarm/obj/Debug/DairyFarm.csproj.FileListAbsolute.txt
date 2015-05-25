@@ -28,3 +28,5 @@ C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\bin\Sy
 C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.dll
 C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.pdb
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.csprojResolveAssemblyReference.cache
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.Properties.Resources.resources
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.csproj.GenerateResource.Cache

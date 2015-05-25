@@ -1,4 +1,5 @@
-﻿@model DairyFarm.Models.CattleCreateViewModel
+﻿@using System.Web.UI.WebControls
+@model DairyFarm.Models.CattleCreateViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,10 +8,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CattleCreateViewModel</h4>
         <hr />
@@ -67,10 +68,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Sex, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Sex, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Sex, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -83,57 +84,47 @@
                 </div>
             </div>
         </div>
-        <div id="dialogHealth" title="This is a dialog box" style="display: none">
-            <div class="form-group">
-                @Html.LabelFor(model => model.IdTreatment, htmlAttributes: new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.IdTreatment, new {htmlAttributes = new {@class = "form-control"}})
-                    @Html.ValidationMessageFor(model => model.IdTreatment, "", new {@class = "text-danger"})
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.HiddenFor(model => model.IdDisease)
-                @Html.LabelFor(model => model.IdDisease, htmlAttributes: new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @*@Html.EditorFor(model => model.IdDisease, new {htmlAttributes = new {@class = "form-control"}})*@
-                    <input id="labelDisease" class="form-control" />
-                    @Html.ValidationMessageFor(model => model.IdDisease, "", new {@class = "text-danger"})
-                </div>
-            </div>
+        <div id="divDisease"></div>
+        @Ajax.ActionLink("new Disease",
+                "NewDisease",
+                 "Cattle",
+                 new AjaxOptions
+                 {
+                     HttpMethod = "GET",
+                     InsertionMode = InsertionMode.Replace,
+                     UpdateTargetId = "divDisease",
+                     OnSuccess = "setSelect2Disease();"
+                 }, htmlAttributes: new { @class = "DisplayNone" , id= "newDisease"})
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.VeterinaryVisit, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.VeterinaryVisit)
-                        @Html.ValidationMessageFor(model => model.VeterinaryVisit, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsGestation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label col-md-3" } })
+                    @Html.ValidationMessageFor(model => model.IsGestation, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        <div id="divGestation"></div>
+        @Ajax.ActionLink("New Gestation",
+                 "NewGestation",
+                 new { id = "newGestation" },
+                 new AjaxOptions
+                 {
+                     HttpMethod = "GET",
+                     InsertionMode = InsertionMode.Replace,
+                     UpdateTargetId = "divGestation",
+                     OnSuccess = "setSelect2Gestation();"
+                 }, htmlAttributes: new { @class = "DisplayNone", id = "newGestation" })
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+    </div>
 }
 
 <div id="dialogContent" title="This is a dialog box" style="display: none">
@@ -156,4 +147,9 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+
+
 }

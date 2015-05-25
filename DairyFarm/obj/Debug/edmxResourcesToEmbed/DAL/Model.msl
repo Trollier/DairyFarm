@@ -56,7 +56,6 @@
       <EntityTypeMapping TypeName="DairyFarmModel.DiseasesHistory">
         <MappingFragment StoreEntitySet="DiseasesHistories">
           <ScalarProperty Name="IdDiseasesHistory" ColumnName="IdDiseasesHistory" />
-          <ScalarProperty Name="IdTreatment" ColumnName="IdTreatment" />
           <ScalarProperty Name="IdDisease" ColumnName="IdDisease" />
           <ScalarProperty Name="IdCattle" ColumnName="IdCattle" />
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -79,8 +78,8 @@
         <MappingFragment StoreEntitySet="Gestations">
           <ScalarProperty Name="IdGestation" ColumnName="IdGestation" />
           <ScalarProperty Name="IdCattle" ColumnName="IdCattle" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDateGestation" ColumnName="StartDateGestation" />
+          <ScalarProperty Name="EndDateGestation" ColumnName="EndDateGestation" />
           <ScalarProperty Name="DateCalve" ColumnName="DateCalve" />
           <ScalarProperty Name="CalveSex" ColumnName="CalveSex" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />

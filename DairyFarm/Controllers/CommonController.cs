@@ -60,7 +60,18 @@ namespace DairyFarm.Controllers
             return Json(diseases,JsonRequestBehavior.AllowGet);
             
         }
+        [HttpPost]
+        public ActionResult GetDisease()
+        {
 
+            var diseases = new List<Object>();
+            foreach (var disease in _db.Diseases.Take(15))
+            {
+                diseases.Add(new { Id = disease.IdDisease, Label = disease.Label });
+            }
+            return Json(diseases, JsonRequestBehavior.AllowGet);
+
+        }
 
         public ActionResult GetMedicalTreatment(string proposition)
         {
