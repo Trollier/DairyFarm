@@ -7,7 +7,7 @@
           <ScalarProperty Name="IdProduction" ColumnName="IdProduction" />
           <ScalarProperty Name="IdCattle" ColumnName="IdCattle" />
           <ScalarProperty Name="Dateprod" ColumnName="Dateprod" />
-          <ScalarProperty Name="hourprod" ColumnName="hourprod" />
+          <ScalarProperty Name="Period" ColumnName="Period" />
           <ScalarProperty Name="quantity" ColumnName="quantity" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -22,7 +22,6 @@
           <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
           <ScalarProperty Name="MalParent" ColumnName="MalParent" />
           <ScalarProperty Name="FemaleParent" ColumnName="FemaleParent" />
-          <ScalarProperty Name="Sex" ColumnName="Sex" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -31,6 +30,7 @@
         <MappingFragment StoreEntitySet="CattleTypes">
           <ScalarProperty Name="IdCattleType" ColumnName="IdCattleType" />
           <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

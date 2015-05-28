@@ -49,7 +49,7 @@ namespace DairyFarm.Controllers
                   {
                       IdCattle = cattle.IdCattle,
                       quantity = 0,
-                      hourprod = "",
+                     // hourprod = "",
                       Cattle = cattle
                   });  
             }

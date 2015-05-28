@@ -8,6 +8,7 @@ namespace DairyFarm.Models
     public class CattleViewModel
     {
        
+        public int idCattle { get; set; }
         public string CodeCattle { get; set; }
         public string Cattletype { get; set; }
         public string Herd { get; set; }

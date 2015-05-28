@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdHerd, "IdHerd", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdHerd", null, "selct Herd", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control" })
                 <input id="btnNewHerd" type="button" value="New Herd" class="btn btn-default" />
                 @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
             </div>
@@ -66,26 +66,33 @@
                 @Html.ValidationMessageFor(model => model.FemaleParent, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @{
+    var listItems = new List<ListItem>
+        {
+              new ListItem { Text = "F", Value = "F" },
+              new ListItem { Text = "M", Value = "M" },
+        };
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Sex", new SelectList(listItems, "Value", "Text"), "select sex", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HealthState, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.HealthState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.HealthState, new {htmlAttributes = new {@class = "control-label col-md-3"}})
-                    @Html.ValidationMessageFor(model => model.HealthState, "", new {@class = "text-danger"})
+                    @Html.EditorFor(model => model.HealthState, new { htmlAttributes = new { @class = "control-label col-md-3" } })
+                    @Html.ValidationMessageFor(model => model.HealthState, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div id="divDisease"></div>
+
         @Ajax.ActionLink("new Disease",
                 "NewDisease",
                  "Cattle",
@@ -95,29 +102,30 @@
                      InsertionMode = InsertionMode.Replace,
                      UpdateTargetId = "divDisease",
                      OnSuccess = "setSelect2Disease();"
-                 }, htmlAttributes: new { @class = "DisplayNone" , id= "newDisease"})
+                 }, htmlAttributes: new { @class = "DisplayNone", id = "newDisease" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsGestation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label col-md-3" } })
-                    @Html.ValidationMessageFor(model => model.IsGestation, "", new { @class = "text-danger" })
+        <div id="divGestation" class="DisplayNone">
+            <div class="form-group ">
+                @Html.LabelFor(model => model.IsGestation, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label col-md-3" } })
+                        @Html.ValidationMessageFor(model => model.IsGestation, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
+            <div id="divGestation"></div>
+            @Ajax.ActionLink("New Gestation",
+        "NewGestation",
+        new { id = "newGestation" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "divGestation",
+            OnSuccess = "setSelect2Gestation();"
+        }, htmlAttributes: new { @class = "DisplayNone", id = "newGestation" })
         </div>
-        <div id="divGestation"></div>
-        @Ajax.ActionLink("New Gestation",
-                 "NewGestation",
-                 new { id = "newGestation" },
-                 new AjaxOptions
-                 {
-                     HttpMethod = "GET",
-                     InsertionMode = InsertionMode.Replace,
-                     UpdateTargetId = "divGestation",
-                     OnSuccess = "setSelect2Gestation();"
-                 }, htmlAttributes: new { @class = "DisplayNone", id = "newGestation" })
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -149,7 +157,4 @@
     @Scripts.Render("~/bundles/custom")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
-    @Scripts.Render("~/bundles/unobtrusive-ajax")
-
-
 }

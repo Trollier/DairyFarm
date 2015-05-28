@@ -27,27 +27,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Herd)
+            @Html.DisplayNameFor(model => model.LabelHerd)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Herd)
+            @Html.DisplayFor(model => model.LabelHerd)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.AgeYear)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.State)
+            @Html.DisplayFor(model => model.AgeYear)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Age)
+            @Html.DisplayNameFor(model => model.AgeMonth)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Age)
+            @Html.DisplayFor(model => model.AgeMonth)
         </dd>
 
         <dt>
@@ -73,30 +73,99 @@
         <dd>
             @Html.DisplayFor(model => model.Sex)
         </dd>
-        @if (Model.CurrentGestation != null)
+        @if (Model.CurrentGestation != null && Model.Sex == "F")
         {
             <dt>
-                @Html.DisplayNameFor(model => model.CurrentGestation.StartDate)
+                @Html.DisplayNameFor(model => model.CurrentGestation.StartDateGestation)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.CurrentGestation.StartDate)
+                @Html.DisplayFor(model => model.CurrentGestation.StartDateGestation)
             </dd>
-        }
-        @if (Model.CurrentDisease != null)
-        {
             <dt>
-                @Html.DisplayNameFor(model => model.CurrentDisease.StartDate)
+                @Html.DisplayNameFor(model => model.CurrentGestation.Comment)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.CurrentDisease.StartDate)
+                @Html.DisplayFor(model => model.CurrentGestation.Comment)
             </dd>
-        }
 
+    @Html.ActionLink("Editer gestation", "Edit","Gestations", new { id = Model.CurrentGestation.IdGestation }, htmlAttributes: new { @class = "btn btn-primary" }) 
+
+        }
+        else if (Model.CurrentGestation == null && Model.Sex == "F")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentGestation)
+            </dt>
+            <dd>
+                Il n'y a pas de gestation en cours
+            </dd>
+
+    <div id="divGestation"></div>
+    @Ajax.ActionLink("New Gestation",
+        "NewGestation", "Gestations", new { id = @Model.idCattle },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "divGestation",
+            OnSuccess = "NewGestation();"
+        }, htmlAttributes: new { id = "newGestation" })
+        }
+        <h2>Maladies</h2>
+@*ajouter une maladie*@
+        @if (Model.currentDiseases.Any())
+        {
+
+            <table class="table table-striped">
+                <tr></tr>
+                <tr>
+                    <th>
+                        Maladie
+                    </th>
+                    <th>
+                        Traitements
+                    </th>
+                    <th>
+                        Contagieux
+                    </th>
+                </tr>
+                @foreach (var item in Model.currentDiseases)
+                {
+                    <tr>
+                        <td>
+                            <label> @item.Disease.Label</label>
+                        </td>
+                        <td>
+                            @foreach (var polo in item.MedicalTreatments)
+                            {
+                                <label> @polo.Label </label>
+                            }
+
+                        </td>
+                        <td>
+                            <label> @item.Disease.Contagious</label>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.idCattle }) |
+    @Html.ActionLink("Back to List", "Index")*@
+
+
+    @Html.ActionLink("Historique Gestation", "index", "Gestations", new { id = Model.idCattle },null)
 </p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+
+
+}

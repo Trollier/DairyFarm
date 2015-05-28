@@ -7,7 +7,7 @@
     <Property Name="IdProduction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdCattle" Type="int" Nullable="false" />
     <Property Name="Dateprod" Type="datetime" Nullable="false" />
-    <Property Name="hourprod" Type="nchar" MaxLength="25" Nullable="false" />
+    <Property Name="Period" Type="datetime" Nullable="false" />
     <Property Name="quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
   </EntityType>
   <EntityType Name="Cattles">
@@ -21,7 +21,6 @@
     <Property Name="DateBirth" Type="date" Nullable="false" />
     <Property Name="MalParent" Type="int" />
     <Property Name="FemaleParent" Type="int" />
-    <Property Name="Sex" Type="char" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="CattleTypes">
     <Key>
@@ -29,6 +28,7 @@
     </Key>
     <Property Name="IdCattleType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Sex" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="Diets">
     <Key>

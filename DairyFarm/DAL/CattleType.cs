@@ -22,6 +22,7 @@ namespace DairyFarm.DAL
     
         public int IdCattleType { get; set; }
         public string Label { get; set; }
+        public string Sex { get; set; }
     
         public virtual ICollection<Herd> Herds { get; set; }
         public virtual ICollection<Diet> Diets { get; set; }

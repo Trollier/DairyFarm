@@ -26,6 +26,7 @@ namespace DairyFarm.Controllers
             {
                 var cattleViewModel = new CattleViewModel
                 {
+                    idCattle =  cattle.IdCattle,
                     CodeCattle = cattle.CodeCattle,
                     Cattletype = cattle.Herd.CattleType.Label,
                     Herd = cattle.Herd.Label,
@@ -53,16 +54,28 @@ namespace DairyFarm.Controllers
                 return HttpNotFound();
             }
             var currentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null);
-            var currentDisease = cattle.DiseasesHistories.FirstOrDefault(d => d.EndDate == null);
+            var currentDisease = cattle.DiseasesHistories.Where(d => d.EndDate == null).ToList();
             var cattleDetailViewModel = new CattleDetailViewModel
             {
+                idCattle = cattle.IdCattle,
                 CodeCattle = cattle.CodeCattle,
                 Cattletype = cattle.Herd.CattleType.Label,
-                Herd = cattle.Herd.Label,
-                Sex = cattle.Sex,
+                LabelHerd= cattle.Herd.Label,
+                AgeYear = DateTime.Now.Year - cattle.DateBirth.Year,
+                AgeMonth = DateTime.Now.Month - cattle.DateBirth.Month,
+                MalParent = cattle.MalParent,
+                FemaleParent = cattle.FemaleParent,
+                Sex = cattle.Herd.CattleType.Sex,
                 CurrentGestation = currentGestation,
-                CurrentDisease = currentDisease
             };
+            foreach (DiseasesHistory disease in currentDisease)
+            {
+                if (disease != null) 
+                { 
+                    cattleDetailViewModel.currentDiseases.Add(disease);
+                }
+            }
+            
             return View(cattleDetailViewModel);
         }
 
@@ -99,7 +112,6 @@ namespace DairyFarm.Controllers
                 {
                     CodeCattle = cattleCreateViewModel.CodeCattle,
                     IdHerd = cattleCreateViewModel.IdHerd,
-                    Sex = cattleCreateViewModel.Sex,
                     DateBirth = cattleCreateViewModel.DateBirth,
                 };
                 _db.Cattles.Add(cattle);

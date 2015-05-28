@@ -57,6 +57,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -68,6 +72,14 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -118,9 +130,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CattleController.cs" />
     <Compile Include="Controllers\CattleProductionsController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\GestationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalTreatmentsController.cs" />
     <Compile Include="DAL\Cattle.cs">
@@ -182,6 +196,7 @@
     <Compile Include="Models\CattleViewModel.cs" />
     <Compile Include="Models\DiseasesHistoryModel.cs" />
     <Compile Include="Models\GestationModel.cs" />
+    <Compile Include="Models\NewGestationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IServices\IServiceCattle.cs" />
     <Compile Include="IServices\ServiceDiseaseHistory.cs" />
@@ -216,7 +231,12 @@
     <Content Include="Content\css\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\css\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\css\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\css\jquery-ui-smoothness.css" />
+    <Content Include="Content\css\jquery-ui.css" />
+    <Content Include="Content\css\jquery-ui.min.css" />
+    <Content Include="Content\css\jquery-ui.structure.css" />
+    <Content Include="Content\css\jquery-ui.structure.min.css" />
+    <Content Include="Content\css\jquery-ui.theme.css" />
+    <Content Include="Content\css\jquery-ui.theme.min.css" />
     <Content Include="Content\css\jquery.dataTables.css" />
     <Content Include="Content\css\jquery.dataTables.min.css" />
     <Content Include="Content\css\jquery.dataTables_themeroller.css" />
@@ -287,6 +307,8 @@
     <Content Include="Content\Scripts\i18n\vi.js" />
     <Content Include="Content\Scripts\i18n\zh-CN.js" />
     <Content Include="Content\Scripts\i18n\zh-TW.js" />
+    <Content Include="Content\Scripts\jquery-ui.js" />
+    <Content Include="Content\Scripts\jquery-ui.min.js" />
     <Content Include="Content\Scripts\jquery.dataTables.js" />
     <Content Include="Content\Scripts\jquery.dataTables.min.js" />
     <Content Include="Content\Scripts\jquery.js" />
@@ -306,39 +328,6 @@
     <Content Include="Content\Scripts\select2.full.min.js" />
     <Content Include="Content\Scripts\select2.js" />
     <Content Include="Content\Scripts\select2.min.js" />
-    <Content Include="Content\themes\base\accordion.css" />
-    <Content Include="Content\themes\base\all.css" />
-    <Content Include="Content\themes\base\autocomplete.css" />
-    <Content Include="Content\themes\base\base.css" />
-    <Content Include="Content\themes\base\button.css" />
-    <Content Include="Content\themes\base\core.css" />
-    <Content Include="Content\themes\base\datepicker.css" />
-    <Content Include="Content\themes\base\dialog.css" />
-    <Content Include="Content\themes\base\draggable.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\menu.css" />
-    <Content Include="Content\themes\base\progressbar.css" />
-    <Content Include="Content\themes\base\resizable.css" />
-    <Content Include="Content\themes\base\selectable.css" />
-    <Content Include="Content\themes\base\selectmenu.css" />
-    <Content Include="Content\themes\base\slider.css" />
-    <Content Include="Content\themes\base\sortable.css" />
-    <Content Include="Content\themes\base\spinner.css" />
-    <Content Include="Content\themes\base\tabs.css" />
-    <Content Include="Content\themes\base\theme.css" />
-    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -353,7 +342,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\images\Sorting icons.psd" />
     <None Include="Content\Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Icon.png" />
     <Content Include="Content\Scripts\bootstrap.js" />
     <Content Include="Content\Scripts\bootstrap.min.js" />
     <Content Include="Content\Scripts\jquery-2.1.3.js" />
@@ -371,8 +359,6 @@
     <Content Include="Content\Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Content\Scripts\respond.min.js" />
     <Content Include="Content\Scripts\_references.js" />
-    <Content Include="Content\Scripts\jquery-ui-1.11.4.js" />
-    <Content Include="Content\Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Web.config">
@@ -411,6 +397,14 @@
     <Content Include="Views\CattleProductions\Edit.cshtml" />
     <Content Include="Views\CattleProductions\Index.cshtml" />
     <Content Include="Views\CattleProductions\SetProductions.cshtml" />
+    <Content Include="Views\Gestations\Create.cshtml" />
+    <Content Include="Views\Gestations\Delete.cshtml" />
+    <Content Include="Views\Gestations\Details.cshtml" />
+    <Content Include="Views\Gestations\Edit.cshtml" />
+    <Content Include="Views\Gestations\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Gestation_Form.cshtml" />
+    <Content Include="Views\Gestations\NewGestation_Form.cshtml" />
+    <Content Include="Views\Shared\_NewGestation_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

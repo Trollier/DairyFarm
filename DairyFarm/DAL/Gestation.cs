@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DairyFarm.DAL
 {
     using System;
@@ -16,6 +18,7 @@ namespace DairyFarm.DAL
     {
         public int IdGestation { get; set; }
         public int IdCattle { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime StartDateGestation { get; set; }
         public Nullable<System.DateTime> EndDateGestation { get; set; }
         public Nullable<System.DateTime> DateCalve { get; set; }

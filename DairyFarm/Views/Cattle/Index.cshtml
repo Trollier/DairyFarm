@@ -53,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.Age)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ },htmlAttributes:new{@class="btn btn-primary"})
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, htmlAttributes: new { @class = "btn btn-info" }) 
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, htmlAttributes: new { @class = "btn btn-danger" })
+            @Html.ActionLink("Edit", "Edit",  new { id = item.idCattle }, htmlAttributes: new { @class = "btn btn-primary" })
+            @Html.ActionLink("Details", "Details", new { id = item.idCattle }, htmlAttributes: new { @class = "btn btn-info" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.idCattle }, htmlAttributes: new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

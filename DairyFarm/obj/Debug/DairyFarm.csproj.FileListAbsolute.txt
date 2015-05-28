@@ -27,6 +27,12 @@ C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\bin\Sy
 C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Optimization.xml
 C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.dll
 C:\Users\Brahim\Documents\Visual Studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.pdb
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.csprojResolveAssemblyReference.cache
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.Properties.Resources.resources
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.csproj.GenerateResource.Cache
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\obj\Debug\DairyFarm.csprojResolveAssemblyReference.cache
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Net.Http.Formatting.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Http.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Http.WebHost.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Net.Http.Formatting.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Http.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Http.WebHost.xml

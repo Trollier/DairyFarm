@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.DAL;
+using DairyFarm.Models;
 
 namespace DairyFarm.Controllers
 {
@@ -86,5 +87,23 @@ namespace DairyFarm.Controllers
             }
             return Json(treatments,JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Gestation gestation)
+        {
+        
+            if (ModelState.IsValid)
+            {
+                gestation.DateCalve = gestation.StartDateGestation.AddMonths(9);
+                _db.Gestations.Add(gestation);
+                _db.SaveChanges();
+                return RedirectToAction("Details", "Cattle", new { id = gestation.IdCattle });
+            }
+            return RedirectToAction("Details", "Cattle", new { id = gestation.IdCattle});
+        }
+
+
+
     }
 }

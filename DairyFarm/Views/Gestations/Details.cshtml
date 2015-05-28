@@ -1,0 +1,74 @@
+﻿@model DairyFarm.DAL.Gestation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Gestation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDateGestation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDateGestation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDateGestation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDateGestation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCalve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCalve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CalveSex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalveSex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeathCalve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeathCalve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cattle.CodeCattle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdGestation }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

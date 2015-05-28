@@ -41,14 +41,14 @@ namespace DairyFarm
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/themes/base/dialog.css",
                       "~/Content/css/site.css",
-                      "~/Content/css/jquery-ui-smoothness.css"));
+                      "~/Content/css/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Content/select2").Include(
           "~/Content/css/select2.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                 "~/Content/Scripts/dairy-farm.js",
-                "~/Content/Scripts/jquery-ui-1.11.4.js"
+                "~/Content/Scripts/jquery-ui.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(

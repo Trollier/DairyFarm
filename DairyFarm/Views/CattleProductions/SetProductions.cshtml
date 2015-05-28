@@ -31,8 +31,6 @@
 
         @for (int i = 0; i < Model.Count; i++)
         {
-            @Html.HiddenFor(model => model[i].IdCattle)
-            @Html.HiddenFor(model => model[i].hourprod)
             <tr>
                 <td>
                     <label> @Model[i].Cattle.CodeCattle</label>

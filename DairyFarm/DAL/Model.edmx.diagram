@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="774e6a171caa4240b7f1575ed46a508a" Name="Diagram1">
+      <Diagram DiagramId="b440288bfab645ec9aa4c4a1e6c1c730" Name="Diagram1">
         <EntityTypeShape EntityType="DairyFarmModel.CattleProduction" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DairyFarmModel.Cattle" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DairyFarmModel.CattleType" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DairyFarmModel.Cattle" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DairyFarmModel.CattleType" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DairyFarmModel.Diet" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DairyFarmModel.Disease" Width="1.5" PointX="8.25" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DairyFarmModel.DiseasesHistory" Width="1.5" PointX="10.5" PointY="10.875" IsExpanded="true" />

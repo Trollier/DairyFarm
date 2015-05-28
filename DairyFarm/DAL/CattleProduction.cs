@@ -17,7 +17,7 @@ namespace DairyFarm.DAL
         public int IdProduction { get; set; }
         public int IdCattle { get; set; }
         public System.DateTime Dateprod { get; set; }
-        public string hourprod { get; set; }
+        public System.DateTime Period { get; set; }
         public decimal quantity { get; set; }
     
         public virtual Cattle Cattle { get; set; }

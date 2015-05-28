@@ -7,7 +7,7 @@
     <Property Name="IdProduction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IdCattle" Type="Int32" Nullable="false" />
     <Property Name="Dateprod" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="hourprod" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Period" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
     <NavigationProperty Name="Cattle" Relationship="Self.FK_CattleProductions_Cattles" FromRole="CattleProductions" ToRole="Cattles" />
   </EntityType>
@@ -22,7 +22,6 @@
     <Property Name="DateBirth" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="MalParent" Type="Int32" />
     <Property Name="FemaleParent" Type="Int32" />
-    <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
     <NavigationProperty Name="CattleProductions" Relationship="Self.FK_CattleProductions_Cattles" FromRole="Cattles" ToRole="CattleProductions" />
     <NavigationProperty Name="Herd" Relationship="Self.FK_CATTLES_HERDS" FromRole="Cattles" ToRole="Herds" />
     <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="Cattles" ToRole="DiseasesHistories" />
@@ -34,6 +33,7 @@
     </Key>
     <Property Name="IdCattleType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Herds" Relationship="Self.FK_Herds_CattleTypes" FromRole="CattleTypes" ToRole="Herds" />
     <NavigationProperty Name="Diets" Relationship="Self.Diets_CattleTypes" FromRole="CattleTypes" ToRole="Diets" />
   </EntityType>

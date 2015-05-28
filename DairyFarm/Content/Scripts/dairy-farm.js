@@ -39,6 +39,7 @@
     });
 });
 
+
 $("#btnNewHerd").click(function () {
     if ($("#IdCattletype").val() != "") {
         console.log("ok");
@@ -57,7 +58,6 @@ $("#btnNewHerd").click(function () {
         }); 
     }
 });
-
 
 
 $('#btnCreateHerd').click(function() {
@@ -87,6 +87,7 @@ $('#btnCreateHerd').click(function() {
         }
     });
 });
+
 
 
 $(function () {
@@ -169,6 +170,25 @@ $(function () {
     $("#DateBirth").datepicker({
         dateFormat: 'dd/mm/yy'
     });
-   
-   
+
+    $("#Sex").change(function() {
+        console.log("ok");
+
+        if ($("#Sex option:selected").text() === "F") {
+
+            $("#divGestation").show();
+
+        } else {
+            $("#divGestation").hide();
+        }
+    });
+
+
 });
+
+function NewGestation() {
+    $("#StartDateGestation").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+
+}
