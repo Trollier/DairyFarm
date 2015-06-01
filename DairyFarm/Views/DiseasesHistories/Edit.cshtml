@@ -1,0 +1,45 @@
+﻿@model DairyFarm.DAL.DiseasesHistory
+@Html.LabelFor(model => model.IdCattle)
+<div class="form-group">
+    @Html.LabelFor(model => model.IdDisease, "IdDisease", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("IdDisease", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.IdDisease, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2" id="IdMedicalTreatment">Traitements medical </label>
+
+    <div class="col-md-10">
+        @Html.DropDownList("IdMedicalTreatments", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @name = "IdMedicalTreatments", @id = "IdMedicalTreatments" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.VeterinaryVisit, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div class="checkbox">
+            @Html.EditorFor(model => model.VeterinaryVisit)
+            @Html.ValidationMessageFor(model => model.VeterinaryVisit, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+

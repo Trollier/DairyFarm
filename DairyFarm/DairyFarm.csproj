@@ -134,6 +134,7 @@
     <Compile Include="Controllers\CattleController.cs" />
     <Compile Include="Controllers\CattleProductionsController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\DiseasesHistoriesController.cs" />
     <Compile Include="Controllers\GestationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalTreatmentsController.cs" />
@@ -185,6 +186,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Partial.cs" />
     <Compile Include="DAL\Season.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -380,7 +382,6 @@
     <Content Include="Views\Cattle\Index.cshtml" />
     <Content Include="Views\Cattle\Details.cshtml" />
     <Content Include="Views\Cattle\Create.cshtml" />
-    <Content Include="Views\MedicalTreatments\Create.cshtml" />
     <Content Include="Views\MedicalTreatments\Delete.cshtml" />
     <Content Include="Views\MedicalTreatments\Details.cshtml" />
     <Content Include="Views\MedicalTreatments\Edit.cshtml" />
@@ -402,9 +403,10 @@
     <Content Include="Views\Gestations\Details.cshtml" />
     <Content Include="Views\Gestations\Edit.cshtml" />
     <Content Include="Views\Gestations\Index.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Gestation_Form.cshtml" />
-    <Content Include="Views\Gestations\NewGestation_Form.cshtml" />
     <Content Include="Views\Shared\_NewGestation_Form.cshtml" />
+    <Content Include="Views\Shared\_New_DiseasesHistory.cshtml" />
+    <Content Include="Views\DiseasesHistories\Index.cshtml" />
+    <Content Include="Views\DiseasesHistories\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

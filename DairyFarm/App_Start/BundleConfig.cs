@@ -47,8 +47,8 @@ namespace DairyFarm
           "~/Content/css/select2.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
-                "~/Content/Scripts/dairy-farm.js",
-                "~/Content/Scripts/jquery-ui.js"
+                "~/Content/Scripts/jquery-ui.js",
+                "~/Content/Scripts/dairy-farm.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(

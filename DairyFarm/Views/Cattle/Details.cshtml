@@ -101,9 +101,9 @@
             <dd>
                 Il n'y a pas de gestation en cours
             </dd>
+    <div id="idAjaxFormG">
 
-    <div id="divGestation"></div>
-    @Ajax.ActionLink("New Gestation",
+        @Ajax.ActionLink("New Gestation",
         "NewGestation", "Gestations", new { id = @Model.idCattle },
         new AjaxOptions
         {
@@ -111,10 +111,26 @@
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "divGestation",
             OnSuccess = "NewGestation();"
-        }, htmlAttributes: new { id = "newGestation" })
+        }, htmlAttributes: new { id = "newGestation", @class = "btn btn-primary" })
+        <input type="button" id="closeNewGestation" class="btn btn-danger DisplayNone" value="X" />
+        <div id="divGestation"></div>
+    </div>
         }
+
+
         <h2>Maladies</h2>
-@*ajouter une maladie*@
+        @Ajax.ActionLink("new Disease",
+                "Create",
+                 "DiseasesHistories", new { id = @Model.idCattle },
+                 new AjaxOptions
+                 {
+                     HttpMethod = "GET",
+                     InsertionMode = InsertionMode.Replace,
+                     UpdateTargetId = "divDisease",
+                     OnSuccess = "setSelect2Disease();"
+                 }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
+
+        <div id="divDisease"></div>
         @if (Model.currentDiseases.Any())
         {
 
@@ -133,21 +149,44 @@
                 </tr>
                 @foreach (var item in Model.currentDiseases)
                 {
+                   if (item.EndDate == null) { 
                     <tr>
                         <td>
                             <label> @item.Disease.Label</label>
                         </td>
                         <td>
-                            @foreach (var polo in item.MedicalTreatments)
+                            @foreach (var treatment in item.MedicalTreatments)
                             {
-                                <label> @polo.Label </label>
+                                <label>- @treatment.Label </label>
                             }
 
                         </td>
+                    @if (@item.Disease.Contagious)
+                    {
                         <td>
-                            <label> @item.Disease.Contagious</label>
+                            <input type="checkbox" checked disabled>
                         </td>
+
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled>
+                    }
+                        <td>
+                            @Ajax.ActionLink("éditer",
+                                "edit",
+                                "DiseasesHistories", new {idDiseaseHistory = @item.IdDiseasesHistory, idCattle = @item.IdCattle},
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "editDisease",
+                                    OnSuccess = "DialogEditDisease"
+                                }, htmlAttributes: new {id = "newDisease", @class = "btn btn-primary"})
+                        </td>
+
                     </tr>
+                   }
                 }
             </table>
         }
@@ -158,14 +197,34 @@
     @Html.ActionLink("Back to List", "Index")*@
 
 
-    @Html.ActionLink("Historique Gestation", "index", "Gestations", new { id = Model.idCattle },null)
+    @Ajax.ActionLink("historique gestation",
+                        "index",
+                         "Gestations", new { id = @Model.idCattle },
+                 new AjaxOptions
+                 {
+                     HttpMethod = "GET",
+                     InsertionMode = InsertionMode.Replace,
+                     UpdateTargetId = "gestationHistory",
+                 }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
+    <div id="gestationHistory"></div>
+    @Ajax.ActionLink("historique maladie",
+                        "index",
+                        "DiseasesHistories", new { id = @Model.idCattle },
+                 new AjaxOptions
+                 {
+                     HttpMethod = "GET",
+                     InsertionMode = InsertionMode.Replace,
+                     UpdateTargetId = "diseaseHistory",
+                 }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
+    <div id="diseaseHistory"></div>
 </p>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/custom")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
-
-
+    @Scripts.Render("~/bundles/custom")
 }
+
+<div id="editDisease" class="DisplayNone"></div>
+<input type="button" id="bouton"/>

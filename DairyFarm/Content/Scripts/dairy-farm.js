@@ -19,8 +19,6 @@
                 $(function () {
                     var idCatlleType = $("#IdCattletype").val();
                     $("#IdCattleTypeDialog").text($("#IdCattletype").find("option:selected").text());
-
-
                     var opt = {
                         autoOpen: false,
                         bgiframe: true,
@@ -29,7 +27,6 @@
                         height: 650,
                         title: 'Details'
                     };
-
                     $(document).ready(function () {
                         $("#dialogContent").dialog(opt).dialog("open");
                     });
@@ -186,9 +183,38 @@ $(function () {
 
 });
 
+
 function NewGestation() {
     $("#StartDateGestation").datepicker({
         dateFormat: 'dd/mm/yy'
     });
+    $("#idAjaxFormG").addClass("AjaxForm");
 
+    $("#newGestation").hide();
+    $("#closeNewGestation").show();
 }
+
+$('#closeNewGestation').click(function () {
+    $("#newGestation").show();
+    $("#divGestation").empty();
+    $("#closeNewGestation").hide();
+    $("#idAjaxFormG").removeClass("AjaxForm");
+});
+
+var dialog = $("#dialog").dialog({ autoOpen: false });
+
+function DialogEditDisease() {
+        var opt = {
+            autoOpen: false,
+            bgiframe: true,
+            modal: true,
+            width: 550,
+            height: 650,
+            title: 'Details'
+        };
+    console.log("ok");
+        $("#editDisease").dialog(opt).dialog("open");
+        $("#editDisease").removeClass('DisplayNone');
+   
+}
+

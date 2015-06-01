@@ -1,5 +1,5 @@
 ﻿@model DairyFarm.DAL.DiseasesHistory
-
+@Html.HiddenFor(model => model.IdCattle)
     <div class="form-group">
         @Html.LabelFor(model => model.IdDisease, "IdDisease", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

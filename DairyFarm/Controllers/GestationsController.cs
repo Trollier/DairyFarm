@@ -17,10 +17,11 @@ namespace DairyFarm.Controllers
         // GET: Gestations
         public ActionResult Index(int id)
         {
-            var gestations = db.Gestations.Where(g => g.EndDateGestation != null).ToList();
+            var gestations = db.Gestations.Where(g => g.EndDateGestation != null);
             var cattle = db.Cattles.Find(id);
             ViewBag.codeCattle =  cattle.CodeCattle;
-            return View(gestations.ToList());
+            ViewBag.idCattle = cattle.IdCattle;
+            return View(gestations);
         }
 
         // GET: Gestations/Details/5

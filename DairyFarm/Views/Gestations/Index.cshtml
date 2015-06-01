@@ -32,36 +32,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDateGestation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDateGestation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCalve)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CalveSex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-             @if (item.DeathCalve == true)
-             {
-                <input type="checkbox" checked disabled="disabled">
-             }
-             else
-             { <input type="checkbox" disabled="disabled">}
-             
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateGestation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDateGestation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCalve)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalveSex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @if (item.DeathCalve == true)
+                {
+                    <input type="checkbox" checked disabled="disabled">
+                }
+                else
+                {
+                    <input type="checkbox" disabled="disabled">}
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
+            </td>
+        </tr>
+
+    }
 
 </table>
