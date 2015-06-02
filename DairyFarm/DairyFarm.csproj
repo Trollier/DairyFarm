@@ -134,9 +134,11 @@
     <Compile Include="Controllers\CattleController.cs" />
     <Compile Include="Controllers\CattleProductionsController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\DiseasesController.cs" />
     <Compile Include="Controllers\DiseasesHistoriesController.cs" />
     <Compile Include="Controllers\GestationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicalTreatmentsController.cs" />
     <Compile Include="DAL\Cattle.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -407,6 +409,9 @@
     <Content Include="Views\Shared\_New_DiseasesHistory.cshtml" />
     <Content Include="Views\DiseasesHistories\Index.cshtml" />
     <Content Include="Views\DiseasesHistories\Edit.cshtml" />
+    <Content Include="Views\Diseases\Index.cshtml" />
+    <Content Include="Views\Manage.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

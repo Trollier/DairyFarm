@@ -134,7 +134,7 @@ $('#IsGestation').click(function () {
 
 });
 
-var setSelect2Disease = function () {
+ function setSelect2Disease() {
 
     $("#CurrentDisease_IdDisease").select2();
     $("#IdMedicalTreatments").select2();
@@ -143,6 +143,9 @@ var setSelect2Disease = function () {
         dateFormat: 'dd/mm/yy'
     });
     $("#CurrentDisease_EndDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#StartDate").datepicker({
         dateFormat: 'dd/mm/yy'
     });
 
@@ -201,20 +204,27 @@ $('#closeNewGestation').click(function () {
     $("#idAjaxFormG").removeClass("AjaxForm");
 });
 
-var dialog = $("#dialog").dialog({ autoOpen: false });
 
-function DialogEditDisease() {
-        var opt = {
-            autoOpen: false,
-            bgiframe: true,
-            modal: true,
-            width: 550,
-            height: 650,
-            title: 'Details'
-        };
-    console.log("ok");
-        $("#editDisease").dialog(opt).dialog("open");
-        $("#editDisease").removeClass('DisplayNone');
-   
+
+function openDialog() {
+
+
+
+    //set the diaglog properties
+    $("#editDisease").dialog({
+        title: 'Assign',
+        width: '600',
+        height: '600',
+        modal: true
+    });
+
+    $("#editDisease").dialog("open");
+    $("#StartDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#EndDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#IdDisease").select2();
+    $("#IdMedicalTreatments").select2();
 }
-

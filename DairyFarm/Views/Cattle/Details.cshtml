@@ -146,6 +146,9 @@
                     <th>
                         Contagieux
                     </th>
+                    <th>
+                        Visite veterinaire
+                    </th>
                 </tr>
                 @foreach (var item in Model.currentDiseases)
                 {
@@ -161,30 +164,29 @@
                             }
 
                         </td>
-                    @if (@item.Disease.Contagious)
-                    {
+
                         <td>
-                            <input type="checkbox" checked disabled>
+                            <input type="checkbox" checked=@item.Disease.Contagious disabled>
                         </td>
 
-                    }
-                    else
-                    {
-                        <input type="checkbox" disabled>
-                    }
+                            <td>
+                                <input type="checkbox" checked=@item.VeterinaryVisit disabled>
+
+                            </td>
+
                         <td>
                             @Ajax.ActionLink("éditer",
                                 "edit",
-                                "DiseasesHistories", new {idDiseaseHistory = @item.IdDiseasesHistory, idCattle = @item.IdCattle},
+                                "DiseasesHistories", new {idDiseaseHistory = @item.IdDiseasesHistory},
                                 new AjaxOptions
                                 {
                                     HttpMethod = "GET",
                                     InsertionMode = InsertionMode.Replace,
                                     UpdateTargetId = "editDisease",
-                                    OnSuccess = "DialogEditDisease"
+                                    OnSuccess = "openDialog();"
                                 }, htmlAttributes: new {id = "newDisease", @class = "btn btn-primary"})
                         </td>
-
+                        
                     </tr>
                    }
                 }
@@ -221,10 +223,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
-    @Scripts.Render("~/bundles/custom")
+    
 }
 
 <div id="editDisease" class="DisplayNone"></div>
-<input type="button" id="bouton"/>
