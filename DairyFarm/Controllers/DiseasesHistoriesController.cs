@@ -73,20 +73,26 @@ namespace DairyFarm.Controllers
         }
 
         // GET: DiseasesHistories/Edit/5
-        public ActionResult Edit(int? idDiseaseHistory)
+        public ActionResult Edit(int? id)
         {
-            if (idDiseaseHistory == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DiseasesHistory diseasesHistory = _db.DiseasesHistories.Find(idDiseaseHistory);
+            DiseasesHistory diseasesHistory = _db.DiseasesHistories.Find(id);
             if (diseasesHistory == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdMedicalTreatments = new SelectList(_db.MedicalTreatments, "IdTreatment", "Label",diseasesHistory.IdMedicalTreatments);
-            ViewBag.IdDisease = new SelectList(_db.Diseases, "IdDisease", "Label");
-            return PartialView(diseasesHistory);
+            diseasesHistory.IdMedicalTreatments = new List<int>();
+            foreach (var treatment in diseasesHistory.MedicalTreatments)
+            {
+                //var medic = _db.MedicalTreatments.Find(treatment);
+                diseasesHistory.IdMedicalTreatments.Add(treatment.IdTreatment);
+            }
+            ViewBag.IdMedicalTreatments = new SelectList(_db.MedicalTreatments, "IdTreatment", "Label",diseasesHistory.IdMedicalTreatments.ToArray());
+            ViewBag.IdDisease = new SelectList(_db.Diseases, "IdDisease", "Label",diseasesHistory.IdDisease);
+            return PartialView("_EditDiseasesHistory", diseasesHistory);
         }
 
         // POST: DiseasesHistories/Edit/5
@@ -98,14 +104,26 @@ namespace DairyFarm.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var idTreatment in diseasesHistory.IdMedicalTreatments)
+                if (diseasesHistory.IdMedicalTreatments != null)
                 {
-                    var medic = _db.MedicalTreatments.Find(idTreatment);
-                    diseasesHistory.MedicalTreatments.Add(medic);
+                    diseasesHistory.MedicalTreatments = new List<MedicalTreatment>();
+                    //diseasesHistory.MedicalTreatments.Clear();
+                    foreach (var idTreatment in diseasesHistory.IdMedicalTreatments)
+                    {
+                        var medic = _db.MedicalTreatments.Find(idTreatment);
+                        diseasesHistory.MedicalTreatments.Add(medic);
+                    }
                 }
-                //_db.Entry(diseasesHistory).State = EntityState.Modified;
-                _db.DiseasesHistories.Remove(diseasesHistory);
-                _db.DiseasesHistories.Add(diseasesHistory);
+
+                var dH = _db.DiseasesHistories.Find(diseasesHistory.IdDiseasesHistory);
+                dH.MedicalTreatments.Clear();
+                dH.IdDisease = diseasesHistory.IdDisease;
+                dH.MedicalTreatments = diseasesHistory.MedicalTreatments;
+                dH.StartDate = diseasesHistory.StartDate;
+                dH.EndDate = diseasesHistory.EndDate;
+                dH.VeterinaryVisit = diseasesHistory.VeterinaryVisit;
+
+                _db.Entry(dH).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle });
             }

@@ -228,3 +228,33 @@ function openDialog() {
     $("#IdDisease").select2();
     $("#IdMedicalTreatments").select2();
 }
+
+
+$("#ListItem").change(function () {
+    $("#viewPlaceHolder").empty();
+    
+    $url = "/" + $('#ListItem').val() + "/" + "Index";
+    $("#viewPlaceHolder").load($url);
+
+});
+
+
+//Factorisez le code de création de dialogBox
+//
+//
+//URGENT
+function dialogBox(variable) {
+
+    
+
+    //set the diaglog properties
+    $('#' + variable + ' ').dialog({
+        title: 'Assign',
+        width: '600',
+        height: '600',
+        modal: true
+    });
+
+    $("#editDisease").dialog("open");
+
+}
