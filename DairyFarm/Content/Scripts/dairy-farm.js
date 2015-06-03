@@ -255,6 +255,6 @@ function dialogBox(variable) {
         modal: true
     });
 
-    $("#editDisease").dialog("open");
+    $('#' + variable + ' ').dialog("open");
 
 }

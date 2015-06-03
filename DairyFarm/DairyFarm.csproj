@@ -417,6 +417,7 @@
     <Content Include="Views\Shared\_EditDiseasesHistory.cshtml" />
     <Content Include="Views\Foods\Index.cshtml" />
     <Content Include="Views\Foods\Create.cshtml" />
+    <Content Include="Views\Foods\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

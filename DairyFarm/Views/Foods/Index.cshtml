@@ -24,7 +24,16 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdFood }) |
+            @Ajax.ActionLink("Editer",
+        "Edit", "Foods",
+        new {id = item.IdFood},
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "editFood",
+            OnSuccess = "dialogBox('editFood');"
+        })
         </td>
     </tr>
 }
@@ -41,3 +50,4 @@
             OnSuccess = "dialogBox('createFood');"
         })
 <div id="createFood" class="DisplayNone"></div>
+<div id="editFood" class="DisplayNone"></div>

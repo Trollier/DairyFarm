@@ -52,7 +52,7 @@ namespace DairyFarm.Controllers
             {
                 db.Foods.Add(food);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index","Manage");
             }
 
             return View(food);
