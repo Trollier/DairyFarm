@@ -21,7 +21,20 @@ namespace DairyFarm.Controllers
         {
             var cattles = _db.Cattles.Include(c => c.Herd);
             var cattleViewModels = new List<CattleViewModel>();
+            ////
+            /// ATTENTION A IMPLEMENTER A FOND
+            /// 
+            var polo = _db.Cattles.Where(c => c.Active != true).GroupBy(c => c.IdHerd);
 
+            foreach (var item in polo)
+            {
+                var title = item.ElementAt(0).Herd.Label;
+                foreach (var item1 in item)
+                {
+                    System.Diagnostics.Debug.WriteLine(String.Format("{0},{1}", item1.Herd.Label, item1.CodeCattle));
+                }
+            }
+           
             foreach (var cattle in cattles)
             {
                 var cattleViewModel = new CattleViewModel

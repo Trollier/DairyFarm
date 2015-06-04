@@ -56,14 +56,13 @@ namespace DairyFarm.Controllers
                 db.SaveChanges();
                 var popup = new MessageInfo
                 {
-                    State = true,
+                    State = 1,
                     Message = "Nourriture bien ajouté",
                     Id = "Foods"
                 };
                 return RedirectToAction("Main", "Manage", new { id = popup.Id, message = popup.Message,state = popup.State } );
             }
-
-            return View(food);
+            return RedirectToAction("Main", "Manage", new { id = "Foods", message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Foods/Edit/5

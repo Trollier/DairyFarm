@@ -90,7 +90,14 @@ namespace DairyFarm.Controllers
                 //var medic = _db.MedicalTreatments.Find(treatment);
                 diseasesHistory.IdMedicalTreatments.Add(treatment.IdTreatment);
             }
-            ViewBag.IdMedicalTreatments = new SelectList(_db.MedicalTreatments, "IdTreatment", "Label",diseasesHistory.IdMedicalTreatments.ToArray());
+            List<SelectListItem> idMeds = new List<SelectListItem>()
+            {
+                new SelectListItem{Value = "a0", Text = "z0", Selected = true},
+                new SelectListItem{Value = "a1", Text = "z1", Selected = false},
+                new SelectListItem{Value = "a2", Text = "z2", Selected = true},
+            };
+            //ViewBag.IdMedicalTreatments = new SelectList(_db.MedicalTreatments, "IdTreatment", "Label", diseasesHistory.IdMedicalTreatments.ToArray());
+            ViewBag.IdMedicalTreatments = new SelectList(idMeds, "value", "text");
             ViewBag.IdDisease = new SelectList(_db.Diseases, "IdDisease", "Label",diseasesHistory.IdDisease);
             return PartialView("_EditDiseasesHistory", diseasesHistory);
         }
