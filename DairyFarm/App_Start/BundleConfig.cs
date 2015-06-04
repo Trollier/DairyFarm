@@ -41,7 +41,8 @@ namespace DairyFarm
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/themes/base/dialog.css",
                       "~/Content/css/site.css",
-                      "~/Content/css/jquery-ui.css"));
+                      "~/Content/css/jquery-ui.css",
+                      "~/Content/css/bootstrap-dialog.css"));
 
             bundles.Add(new StyleBundle("~/Content/select2").Include(
           "~/Content/css/select2.css"));
@@ -57,6 +58,10 @@ namespace DairyFarm
 
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive-ajax").Include(
                 "~/Content/Scripts/jquery.unobtrusive-ajax.js"
+                ));
+            
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-dialog").Include(
+                "~/Content/Scripts/bootstrap-dialog.js"
                 ));
         }
     }

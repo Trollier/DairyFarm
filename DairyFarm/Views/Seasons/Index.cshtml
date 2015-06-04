@@ -1,0 +1,59 @@
+﻿@{ Layout = null;}
+@model IEnumerable<DairyFarm.DAL.Season>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Ajax.ActionLink("Editer",
+                    "Edit", "Seasons",
+                    new {id = item.IdSeason},
+                    new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "editFood",
+                        OnSuccess = "dialogBox('createSeason');"
+                    })
+            </td>>
+        </tr>
+    }
+
+</table>
+
+@Ajax.ActionLink("Ajouter",
+        "Create", "Seasons",
+        new { id = "newSeason" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createSeason",
+            OnSuccess = "dialogBox('createSeason');"
+        })
+<div id="createSeason" class="DisplayNone"></div>
+<div id="editFood" class="DisplayNone"></div>

@@ -10,7 +10,8 @@
         @Html.DropDownList("ListItem", new SelectList(ViewBag.ListItem,"Text", "Value"), htmlAttributes: new { @class = "form-control" })
     </div>
 </div>
-
+@Html.Hidden("hiddenItem", (object)ViewBag.idItem)
+@if (@ViewBag.popup != null) {@ViewBag.popup }
 <div id="viewPlaceHolder">
 
 </div>
@@ -20,4 +21,15 @@
     @Scripts.Render("~/bundles/custom")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+    <script>
+        $(document).ready(function () {
+            $('#ListItem').val($("#hiddenItem").val());
+
+            $('#ListItem').trigger('change');
+        });
+
+        
+        BootstrapDialog.alert('polo');
+    </script>
 }

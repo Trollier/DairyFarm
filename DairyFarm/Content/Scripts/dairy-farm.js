@@ -258,3 +258,4 @@ function dialogBox(variable) {
     $('#' + variable + ' ').dialog("open");
 
 }
+

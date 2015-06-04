@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/select2")
     @Scripts.Render("~/bundles/modernizr")
+    
 
 </head>
 <body>
@@ -146,8 +147,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
-                        @Html.ActionLink("Manage", "index", "Manage")
+                    <li >
+                        <a href="/Manage/Main">Manage</a>
+
                     </li>
                     @*
                         <li>

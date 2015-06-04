@@ -36,3 +36,9 @@ C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Sy
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Net.Http.Formatting.xml
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Http.xml
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\System.Web.Http.WebHost.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Microsoft.Practices.Unity.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Microsoft.Practices.Unity.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml

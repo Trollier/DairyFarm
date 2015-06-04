@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DairyFarm.DAL;
+using DairyFarm.Models;
 
 namespace DairyFarm.Controllers
 {
@@ -46,13 +48,19 @@ namespace DairyFarm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFood,TotQuantity,Label")] Food food)
+        public ActionResult Create(Food food)
         {
             if (ModelState.IsValid)
             {
                 db.Foods.Add(food);
                 db.SaveChanges();
-                return RedirectToAction("index","Manage");
+                var popup = new MessageInfo
+                {
+                    State = true,
+                    Message = "Nourriture bien ajouté",
+                    Id = "Foods"
+                };
+                return RedirectToAction("Main", "Manage", new { id = popup.Id, message = popup.Message,state = popup.State } );
             }
 
             return View(food);
@@ -84,7 +92,7 @@ namespace DairyFarm.Controllers
             {
                 db.Entry(food).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index", "Manage");
             }
             return View(food);
         }

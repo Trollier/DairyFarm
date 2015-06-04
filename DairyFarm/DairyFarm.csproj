@@ -50,6 +50,16 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -203,6 +213,7 @@
     <Compile Include="Models\CattleViewModel.cs" />
     <Compile Include="Models\DiseasesHistoryModel.cs" />
     <Compile Include="Models\GestationModel.cs" />
+    <Compile Include="Models\MessageInfo.cs" />
     <Compile Include="Models\NewGestationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IServices\IServiceCattle.cs" />
@@ -218,6 +229,7 @@
     <Compile Include="Services\ServiceGestation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootstrap-dialog.css" />
     <Content Include="Content\css\bootstrap-rtl.css" />
     <Content Include="Content\css\bootstrap-rtl.min.css" />
     <Content Include="Content\css\bootstrap-theme.css" />
@@ -272,6 +284,7 @@
     <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\plugins\morris.css" />
+    <Content Include="Content\Scripts\bootstrap-dialog.js" />
     <Content Include="Content\Scripts\dairy-farm.js" />
     <Content Include="Content\Scripts\i18n\az.js" />
     <Content Include="Content\Scripts\i18n\bg.js" />
@@ -413,17 +426,17 @@
     <Content Include="Views\DiseasesHistories\Index.cshtml" />
     <Content Include="Views\Diseases\Index.cshtml" />
     <Content Include="Views\Manage.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\Main.cshtml" />
     <Content Include="Views\Shared\_EditDiseasesHistory.cshtml" />
     <Content Include="Views\Foods\Index.cshtml" />
     <Content Include="Views\Foods\Create.cshtml" />
     <Content Include="Views\Foods\Edit.cshtml" />
+    <Content Include="Views\Seasons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CattleTypes\" />
     <Folder Include="Views\Common\" />
-    <Folder Include="Views\Seasons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
