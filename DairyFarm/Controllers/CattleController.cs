@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Net;
 using DairyFarm.Models;
-using DairyFarm.Services;
+using DairyFarm.IService;
 
 namespace DairyFarm.Controllers
 {

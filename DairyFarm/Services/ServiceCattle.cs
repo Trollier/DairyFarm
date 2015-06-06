@@ -6,9 +6,9 @@ using System.Web;
 using DairyFarm.DAL;
 using DairyFarm.IServices;
 
-namespace DairyFarm.Services
+namespace DairyFarm.IService
 {
-    public class ServiceCattle : IServiceCattle
+    public class ServiceCattle : IServices
     {
         private readonly DairyFarmEntities _db = new DairyFarmEntities();
 

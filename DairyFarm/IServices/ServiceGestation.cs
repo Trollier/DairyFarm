@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using DairyFarm.DAL;
 
-namespace DairyFarm.Services
+namespace DairyFarm.IService
 {
     public class ServiceGestationt : IDisposable
     {

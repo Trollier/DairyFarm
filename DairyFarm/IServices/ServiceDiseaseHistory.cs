@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using DairyFarm.DAL;
 
-namespace DairyFarm.Services
+namespace DairyFarm.IServices
 {
-    public class ServiceDiseaseHistory : IDisposable
+    public class ServiceDiseaseHistory : IDisposable,IServices
     {
         private readonly DairyFarmEntities _db = new DairyFarmEntities();
 
@@ -63,6 +63,22 @@ namespace DairyFarm.Services
         public void Dispose()
         {
             _db.Dispose();
+        }
+
+        public bool Create(object o)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Edit(DiseasesHistory DiseaseHistory))
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
