@@ -1,0 +1,80 @@
+﻿@model DairyFarm.Core.DAL.Gestation
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Gestation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDateGestation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDateGestation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDateGestation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDateGestation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCalve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCalve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CalveSex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalveSex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeathCalve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeathCalve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cattle.CodeCattle)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

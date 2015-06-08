@@ -1,0 +1,53 @@
+﻿@{ Layout = null;}
+@model IEnumerable<DairyFarm.Core.DAL.Food>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TotQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+        <th>
+            Editer
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Label)
+        </td>
+        <td>
+            @Ajax.ActionLink("Editer",
+        "Edit", "Foods",
+        new {id = item.IdFood},
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "editFood",
+            OnSuccess = "dialogBox('editFood');"
+        })
+        </td>
+    </tr>
+}
+
+</table>
+@Ajax.ActionLink("Ajouter",
+        "Create", "Foods",
+        new { id = "newFood" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createFood",
+            OnSuccess = "dialogBox('createFood');"
+        })
+<div id="createFood" class="DisplayNone"></div>
+<div id="editFood" class="DisplayNone"></div>

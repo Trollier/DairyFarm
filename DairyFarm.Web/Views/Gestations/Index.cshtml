@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DairyFarm.Core.DAL.Gestation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index gestation de @ViewBag.codeCattle </h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDateGestation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDateGestation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCalve)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CalveSex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeathCalve)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateGestation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDateGestation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCalve)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalveSex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @if (item.DeathCalve == true)
+                {
+                    <input type="checkbox" checked disabled="disabled">
+                }
+                else
+                {
+                    <input type="checkbox" disabled="disabled">}
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
+            </td>
+        </tr>
+
+    }
+
+</table>

@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DairyFarmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CattleProduction">
+    <Key>
+      <PropertyRef Name="IdProduction" />
+    </Key>
+    <Property Name="IdProduction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCattle" Type="Int32" Nullable="false" />
+    <Property Name="Dateprod" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Period" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
+    <NavigationProperty Name="Cattle" Relationship="Self.FK_CattleProductions_Cattles" FromRole="CattleProductions" ToRole="Cattles" />
+  </EntityType>
+  <EntityType Name="Cattle">
+    <Key>
+      <PropertyRef Name="IdCattle" />
+    </Key>
+    <Property Name="IdCattle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeCattle" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="IdHerd" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="DateBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="MalParent" Type="Int32" />
+    <Property Name="FemaleParent" Type="Int32" />
+    <NavigationProperty Name="CattleProductions" Relationship="Self.FK_CattleProductions_Cattles" FromRole="Cattles" ToRole="CattleProductions" />
+    <NavigationProperty Name="Herd" Relationship="Self.FK_CATTLES_HERDS" FromRole="Cattles" ToRole="Herds" />
+    <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="Cattles" ToRole="DiseasesHistories" />
+    <NavigationProperty Name="Gestations" Relationship="Self.FK_Gestations_Cattles" FromRole="Cattles" ToRole="Gestations" />
+  </EntityType>
+  <EntityType Name="CattleType">
+    <Key>
+      <PropertyRef Name="IdCattleType" />
+    </Key>
+    <Property Name="IdCattleType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Herds" Relationship="Self.FK_Herds_CattleTypes" FromRole="CattleTypes" ToRole="Herds" />
+    <NavigationProperty Name="Diets" Relationship="Self.Diets_CattleTypes" FromRole="CattleTypes" ToRole="Diets" />
+  </EntityType>
+  <EntityType Name="Diet">
+    <Key>
+      <PropertyRef Name="IdDiet" />
+    </Key>
+    <Property Name="IdDiet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSeason" Type="Int32" Nullable="false" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Season" Relationship="Self.FK_Diets_Seasons" FromRole="Diets" ToRole="Seasons" />
+    <NavigationProperty Name="CattleTypes" Relationship="Self.Diets_CattleTypes" FromRole="Diets" ToRole="CattleTypes" />
+    <NavigationProperty Name="Foods" Relationship="Self.Diets_Foods" FromRole="Diets" ToRole="Foods" />
+  </EntityType>
+  <EntityType Name="Disease">
+    <Key>
+      <PropertyRef Name="IdDisease" />
+    </Key>
+    <Property Name="IdDisease" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contagious" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DISEASESHISTORIES_DISEASES" FromRole="Diseases" ToRole="DiseasesHistories" />
+  </EntityType>
+  <EntityType Name="DiseasesHistory">
+    <Key>
+      <PropertyRef Name="IdDiseasesHistory" />
+    </Key>
+    <Property Name="IdDiseasesHistory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdDisease" Type="Int32" Nullable="false" />
+    <Property Name="IdCattle" Type="Int32" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="VeterinaryVisit" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Cattle" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="DiseasesHistories" ToRole="Cattles" />
+    <NavigationProperty Name="Disease" Relationship="Self.FK_DISEASESHISTORIES_DISEASES" FromRole="DiseasesHistories" ToRole="Diseases" />
+    <NavigationProperty Name="MedicalTreatments" Relationship="Self.DiseaseHistories_MedicalTreatments" FromRole="DiseasesHistories" ToRole="MedicalTreatments" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="IdFood" />
+    </Key>
+    <Property Name="IdFood" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TotQuantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Meals" Relationship="Self.FK_MEALS_FOODS" FromRole="Foods" ToRole="Meals" />
+    <NavigationProperty Name="Diets" Relationship="Self.Diets_Foods" FromRole="Foods" ToRole="Diets" />
+  </EntityType>
+  <EntityType Name="Gestation">
+    <Key>
+      <PropertyRef Name="IdGestation" />
+    </Key>
+    <Property Name="IdGestation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCattle" Type="Int32" Nullable="false" />
+    <Property Name="StartDateGestation" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndDateGestation" Type="DateTime" Precision="0" />
+    <Property Name="DateCalve" Type="DateTime" Precision="0" />
+    <Property Name="CalveSex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
+    <Property Name="DeathCalve" Type="Boolean" />
+    <NavigationProperty Name="Cattle" Relationship="Self.FK_Gestations_Cattles" FromRole="Gestations" ToRole="Cattles" />
+  </EntityType>
+  <EntityType Name="Herd">
+    <Key>
+      <PropertyRef Name="IdHerd" />
+    </Key>
+    <Property Name="IdHerd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCattleType" Type="Int32" Nullable="false" />
+    <Property Name="MaxAnimals" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AvailablePlaces" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cattles" Relationship="Self.FK_CATTLES_HERDS" FromRole="Herds" ToRole="Cattles" />
+    <NavigationProperty Name="CattleType" Relationship="Self.FK_Herds_CattleTypes" FromRole="Herds" ToRole="CattleTypes" />
+    <NavigationProperty Name="Meals" Relationship="Self.FK_MEALS_HERDS" FromRole="Herds" ToRole="Meals" />
+  </EntityType>
+  <EntityType Name="Meal">
+    <Key>
+      <PropertyRef Name="IdMeal" />
+    </Key>
+    <Property Name="IdMeal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFood" Type="Int32" Nullable="false" />
+    <Property Name="IdHerd" Type="Int32" Nullable="false" />
+    <Property Name="DateMeal" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HourMeal" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
+    <NavigationProperty Name="Food" Relationship="Self.FK_MEALS_FOODS" FromRole="Meals" ToRole="Foods" />
+    <NavigationProperty Name="Herd" Relationship="Self.FK_MEALS_HERDS" FromRole="Meals" ToRole="Herds" />
+  </EntityType>
+  <EntityType Name="MedicalTreatment">
+    <Key>
+      <PropertyRef Name="IdTreatment" />
+    </Key>
+    <Property Name="IdTreatment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DiseasesHistories" Relationship="Self.DiseaseHistories_MedicalTreatments" FromRole="MedicalTreatments" ToRole="DiseasesHistories" />
+  </EntityType>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="IdSeason" />
+    </Key>
+    <Property Name="IdSeason" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Diets" Relationship="Self.FK_Diets_Seasons" FromRole="Seasons" ToRole="Diets" />
+  </EntityType>
+  <Association Name="FK_CattleProductions_Cattles">
+    <End Role="Cattles" Type="Self.Cattle" Multiplicity="1" />
+    <End Role="CattleProductions" Type="Self.CattleProduction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cattles">
+        <PropertyRef Name="IdCattle" />
+      </Principal>
+      <Dependent Role="CattleProductions">
+        <PropertyRef Name="IdCattle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATTLES_HERDS">
+    <End Role="Herds" Type="Self.Herd" Multiplicity="1" />
+    <End Role="Cattles" Type="Self.Cattle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Herds">
+        <PropertyRef Name="IdHerd" />
+      </Principal>
+      <Dependent Role="Cattles">
+        <PropertyRef Name="IdHerd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DiseasesHistories_Cattles">
+    <End Role="Cattles" Type="Self.Cattle" Multiplicity="1" />
+    <End Role="DiseasesHistories" Type="Self.DiseasesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cattles">
+        <PropertyRef Name="IdCattle" />
+      </Principal>
+      <Dependent Role="DiseasesHistories">
+        <PropertyRef Name="IdCattle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gestations_Cattles">
+    <End Role="Cattles" Type="Self.Cattle" Multiplicity="1" />
+    <End Role="Gestations" Type="Self.Gestation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cattles">
+        <PropertyRef Name="IdCattle" />
+      </Principal>
+      <Dependent Role="Gestations">
+        <PropertyRef Name="IdCattle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Herds_CattleTypes">
+    <End Role="CattleTypes" Type="Self.CattleType" Multiplicity="1" />
+    <End Role="Herds" Type="Self.Herd" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CattleTypes">
+        <PropertyRef Name="IdCattleType" />
+      </Principal>
+      <Dependent Role="Herds">
+        <PropertyRef Name="IdCattleType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Diets_Seasons">
+    <End Role="Seasons" Type="Self.Season" Multiplicity="1" />
+    <End Role="Diets" Type="Self.Diet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seasons">
+        <PropertyRef Name="IdSeason" />
+      </Principal>
+      <Dependent Role="Diets">
+        <PropertyRef Name="IdSeason" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DISEASESHISTORIES_DISEASES">
+    <End Role="Diseases" Type="Self.Disease" Multiplicity="1" />
+    <End Role="DiseasesHistories" Type="Self.DiseasesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diseases">
+        <PropertyRef Name="IdDisease" />
+      </Principal>
+      <Dependent Role="DiseasesHistories">
+        <PropertyRef Name="IdDisease" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MEALS_FOODS">
+    <End Role="Foods" Type="Self.Food" Multiplicity="1" />
+    <End Role="Meals" Type="Self.Meal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Foods">
+        <PropertyRef Name="IdFood" />
+      </Principal>
+      <Dependent Role="Meals">
+        <PropertyRef Name="IdFood" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MEALS_HERDS">
+    <End Role="Herds" Type="Self.Herd" Multiplicity="1" />
+    <End Role="Meals" Type="Self.Meal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Herds">
+        <PropertyRef Name="IdHerd" />
+      </Principal>
+      <Dependent Role="Meals">
+        <PropertyRef Name="IdHerd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Diets_CattleTypes">
+    <End Role="CattleTypes" Type="Self.CattleType" Multiplicity="*" />
+    <End Role="Diets" Type="Self.Diet" Multiplicity="*" />
+  </Association>
+  <Association Name="Diets_Foods">
+    <End Role="Diets" Type="Self.Diet" Multiplicity="*" />
+    <End Role="Foods" Type="Self.Food" Multiplicity="*" />
+  </Association>
+  <Association Name="DiseaseHistories_MedicalTreatments">
+    <End Role="MedicalTreatments" Type="Self.MedicalTreatment" Multiplicity="*" />
+    <End Role="DiseasesHistories" Type="Self.DiseasesHistory" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="DairyFarmEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CattleProductions" EntityType="Self.CattleProduction" />
+    <EntitySet Name="Cattles" EntityType="Self.Cattle" />
+    <EntitySet Name="CattleTypes" EntityType="Self.CattleType" />
+    <EntitySet Name="Diets" EntityType="Self.Diet" />
+    <EntitySet Name="Diseases" EntityType="Self.Disease" />
+    <EntitySet Name="DiseasesHistories" EntityType="Self.DiseasesHistory" />
+    <EntitySet Name="Foods" EntityType="Self.Food" />
+    <EntitySet Name="Gestations" EntityType="Self.Gestation" />
+    <EntitySet Name="Herds" EntityType="Self.Herd" />
+    <EntitySet Name="Meals" EntityType="Self.Meal" />
+    <EntitySet Name="MedicalTreatments" EntityType="Self.MedicalTreatment" />
+    <EntitySet Name="Seasons" EntityType="Self.Season" />
+    <AssociationSet Name="FK_CattleProductions_Cattles" Association="Self.FK_CattleProductions_Cattles">
+      <End Role="Cattles" EntitySet="Cattles" />
+      <End Role="CattleProductions" EntitySet="CattleProductions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATTLES_HERDS" Association="Self.FK_CATTLES_HERDS">
+      <End Role="Herds" EntitySet="Herds" />
+      <End Role="Cattles" EntitySet="Cattles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DiseasesHistories_Cattles" Association="Self.FK_DiseasesHistories_Cattles">
+      <End Role="Cattles" EntitySet="Cattles" />
+      <End Role="DiseasesHistories" EntitySet="DiseasesHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gestations_Cattles" Association="Self.FK_Gestations_Cattles">
+      <End Role="Cattles" EntitySet="Cattles" />
+      <End Role="Gestations" EntitySet="Gestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Herds_CattleTypes" Association="Self.FK_Herds_CattleTypes">
+      <End Role="CattleTypes" EntitySet="CattleTypes" />
+      <End Role="Herds" EntitySet="Herds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Diets_Seasons" Association="Self.FK_Diets_Seasons">
+      <End Role="Seasons" EntitySet="Seasons" />
+      <End Role="Diets" EntitySet="Diets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DISEASESHISTORIES_DISEASES" Association="Self.FK_DISEASESHISTORIES_DISEASES">
+      <End Role="Diseases" EntitySet="Diseases" />
+      <End Role="DiseasesHistories" EntitySet="DiseasesHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MEALS_FOODS" Association="Self.FK_MEALS_FOODS">
+      <End Role="Foods" EntitySet="Foods" />
+      <End Role="Meals" EntitySet="Meals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MEALS_HERDS" Association="Self.FK_MEALS_HERDS">
+      <End Role="Herds" EntitySet="Herds" />
+      <End Role="Meals" EntitySet="Meals" />
+    </AssociationSet>
+    <AssociationSet Name="Diets_CattleTypes" Association="Self.Diets_CattleTypes">
+      <End Role="CattleTypes" EntitySet="CattleTypes" />
+      <End Role="Diets" EntitySet="Diets" />
+    </AssociationSet>
+    <AssociationSet Name="Diets_Foods" Association="Self.Diets_Foods">
+      <End Role="Diets" EntitySet="Diets" />
+      <End Role="Foods" EntitySet="Foods" />
+    </AssociationSet>
+    <AssociationSet Name="DiseaseHistories_MedicalTreatments" Association="Self.DiseaseHistories_MedicalTreatments">
+      <End Role="MedicalTreatments" EntitySet="MedicalTreatments" />
+      <End Role="DiseasesHistories" EntitySet="DiseasesHistories" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

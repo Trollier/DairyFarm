@@ -1,0 +1,34 @@
+﻿@{ Layout = null;}
+@model IEnumerable<DairyFarm.Core.DAL.Disease>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contagious)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Label)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contagious)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdDisease }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdDisease }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdDisease })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DairyFarm.Core.DAL.DiseasesHistory>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h2>Index gestation de @ViewBag.codeCattle </h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VeterinaryVisit)
+        </th>
+        <th>
+            Traitements
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disease.Label)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VeterinaryVisit)
+        </td>
+        <td>
+            @foreach (var treatment in item.MedicalTreatments)
+            {
+                <label>- @treatment.Label </label>
+            }
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disease.Label)
+        </td>
+    </tr>
+}
+
+</table>

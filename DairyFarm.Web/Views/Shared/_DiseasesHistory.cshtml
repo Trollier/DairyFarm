@@ -1,0 +1,6 @@
+﻿@model DairyFarm.Web.Models.DiseasesHistoryModel
+           @* appel le template disease history depuis editor templates  *@
+
+    @Html.EditorFor(model => model.CurrentDisease, new { htmlAttributes = new { @class = "form-control" } })
+
+
