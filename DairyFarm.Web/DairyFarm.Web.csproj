@@ -319,6 +319,7 @@
     <Content Include="Content\Scripts\i18n\vi.js" />
     <Content Include="Content\Scripts\i18n\zh-CN.js" />
     <Content Include="Content\Scripts\i18n\zh-TW.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Content\Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Content\Scripts\jquery-2.1.3.js" />
     <Content Include="Content\Scripts\jquery-2.1.3.min.js" />
@@ -468,6 +469,7 @@
     <Content Include="Views\Shared\_New_DiseasesHistory.cshtml" />
     <Content Include="Views\Manage.cshtml" />
     <Content Include="Views\Seasons\Create.cshtml" />
+    <Content Include="Web.cd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

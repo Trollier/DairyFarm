@@ -12,6 +12,7 @@ using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
+    
     public class CattleController : Controller
     {
         private readonly DairyFarmEntities _db = new DairyFarmEntities();

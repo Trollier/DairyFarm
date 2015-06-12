@@ -210,6 +210,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="Core.cd" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
