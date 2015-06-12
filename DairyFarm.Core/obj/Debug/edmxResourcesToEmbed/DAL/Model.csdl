@@ -8,7 +8,7 @@
     <Property Name="IdCattle" Type="Int32" Nullable="false" />
     <Property Name="Dateprod" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Period" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
+    <Property Name="Quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
     <NavigationProperty Name="Cattle" Relationship="Self.FK_CattleProductions_Cattles" FromRole="CattleProductions" ToRole="Cattles" />
   </EntityType>
   <EntityType Name="Cattle">

@@ -13,7 +13,7 @@
           <Property Name="IdCattle" Type="int" Nullable="false" />
           <Property Name="Dateprod" Type="datetime" Nullable="false" />
           <Property Name="Period" Type="datetime" Nullable="false" />
-          <Property Name="quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="Cattles">
           <Key>
@@ -61,10 +61,10 @@
         </EntityType>
         <EntityType Name="DiseaseHistories_MedicalTreatments">
           <Key>
-            <PropertyRef Name="idTreatment" />
+            <PropertyRef Name="IdTreatment" />
             <PropertyRef Name="IdDiseasesHistory" />
           </Key>
-          <Property Name="idTreatment" Type="int" Nullable="false" />
+          <Property Name="IdTreatment" Type="int" Nullable="false" />
           <Property Name="IdDiseasesHistory" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Diseases">
@@ -177,7 +177,7 @@
               <PropertyRef Name="IdTreatment" />
             </Principal>
             <Dependent Role="DiseaseHistories_MedicalTreatments">
-              <PropertyRef Name="idTreatment" />
+              <PropertyRef Name="IdTreatment" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -415,7 +415,7 @@
           <Property Name="IdCattle" Type="Int32" Nullable="false" />
           <Property Name="Dateprod" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Period" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Cattle" Relationship="Self.FK_CattleProductions_Cattles" FromRole="CattleProductions" ToRole="Cattles" />
         </EntityType>
         <EntityType Name="Cattle">
@@ -742,7 +742,7 @@
                 <ScalarProperty Name="IdCattle" ColumnName="IdCattle" />
                 <ScalarProperty Name="Dateprod" ColumnName="Dateprod" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -881,7 +881,7 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="DiseaseHistories_MedicalTreatments" TypeName="DairyFarmModel.DiseaseHistories_MedicalTreatments" StoreEntitySet="DiseaseHistories_MedicalTreatments">
             <EndProperty Name="MedicalTreatments">
-              <ScalarProperty Name="IdTreatment" ColumnName="idTreatment" />
+              <ScalarProperty Name="IdTreatment" ColumnName="IdTreatment" />
             </EndProperty>
             <EndProperty Name="DiseasesHistories">
               <ScalarProperty Name="IdDiseasesHistory" ColumnName="IdDiseasesHistory" />

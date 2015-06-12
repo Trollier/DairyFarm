@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace DairyFarm.Web.Models
+namespace DairyFarm.Core.DAL
 {
-    public class NewGestationModel
+    [MetadataType(typeof(GestationMetaData))]
+    public partial class Gestation
     {
-        public int idCattleInGestation { get; set; }
-        public int IdGestation { get; set; }
-        public int IdCattle { get; set; }
 
+    }
+    public class GestationMetaData
+    {
         [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Date du debut")]
         public System.DateTime StartDateGestation { get; set; }

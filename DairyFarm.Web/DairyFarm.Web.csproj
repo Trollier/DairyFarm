@@ -202,9 +202,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CattleCreateViewModel.cs" />
-    <Compile Include="Models\CattleDetailViewModel.cs" />
-    <Compile Include="Models\CattleViewModel.cs" />
+    <Compile Include="Models\CattleViewModels.cs" />
     <Compile Include="Models\DiseasesHistoryModel.cs" />
     <Compile Include="Models\GestationModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />

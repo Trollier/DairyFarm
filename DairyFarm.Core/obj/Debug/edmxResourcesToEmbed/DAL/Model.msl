@@ -8,7 +8,7 @@
           <ScalarProperty Name="IdCattle" ColumnName="IdCattle" />
           <ScalarProperty Name="Dateprod" ColumnName="Dateprod" />
           <ScalarProperty Name="Period" ColumnName="Period" />
-          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -147,7 +147,7 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="DiseaseHistories_MedicalTreatments" TypeName="DairyFarmModel.DiseaseHistories_MedicalTreatments" StoreEntitySet="DiseaseHistories_MedicalTreatments">
       <EndProperty Name="MedicalTreatments">
-        <ScalarProperty Name="IdTreatment" ColumnName="idTreatment" />
+        <ScalarProperty Name="IdTreatment" ColumnName="IdTreatment" />
       </EndProperty>
       <EndProperty Name="DiseasesHistories">
         <ScalarProperty Name="IdDiseasesHistory" ColumnName="IdDiseasesHistory" />

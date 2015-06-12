@@ -48,7 +48,7 @@ namespace DairyFarm.Web.Controllers
                 cattleProductions.Add(new CattleProduction
                 {
                     IdCattle = cattle.IdCattle,
-                    quantity = 0,
+                    Quantity = 0,
                     // hourprod = "",
                     Cattle = cattle
                 });

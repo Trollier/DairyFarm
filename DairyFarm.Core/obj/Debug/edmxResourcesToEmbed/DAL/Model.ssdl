@@ -8,7 +8,7 @@
     <Property Name="IdCattle" Type="int" Nullable="false" />
     <Property Name="Dateprod" Type="datetime" Nullable="false" />
     <Property Name="Period" Type="datetime" Nullable="false" />
-    <Property Name="quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
   </EntityType>
   <EntityType Name="Cattles">
     <Key>
@@ -56,10 +56,10 @@
   </EntityType>
   <EntityType Name="DiseaseHistories_MedicalTreatments">
     <Key>
-      <PropertyRef Name="idTreatment" />
+      <PropertyRef Name="IdTreatment" />
       <PropertyRef Name="IdDiseasesHistory" />
     </Key>
-    <Property Name="idTreatment" Type="int" Nullable="false" />
+    <Property Name="IdTreatment" Type="int" Nullable="false" />
     <Property Name="IdDiseasesHistory" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Diseases">
@@ -172,7 +172,7 @@
         <PropertyRef Name="IdTreatment" />
       </Principal>
       <Dependent Role="DiseaseHistories_MedicalTreatments">
-        <PropertyRef Name="idTreatment" />
+        <PropertyRef Name="IdTreatment" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
