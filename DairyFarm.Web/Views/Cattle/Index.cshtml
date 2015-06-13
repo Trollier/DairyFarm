@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DairyFarm.Web.Models.CattleViewModel>
+﻿@model IQueryable<IGrouping<int, DairyFarm.Core.DAL.Cattle>>
 
 @{
     ViewBag.Title = "Index";
@@ -9,55 +9,97 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CodeCattle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cattletype)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Herd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentGestation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentDisease)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th></th>
-    </tr>
+@{
+    int i = 0;
+}
+@{
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodeCattle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cattletype)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Herd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentGestation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentDisease)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit",  new { id = item.idCattle }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Details", "Details", new { id = item.idCattle }, htmlAttributes: new { @class = "btn btn-info" }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.idCattle }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
+
+    foreach (var list in Model)
+    {
+
+        <h2><a class=" colp btn btn-default " id='btnCollapseHerd[@i]' herd="@i">-</a> @list.ElementAt(0).Herd.Label </h2>
+    <div class='@i collapse in'>
+        @{i++;}
+        <table class="table">
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                    en gestation
+                </th>
+                <th>
+                    Malade
+                </th>
+                <th>
+                    age
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var cattle in list)
+            {
+                @*@cattle.Herd.CattleType.Label;*@
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => cattle.CodeCattle)
+                    </td>
+                    @if (cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null) != null)
+                    {
+                        <td>
+                            <input type="checkbox" checked disabled>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <input type="checkbox" disabled>
+                        </td>
+                    }
+                    @if (cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null)
+                    {
+                        <td>
+                            <input type="checkbox" checked disabled>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <input type="checkbox" disabled>
+                        </td>
+                    }
+                    @{ int polo = DateTime.Now.Year - cattle.DateBirth.Year;}
+                    <td>
+
+                        @polo
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = cattle.IdCattle }, htmlAttributes: new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { id = cattle.IdCattle }, htmlAttributes: new { @class = "btn btn-info" })
+                        @Html.ActionLink("Delete", "Delete", new { id = cattle.IdCattle }, htmlAttributes: new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+    }
 }
 
-</table>
+@section Scripts {
+
+
+    <script>
+        $('.colp').on('click', function (e) {
+            e.preventDefault();
+            var index = $(this).attr("herd");
+            var $collapse = $('.' + index + '');
+            if ($collapse.hasClass('in')) {
+                $(this).text("+");
+            } else {
+                $(this).text("-");
+            }
+            $collapse.collapse('toggle');
+        });
+    </script>
+}

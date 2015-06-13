@@ -15,14 +15,24 @@ namespace DairyFarm.Web.Controllers
         [HttpPost]
         public ActionResult GetHerdsByCattleType(int? idCattleType)
         {
-            if (idCattleType == null)
-                return null;
+            if (idCattleType == null)return null;
             var herds = new List<Object>();
-            foreach (var herd in _db.Herds.Where(h => h.IdCattleType == idCattleType).ToList())
+            foreach (var herd in _db.Herds.Where(h => h.IdCattleType == idCattleType ).ToList())
             {
                 herds.Add(new { Value = herd.IdHerd, Text = herd.Label });
             }
             return Json(herds);
+            //, JsonRequestBehavior.AllowGet
+        }
+        public ActionResult GetType(string sex)
+        {
+            if (sex == null) return null;
+            var types = new List<Object>();
+            foreach (var type in _db.CattleTypes.Where(h => h.Sex == sex).ToList())
+            {
+                types.Add(new { Value = type.IdCattleType, Text = type.Label });
+            }
+            return Json(types);
             //, JsonRequestBehavior.AllowGet
         }
 

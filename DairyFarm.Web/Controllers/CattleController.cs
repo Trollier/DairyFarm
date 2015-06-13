@@ -12,10 +12,10 @@ using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CattleController : Controller
     {
-        private readonly DairyFarmEntities _db = new DairyFarmEntities();
+        //private readonly DairyFarmEntities _db = new DairyFarmEntities();
         private readonly IDairyFarmService _dairyFarmService;
 
         public CattleController(IDairyFarmService dairyFarmService)
@@ -26,39 +26,13 @@ namespace DairyFarm.Web.Controllers
         // GET: Cattle
         public ActionResult Index()
         {
-            var cattles = _db.Cattles.Include(c => c.Herd);
             var cattleViewModels = new List<CattleViewModel>();
             ////
             /// ATTENTION A IMPLEMENTER A FOND
             /// 
-            var polo = _db.Cattles.Where(c => c.Active != true).GroupBy(c => c.IdHerd);
+            var listGrouping = _dairyFarmService.IndexCattle();
 
-            foreach (var item in polo)
-            {
-                var title = item.ElementAt(0).Herd.Label;
-                foreach (var item1 in item)
-                {
-                    System.Diagnostics.Debug.WriteLine(String.Format("{0},{1}", item1.Herd.Label, item1.CodeCattle));
-                }
-            }
-
-            foreach (var cattle in cattles)
-            {
-                var cattleViewModel = new CattleViewModel
-                {
-                    idCattle = cattle.IdCattle,
-                    CodeCattle = cattle.CodeCattle,
-                    Cattletype = cattle.Herd.CattleType.Label,
-                    Herd = cattle.Herd.Label,
-                    Age = DateTime.Now.Year - cattle.DateBirth.Year,
-
-                    CurrentGestation = cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null) != null,
-                    CurrentDisease = cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null
-                };
-                cattleViewModels.Add(cattleViewModel);
-            }
-
-            return View(cattleViewModels);
+            return View(listGrouping);
         }
 
         // GET: Cattle/Details/5
@@ -67,8 +41,9 @@ namespace DairyFarm.Web.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cattle cattle = _db.Cattles.Find(id);
+            } 
+            Cattle cattle = _dairyFarmService.GetCattleById(id);
+           
             if (cattle == null)
             {
                 return HttpNotFound();
@@ -103,8 +78,8 @@ namespace DairyFarm.Web.Controllers
         public ActionResult NewDisease()
         {
             // (liste a retourner, value, text)
-            ViewBag.IdMedicalTreatments = new SelectList(_db.MedicalTreatments, "IdTreatment", "Label");
-            ViewBag.IdDisease = new SelectList(_db.Diseases, "IdDisease", "Label");
+            ViewBag.IdMedicalTreatments = new SelectList(_dairyFarmService.GetMedicalTreatments(), "IdTreatment", "Label");
+            ViewBag.IdDisease = new SelectList(_dairyFarmService.GetDiseases(), "IdDisease", "Label");
             return PartialView("_DiseasesHistory");
         }
 
@@ -115,7 +90,7 @@ namespace DairyFarm.Web.Controllers
         // GET: Cattle/Create
         public ActionResult Create()
         {
-            ViewBag.IdCattletype = new SelectList(_db.CattleTypes, "IdCattletype", "Label");
+            ViewBag.IdCattletype = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattletype", "Label");
             ViewBag.IdHerd = new SelectList(new List<Herd>(), "IdHerd", "Label");
 
             return View();
@@ -144,11 +119,18 @@ namespace DairyFarm.Web.Controllers
 
                     foreach (var idTreatment in cattleCreateViewModel.IdMedicalTreatments)
                     {
-                        var medic = _db.MedicalTreatments.Find(idTreatment);
+                        var medic = _dairyFarmService.GetMedicalTreatmentById(idTreatment);
                         cattleCreateViewModel.CurrentDisease.MedicalTreatments.Add(medic);
                     }
-                    _db.DiseasesHistories.Add(cattleCreateViewModel.CurrentDisease);
-                    _db.SaveChanges();
+
+                    if (_dairyFarmService.AddDiseasesHistory(cattleCreateViewModel.CurrentDisease))
+                    {
+
+                    }
+                    else
+                    {
+                        
+                    };
 
                 }
 
@@ -156,15 +138,13 @@ namespace DairyFarm.Web.Controllers
                 if (cattleCreateViewModel.CurrentGestation != null)
                 {
                     cattleCreateViewModel.CurrentGestation.IdCattle = cattle.IdCattle;
-                    _db.Gestations.Add(cattleCreateViewModel.CurrentGestation);
-                    _db.SaveChanges();
-
+                    _dairyFarmService.AddDGestation(cattleCreateViewModel.CurrentGestation);
                 }
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdCattletype = new SelectList(_db.CattleTypes, "IdCattletype", "Label", cattleCreateViewModel.IdCattletype);
-            ViewBag.IdHerd = new SelectList(_db.Herds, "IdHerd", "Label", cattleCreateViewModel.IdHerd);
+            ViewBag.IdCattletype = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattletype", "Label", cattleCreateViewModel.IdCattletype);
+            ViewBag.IdHerd = new SelectList(_dairyFarmService.GetHerds(), "IdHerd", "Label", cattleCreateViewModel.IdHerd);
             return View(cattleCreateViewModel);
         }
 

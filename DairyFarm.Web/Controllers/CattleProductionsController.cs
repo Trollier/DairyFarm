@@ -9,17 +9,23 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.Core.DAL;
+using DairyFarm.Service;
 
 namespace DairyFarm.Web.Controllers
 {
     public class CattleProductionsController : Controller
     {
         private readonly DairyFarmEntities _db = new DairyFarmEntities();
+        private readonly IDairyFarmService _dairyFarmService;
 
+        public CattleProductionsController(IDairyFarmService dairyFarmService)
+        {
+            _dairyFarmService = dairyFarmService;
+        }
         // GET: CattleProductions
         public ActionResult Index()
         {
-            var cattleProductions = _db.CattleProductions.Include(c => c.Cattle);
+            var cattleProductions = _dairyFarmService.GetCattleProductions();
             return View(cattleProductions.ToList());
         }
 
@@ -30,7 +36,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CattleProduction cattleProduction = _db.CattleProductions.Find(id);
+            CattleProduction cattleProduction = _dairyFarmService.GetCattleProductionById(id);
             if (cattleProduction == null)
             {
                 return HttpNotFound();
@@ -38,7 +44,6 @@ namespace DairyFarm.Web.Controllers
             return View(cattleProduction);
         }
 
-        // GET: CattleProductions/Create
         public ActionResult SetProductions()
         {
             ICollection<CattleProduction> cattleProductions = new List<CattleProduction>();
@@ -49,7 +54,6 @@ namespace DairyFarm.Web.Controllers
                 {
                     IdCattle = cattle.IdCattle,
                     Quantity = 0,
-                    // hourprod = "",
                     Cattle = cattle
                 });
             }
@@ -57,7 +61,6 @@ namespace DairyFarm.Web.Controllers
             ViewBag.message = " Le " + DateTime.Now.ToString("dddd dd MM yyyy");
             return View(cattleProductions);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -67,8 +70,7 @@ namespace DairyFarm.Web.Controllers
             {
                 foreach (var production in cattleProductions)
                 {
-                    _db.CattleProductions.Add(production);
-                    _db.SaveChanges();
+                    _dairyFarmService.AddCattleProduction(production);
                 }
 
                 return RedirectToAction("Index");
@@ -86,12 +88,12 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CattleProduction cattleProduction = _db.CattleProductions.Find(id);
+            CattleProduction cattleProduction = _dairyFarmService.GetCattleProductionById(id);
             if (cattleProduction == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCattle = new SelectList(_db.Cattles, "IdCattle", "CodeCattle", cattleProduction.IdCattle);
+            ViewBag.IdCattle = new SelectList(_dairyFarmService.GetCattles(), "IdCattle", "CodeCattle", cattleProduction.IdCattle);
             return View(cattleProduction);
         }
 
@@ -104,11 +106,11 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(cattleProduction).State = EntityState.Modified;
-                _db.SaveChanges();
+                
+                _dairyFarmService.AddCattleProduction(cattleProduction);
                 return RedirectToAction("Index");
             }
-            ViewBag.IdCattle = new SelectList(_db.Cattles, "IdCattle", "CodeCattle", cattleProduction.IdCattle);
+            ViewBag.IdCattle = new SelectList(_dairyFarmService.GetCattles(), "IdCattle", "CodeCattle", cattleProduction.IdCattle);
             return View(cattleProduction);
         }
 
@@ -119,7 +121,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CattleProduction cattleProduction = _db.CattleProductions.Find(id);
+            CattleProduction cattleProduction = _dairyFarmService.GetCattleProductionById(id);
             if (cattleProduction == null)
             {
                 return HttpNotFound();
@@ -132,19 +134,12 @@ namespace DairyFarm.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CattleProduction cattleProduction = _db.CattleProductions.Find(id);
+            CattleProduction cattleProduction = _dairyFarmService.GetCattleProductionById(id);
             _db.CattleProductions.Remove(cattleProduction);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿$("#IdCattletype").change(function () {
     $.ajax({
         type: "POST",
-        url: '/Common/GetHerdsByCattleType/?idCattletype=' + $("#IdCattletype").val(),
+        url: '/Common/GetHerdsByCattleType/?idCattletype=' + $("#IdCattletype").val() ,
         contentType: "application/json",
         success: function (data) {
             var optionStr = document.getElementById("IdHerd");
@@ -36,8 +36,29 @@
     });
 });
 
+$("#Sex").change(function() {
+    $.ajax({
+        type: "POST",
+        url: '/Common/GetType/?Sex=' + $("#Sex").val(),
+        contentType: "application/json",
+        success: function(data) {
+            var optionStr = document.getElementById("IdCattletype");
+            optionStr.length = 0;
+            optionStr.options[0] = new Option('Select type', '');
+            var notEmpty = true;
+            $.each(data, function(key, value) {
+                notEmpty = false;
+                $('#IdCattletype')
+                    .append($("<option></option>")
+                        .attr("value", value.Value)
+                        .text(value.Text));
+            });
+        }
+    });
+});
 
-$("#btnNewHerd").click(function () {
+
+        $("#btnNewHerd").click(function () {
     if ($("#IdCattletype").val() != "") {
         console.log("ok");
         var idCatlleType = $("#IdCattletype").val();

@@ -9,6 +9,21 @@ namespace DairyFarm.Service
 {
     public interface IDairyFarmService
     {
-       bool AddCattle(Cattle cattle);
+        
+        bool AddCattle(Cattle cattle);
+        bool AddCattleProduction(CattleProduction cattle);
+        bool AddDiseasesHistory(DiseasesHistory diseasesHistory);
+        bool AddDGestation(Gestation gestation);
+        Cattle GetCattleById(int? id);
+        CattleProduction GetCattleProductionById(int? id);
+        MedicalTreatment GetMedicalTreatmentById (int? id);
+        IEnumerable<Disease> GetDiseases();
+        IEnumerable<CattleType> GetCattleTypes();
+        IEnumerable<Herd> GetHerds();
+        IEnumerable<CattleProduction> GetCattleProductions();
+        IEnumerable<MedicalTreatment> GetMedicalTreatments();
+        IEnumerable<Cattle> GetCattles();
+        IQueryable<IGrouping<int, Cattle>> IndexCattle();
+
     }
 }

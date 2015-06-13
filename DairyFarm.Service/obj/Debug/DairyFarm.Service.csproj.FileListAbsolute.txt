@@ -1,27 +1,3 @@
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.csprojResolveAssemblyReference.cache
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.dll.config
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.pdb
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Core.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.Mvc.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.Optimization.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.Razor.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.WebPages.Razor.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.WebPages.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.WebPages.Deployment.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Core.pdb
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.Mvc.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.Optimization.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.Razor.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.WebPages.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\System.Web.WebPages.Deployment.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.dll
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.pdb
 C:\Repos\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.dll.config
 C:\Repos\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.dll
 C:\Repos\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.pdb
@@ -34,3 +10,15 @@ C:\Repos\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.SqlServer.xml
 C:\Repos\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.csprojResolveAssemblyReference.cache
 C:\Repos\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.dll
 C:\Repos\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.pdb
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.dll.config
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Service.pdb
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Core.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\DairyFarm.Core.pdb
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.csprojResolveAssemblyReference.cache
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.dll
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Service\obj\Debug\DairyFarm.Service.pdb
