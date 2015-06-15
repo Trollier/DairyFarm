@@ -14,5 +14,6 @@ C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\b
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.xml
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.csprojResolveAssemblyReference.cache
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.dll
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.pdb

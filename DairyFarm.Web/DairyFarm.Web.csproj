@@ -470,6 +470,8 @@
     <Content Include="Views\Seasons\Create.cshtml" />
     <Content Include="Web.cd" />
     <Content Include="Views\Cattle\ChangeHerd.cshtml" />
+    <Content Include="Views\Cattle\Edit.cshtml" />
+    <Content Include="Views\Cattle\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

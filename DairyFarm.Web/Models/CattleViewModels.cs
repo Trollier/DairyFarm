@@ -101,4 +101,20 @@ namespace DairyFarm.Web.Models
         public List<DiseasesHistory> currentDiseases { get; set; }
         public Gestation CurrentGestation { get; set; }
     }
+
+    public class CattleEditViewModel
+    {
+
+        public int idCattle { get; set; }
+
+        [Display(Name = "Code Bête")]
+        public string CodeCattle { get; set; }
+        public int AgeYear { get; set; }
+        public int AgeMonth { get; set; }
+        [Display(Name = "Parent Mal")]
+        public Nullable<int> MalParent { get; set; }
+        [Display(Name = "Parent femelle")]
+        public Nullable<int> FemaleParent { get; set; }
+
+    }
 }

@@ -85,7 +85,7 @@ namespace DairyFarm.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdFood,TotQuantity,Label")] Food food)
+        public ActionResult Edit( Food food)
         {
             if (ModelState.IsValid)
             {

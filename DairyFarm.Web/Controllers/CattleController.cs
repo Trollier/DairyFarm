@@ -101,8 +101,23 @@ namespace DairyFarm.Web.Controllers
         [HttpPost]
         public ActionResult ChangeHerd(ChangeHerdViewModel changeHerd)
         {
+            if (ModelState.IsValid) {
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "troupeau bien changé"
+                };
+            foreach (var cattle in changeHerd.IdChangeCattle)
+            {
+               var cattleToEdit = _dairyFarmService.GetCattleById(cattle);
+                cattleToEdit.IdHerd = changeHerd.IdChangeHerd;
+                bool edited = _dairyFarmService.EditCattle(cattleToEdit);
 
-            return View();
+            }
+            return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
+
+            }
+            return RedirectToAction("Create", new { message = "Erreur dans l'ajout", state = 0 });
         }
         // GET: Cattle/Create
         public ActionResult Create(string message, int? state)
@@ -196,7 +211,9 @@ namespace DairyFarm.Web.Controllers
         // GET: Cattle/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var cattle = _dairyFarmService.GetCattleById(id);
+
+            return View(cattle);
         }
 
         // POST: Cattle/Edit/5
@@ -218,24 +235,23 @@ namespace DairyFarm.Web.Controllers
         // GET: Cattle/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return PartialView(_dairyFarmService.GetCattleById(id));
         }
 
         // POST: Cattle/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-
-            try
+            if (_dairyFarmService.DeleteCattle(id))
             {
-
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { message = "Bien supprimer", state = 1 });
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Index", new { message = "Erreur dans la suppession", state = 0 });
+                
             }
+
         }
     }
 }

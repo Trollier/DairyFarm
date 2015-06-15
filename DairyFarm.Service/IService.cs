@@ -14,6 +14,8 @@ namespace DairyFarm.Service
         bool AddCattleProduction(CattleProduction cattle);
         bool AddDiseasesHistory(DiseasesHistory diseasesHistory);
         bool AddDGestation(Gestation gestation);
+        bool EditCattle(Cattle cattle);
+        bool DeleteCattle(int id);
         Cattle GetCattleById(int? id);
         CattleProduction GetCattleProductionById(int? id);
         MedicalTreatment GetMedicalTreatmentById (int? id);

@@ -24,13 +24,13 @@ namespace DairyFarm.Service
            {
                _db.Cattles.Add(cattle);
                _db.SaveChanges();
-               return true;
            }
            catch
            {
                return false;
 
            }
+           return true;
 
        }
 
@@ -63,6 +63,29 @@ namespace DairyFarm.Service
                return false;
            }
 
+       }
+
+       public bool EditCattle(Cattle cattle)
+       {
+           try
+           {
+               _db.Entry(cattle).State = EntityState.Modified;
+               _db.SaveChanges();
+               return true;
+
+           }
+           catch
+           {
+               return false;
+
+           }
+       }
+
+       public bool DeleteCattle(int id)
+       {
+           var cattle = GetCattleById(id);
+           cattle.Active = true;
+            return EditCattle(cattle);
        }
        #endregion
        #region MedicalTreatments
@@ -125,7 +148,12 @@ namespace DairyFarm.Service
        public IEnumerable<Herd> GetHerdById(int idHerd)
        {
            var herdSelect = _db.Herds.Find(idHerd);
-           return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex).ToList();
+           if (herdSelect.Label == "Animal en quarantaine")
+           {
+               return _db.Herds.Where(c=> c.IdHerd != herdSelect.IdHerd).ToList();
+               
+           }
+           return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd).ToList();
 
        }
        #endregion
@@ -166,13 +194,5 @@ namespace DairyFarm.Service
 
 
 
-
-
-
-
-
-
-
-    
     }
 }
