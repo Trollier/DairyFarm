@@ -31,6 +31,7 @@
           <ScalarProperty Name="IdCattleType" ColumnName="IdCattleType" />
           <ScalarProperty Name="Label" ColumnName="Label" />
           <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.Entity;
 using System.Net;
+using System.Runtime.InteropServices;
 using DairyFarm.Core.DAL;
 using DairyFarm.Service;
 using DairyFarm.Web.Models;
@@ -24,14 +25,15 @@ namespace DairyFarm.Web.Controllers
         }
 
         // GET: Cattle
-        public ActionResult Index()
+        public ActionResult Index(string message,int? state)
         {
-            var cattleViewModels = new List<CattleViewModel>();
-            ////
-            /// ATTENTION A IMPLEMENTER A FOND
-            /// 
             var listGrouping = _dairyFarmService.IndexCattle();
-
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
+         
             return View(listGrouping);
         }
 
@@ -41,9 +43,9 @@ namespace DairyFarm.Web.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            } 
+            }
             Cattle cattle = _dairyFarmService.GetCattleById(id);
-           
+
             if (cattle == null)
             {
                 return HttpNotFound();
@@ -74,7 +76,7 @@ namespace DairyFarm.Web.Controllers
             return View(cattleDetailViewModel);
         }
 
-        // GET: Cattle/Create
+
         public ActionResult NewDisease()
         {
             // (liste a retourner, value, text)
@@ -87,12 +89,31 @@ namespace DairyFarm.Web.Controllers
         {
             return PartialView("_Gestation");
         }
+
+        public ActionResult ChangeHerd(int idHerd)
+        {
+            var cattles = _dairyFarmService.GetCattlesByHerd(idHerd);
+            var herds = _dairyFarmService.GetHerdById(idHerd);
+            ViewBag.Cattles = new SelectList(cattles, "IdCattle", "CodeCattle");
+            ViewBag.Herds = new SelectList(herds, "IdHerd", "Label");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangeHerd(ChangeHerdViewModel changeHerd)
+        {
+
+            return View();
+        }
         // GET: Cattle/Create
-        public ActionResult Create()
+        public ActionResult Create(string message, int? state)
         {
             ViewBag.IdCattletype = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattletype", "Label");
             ViewBag.IdHerd = new SelectList(new List<Herd>(), "IdHerd", "Label");
-
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             return View();
         }
 
@@ -101,17 +122,31 @@ namespace DairyFarm.Web.Controllers
         public ActionResult Create(CattleCreateViewModel cattleCreateViewModel)
         {
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "Bête bien ajouté"
+                };
                 var cattle = new Cattle
                 {
                     CodeCattle = cattleCreateViewModel.CodeCattle,
                     IdHerd = cattleCreateViewModel.IdHerd,
                     DateBirth = cattleCreateViewModel.DateBirth,
                 };
-                //_db.Cattles.Add(cattle);
-                //_db.SaveChanges();
-                _dairyFarmService.AddCattle(cattle);
+                if(cattleCreateViewModel.CurrentDisease!=null){
+                var contagious = _dairyFarmService.GetDiseaseContagious(cattleCreateViewModel.CurrentDisease.IdDisease);
+                if (contagious)
+                {
+                    cattle.IdHerd = 7;
+                }
+                    }
+                if (_dairyFarmService.AddCattle(cattle) == false)
+                {
+                    popup.State = 0;
+                }
+
 
                 if (cattleCreateViewModel.CurrentDisease != null)
                 {
@@ -123,14 +158,10 @@ namespace DairyFarm.Web.Controllers
                         cattleCreateViewModel.CurrentDisease.MedicalTreatments.Add(medic);
                     }
 
-                    if (_dairyFarmService.AddDiseasesHistory(cattleCreateViewModel.CurrentDisease))
+                    if (_dairyFarmService.AddDiseasesHistory(cattleCreateViewModel.CurrentDisease) == false)
                     {
-
+                        popup.State = 0;
                     }
-                    else
-                    {
-                        
-                    };
 
                 }
 
@@ -138,14 +169,28 @@ namespace DairyFarm.Web.Controllers
                 if (cattleCreateViewModel.CurrentGestation != null)
                 {
                     cattleCreateViewModel.CurrentGestation.IdCattle = cattle.IdCattle;
-                    _dairyFarmService.AddDGestation(cattleCreateViewModel.CurrentGestation);
+                    if (_dairyFarmService.AddDGestation(cattleCreateViewModel.CurrentGestation) == false)
+                    {
+                        popup.State = 0;
+                    }
                 }
-                return RedirectToAction("Index");
+
+                if (popup.State == 1)
+                {
+                    return RedirectToAction("Index", new {message = popup.Message, state = popup.State});
+
+                }
+                else
+                {
+                    return RedirectToAction("Create", new { message = "Erreur dans l'ajout", state = popup.State });
+                    
+                }
+
             }
 
             ViewBag.IdCattletype = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattletype", "Label", cattleCreateViewModel.IdCattletype);
             ViewBag.IdHerd = new SelectList(_dairyFarmService.GetHerds(), "IdHerd", "Label", cattleCreateViewModel.IdHerd);
-            return View(cattleCreateViewModel);
+            return RedirectToAction("Create", new { message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Cattle/Edit/5

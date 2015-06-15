@@ -65,8 +65,6 @@ namespace DairyFarm.Service
 
        }
        #endregion
-       #region Disease
-       #endregion
        #region MedicalTreatments
        public IEnumerable<MedicalTreatment> GetMedicalTreatments()
        {
@@ -98,6 +96,20 @@ namespace DairyFarm.Service
            return _db.Diseases;
 
        }
+
+       public Disease GetDiseaseById(int? id)
+       {
+           return _db.Diseases.Find(id);
+       }
+
+       public bool GetDiseaseContagious(int? id)
+       {
+           return _db.Diseases.Find(id).Contagious;
+       }
+       public IEnumerable<Cattle> GetCattlesByHerd(int idHerd)
+       {
+           return _db.Cattles.Where(c => c.IdHerd == idHerd).ToList();
+       }
        #endregion
        #region CattleType
        public IEnumerable<CattleType> GetCattleTypes()
@@ -109,6 +121,12 @@ namespace DairyFarm.Service
        public IEnumerable<Herd> GetHerds()
        {
            return _db.Herds;
+       }
+       public IEnumerable<Herd> GetHerdById(int idHerd)
+       {
+           var herdSelect = _db.Herds.Find(idHerd);
+           return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex).ToList();
+
        }
        #endregion
        #region CattleProduction
@@ -145,5 +163,16 @@ namespace DairyFarm.Service
 
 
 
+
+
+
+
+
+
+
+
+
+
+    
     }
 }

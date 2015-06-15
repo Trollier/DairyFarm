@@ -203,6 +203,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CattleViewModels.cs" />
+    <Compile Include="Models\ChangeHerdViewModel.cs" />
     <Compile Include="Models\DiseasesHistoryModel.cs" />
     <Compile Include="Models\GestationModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -468,6 +469,7 @@
     <Content Include="Views\Manage.cshtml" />
     <Content Include="Views\Seasons\Create.cshtml" />
     <Content Include="Web.cd" />
+    <Content Include="Views\Cattle\ChangeHerd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

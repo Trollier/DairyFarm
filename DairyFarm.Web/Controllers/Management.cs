@@ -23,7 +23,7 @@ namespace DairyFarm.Web.Controllers
                new{ Text="Type de bétail",Value="CattleTypes"}
             };
 
-            //ViewBag.idItem = id;
+            
             ViewBag.ListItem = new SelectList(listItems, "Text", "Value");
             if (state != null)
             {

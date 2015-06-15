@@ -34,6 +34,7 @@
           <Property Name="IdCattleType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Label" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Sex" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Rank" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Diets">
           <Key>
@@ -441,6 +442,7 @@
           <Property Name="IdCattleType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rank" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Herds" Relationship="Self.FK_Herds_CattleTypes" FromRole="CattleTypes" ToRole="Herds" />
           <NavigationProperty Name="Diets" Relationship="Self.Diets_CattleTypes" FromRole="CattleTypes" ToRole="Diets" />
         </EntityType>
@@ -765,6 +767,7 @@
                 <ScalarProperty Name="IdCattleType" ColumnName="IdCattleType" />
                 <ScalarProperty Name="Label" ColumnName="Label" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

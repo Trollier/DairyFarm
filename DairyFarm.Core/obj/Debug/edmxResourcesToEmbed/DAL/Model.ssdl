@@ -29,6 +29,7 @@
     <Property Name="IdCattleType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Label" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Sex" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Rank" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Diets">
     <Key>

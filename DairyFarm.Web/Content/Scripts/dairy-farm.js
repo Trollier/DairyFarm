@@ -204,7 +204,6 @@ $(function () {
         }
     });
 
-
 });
 
 
@@ -265,9 +264,7 @@ $("#ListItem").change(function () {
 //
 //URGENT
 function dialogBox(variable) {
-
-    
-
+    console.log(variable);
     //set the diaglog properties
     $('#' + variable + ' ').dialog({
         title: 'Assign',
@@ -277,6 +274,7 @@ function dialogBox(variable) {
     });
 
     $('#' + variable + ' ').dialog("open");
-
+    $("#IdChangeCattle").select2();
+    $("#IdChangeHerd").select2();
 }
 
