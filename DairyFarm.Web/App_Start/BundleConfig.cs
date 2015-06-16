@@ -42,7 +42,10 @@ namespace DairyFarm.Web
                       "~/Content/themes/base/dialog.css",
                       "~/Content/css/site.css",
                       "~/Content/css/jquery-ui.css",
-                      "~/Content/css/bootstrap-dialog.css"));
+                      "~/Content/css/bootstrap-dialog.css",
+                      "~/Content/css/jquery.dataTables.css",
+                      "~/Content/css/jquery.dataTables_themeroller.css"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/select2").Include(
           "~/Content/css/select2.css"));
@@ -62,6 +65,9 @@ namespace DairyFarm.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-dialog").Include(
                 "~/Content/Scripts/bootstrap-dialog.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/dataTable").Include(
+                "~/Content/Scripts/jquery.dataTables.js"
                 ));
         }
     }

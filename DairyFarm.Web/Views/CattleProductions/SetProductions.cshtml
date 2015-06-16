@@ -11,8 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-  
-    
+
     <table class="table table-striped">
         <tr></tr>
         <tr>
@@ -34,11 +33,15 @@
                     <div class="form-group">
 
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model[i].Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model[i].Quantity, new {htmlAttributes = new {@class = "form-control"}})
                         </div>
                     </div>
                 </td>
             </tr>
+
+    @Html.HiddenFor(model => model[i].Dateprod)
+    @Html.HiddenFor(model => model[i].Period)
+    @Html.HiddenFor(model => model[i].IdCattle)
         }
     </table>
     <div class="form-group">

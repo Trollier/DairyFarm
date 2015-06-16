@@ -15,6 +15,7 @@ namespace DairyFarm.Service
         bool AddDiseasesHistory(DiseasesHistory diseasesHistory);
         bool AddDGestation(Gestation gestation);
         bool EditCattle(Cattle cattle);
+        bool EditCattleProductions(CattleProduction cattleProduction);
         bool DeleteCattle(int id);
         Cattle GetCattleById(int? id);
         CattleProduction GetCattleProductionById(int? id);
@@ -31,6 +32,7 @@ namespace DairyFarm.Service
         IEnumerable<Herd> GetHerdById(int idHerd);
         IEnumerable<Cattle> GetCattleInQuarantine();
         IEnumerable<CattleProduction> GetYesterdayProd(DateTime date);
+        IEnumerable<CattleProduction> GetTodayProduction(DateTime date);
         IQueryable<IGrouping<int, Cattle>> IndexCattle();
 
     }

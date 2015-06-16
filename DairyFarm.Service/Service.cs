@@ -186,6 +186,30 @@ namespace DairyFarm.Service
        {
            return _db.CattleProductions.Find(id);
        }
+       public IEnumerable<CattleProduction> GetYesterdayProd(DateTime date)
+       {
+           var yesterday = DateTime.Today.AddDays(-1);
+           return _db.CattleProductions.Where(c => c.Dateprod.Month == yesterday.Month && c.Dateprod.Day == yesterday.Day).ToList();
+       }
+       public bool EditCattleProductions(CattleProduction cattleProduction)
+       {
+           try
+           {
+               _db.Entry(cattleProduction).State = EntityState.Modified;
+               _db.SaveChanges();
+               return true;
+
+           }
+           catch
+           {
+               return false;
+
+           }
+       }
+       public IEnumerable<CattleProduction> GetTodayProduction(DateTime date)
+       {
+           return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day);
+       }
        #endregion
        #region Food
        #endregion
@@ -195,10 +219,12 @@ namespace DairyFarm.Service
        #endregion
 
 
-       public IEnumerable<CattleProduction> GetYesterdayProd(DateTime date)
-       {
-           var yesterday = DateTime.Today.AddDays(-1);
-           return _db.CattleProductions.Where(c=>c.Dateprod == yesterday).ToList();
-       }
+
+
+
+
+
+
+      
     }
 }

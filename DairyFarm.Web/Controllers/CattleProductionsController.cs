@@ -8,8 +8,10 @@ using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DairyFarm.Core.DAL;
 using DairyFarm.Service;
+using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
@@ -23,9 +25,14 @@ namespace DairyFarm.Web.Controllers
             _dairyFarmService = dairyFarmService;
         }
         // GET: CattleProductions
-        public ActionResult Index()
+        public ActionResult Index( string message, int? state)
         {
-            var cattleProductions = _dairyFarmService.GetCattleProductions();
+            var cattleProductions = _dairyFarmService.GetTodayProduction(DateTime.Now);
+               if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             return View(cattleProductions.ToList());
         }
 
@@ -47,14 +54,14 @@ namespace DairyFarm.Web.Controllers
 
         public ActionResult SetProductions(string period)
         {
-            var p = period == "matin" ? 6 : 9;
+            var p = period == "matin" ? 6 : 18;
             ICollection<CattleProduction> cattleProductions = new List<CattleProduction>();
             var ListCattles = _db.Cattles.Where(c => c.Herd.IdCattleType == 3);
             var yesterdayProd = _dairyFarmService.GetYesterdayProd(DateTime.Now);
             foreach (var cattle in ListCattles)
             {
-                var production = cattle.CattleProductions.FirstOrDefault(c => c.Period.Hour == p);
-                if (production == null || production.Quantity == 0)
+                var production = cattle.CattleProductions.FirstOrDefault(c => c.Period.Hour == p && c.Dateprod.Month == DateTime.Now.Month && c.Dateprod.Day == DateTime.Now.Day);
+                if (production == null )
                 {
                     cattleProductions.Add(new CattleProduction
                     {
@@ -79,11 +86,18 @@ namespace DairyFarm.Web.Controllers
                 {
                     if (prod.IdCattle == cattleprod.IdCattle)
                     {
-                        prod.Quantity = cattleprod.Quantity;
+                        cattleprod.Quantity = prod.Quantity;
                     }
                 }
             }
             ViewBag.message = " Le " + DateTime.Now.ToString("dddd dd MM yyyy");
+            if (!cattleProductions.Any())
+            {
+               MessageInfo message = new MessageInfo();
+                message.Message = "Les production ont déja été introduite";
+                message.State = 0;
+                return RedirectToAction("Index", new { message = message.Message, state = message.State });
+            }
             return View(cattleProductions);
         }
 
@@ -93,12 +107,22 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                MessageInfo popup = new MessageInfo
+                {
+                    Message = "Production bien ajouté",
+                    State = 1
+                };
+                
                 foreach (var production in cattleProductions)
                 {
-                    _dairyFarmService.AddCattleProduction(production);
+                    if (_dairyFarmService.AddCattleProduction(production)==false)
+                    {
+                        popup.Message = "Erreur dans l'ajout";
+                        popup.State = 0;
+                    }
                 }
-
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("Index",new{ message = popup.Message, state = popup.State});
             }
 
             ViewBag.message = " Le " + DateTime.Now.ToString("dddd dd MM yyyy");
@@ -118,25 +142,32 @@ namespace DairyFarm.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCattle = new SelectList(_dairyFarmService.GetCattles(), "IdCattle", "CodeCattle", cattleProduction.IdCattle);
-            return View(cattleProduction);
+            return PartialView(cattleProduction);
         }
 
         // POST: CattleProductions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduction,IdCattle,Dateprod,hourprod,quantity")] CattleProduction cattleProduction)
+        public ActionResult Edit( CattleProduction cattleProduction)
         {
+            MessageInfo popup = new MessageInfo
+            {
+                Message = "Production bien ajouté",
+                State = 1
+            };
             if (ModelState.IsValid)
             {
 
-                _dairyFarmService.AddCattleProduction(cattleProduction);
-                return RedirectToAction("Index");
+                if (_dairyFarmService.EditCattleProductions(cattleProduction) == false)
+                {
+                    popup.Message = "Erreur dans l'editon";
+                    popup.State = 0;
+                }
+                return RedirectToAction("Index", new {message = popup.Message,state = popup.State});
             }
-            ViewBag.IdCattle = new SelectList(_dairyFarmService.GetCattles(), "IdCattle", "CodeCattle", cattleProduction.IdCattle);
-            return View(cattleProduction);
+            popup.Message = "Erreur dans l'editon";
+            popup.State = 0;
+            return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
         }
 
         // GET: CattleProductions/Delete/5
