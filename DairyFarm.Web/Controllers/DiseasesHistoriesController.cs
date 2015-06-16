@@ -7,13 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.Core.DAL;
+using DairyFarm.Service;
+using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
     public class DiseasesHistoriesController : Controller
     {
         private DairyFarmEntities _db = new DairyFarmEntities();
+        private readonly IDairyFarmService _dairyFarmService;
 
+        public DiseasesHistoriesController (IDairyFarmService dairyFarmService)
+        {
+            _dairyFarmService = dairyFarmService;
+        }
         // GET: DiseasesHistories
         public ActionResult Index(int id)
         {
@@ -57,19 +64,34 @@ namespace DairyFarm.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(DiseasesHistory diseasesHistory)
         {
+            var popup = new MessageInfo
+            {
+                Message = "Maladie Bien ajouté",
+                State = 1
+            };
             if (ModelState.IsValid)
             {
+                
+                if (_dairyFarmService.GetDiseaseById(diseasesHistory.IdDisease).Contagious == true)
+                {
+                    _dairyFarmService.GetCattleById(diseasesHistory.IdCattle).InQuarantine = true;
+                } 
                 foreach (var idTreatment in diseasesHistory.IdMedicalTreatments)
                 {
-                    var medic = _db.MedicalTreatments.Find(idTreatment);
+                    var medic = _dairyFarmService.GetMedicalTreatmentById(idTreatment);
                     diseasesHistory.MedicalTreatments.Add(medic);
                 }
-                _db.DiseasesHistories.Add(diseasesHistory);
-                _db.SaveChanges();
-                return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle });
+                if (_dairyFarmService.AddDiseasesHistory(diseasesHistory)==false)
+                {
+                    popup.Message = "Erreur dans l'ajout";
+                    popup.State = 0;
+                }
+               
+                return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle, message = popup.Message, state = popup.State  });
             }
-
-            return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle });
+            popup.Message = "Erreur dans l'ajout";
+            popup.State = 0;
+            return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle, message = popup.Message, state = popup.State });
         }
 
         // GET: DiseasesHistories/Edit/5

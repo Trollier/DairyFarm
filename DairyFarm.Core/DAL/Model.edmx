@@ -26,6 +26,7 @@
           <Property Name="DateBirth" Type="date" Nullable="false" />
           <Property Name="MalParent" Type="int" />
           <Property Name="FemaleParent" Type="int" />
+          <Property Name="InQuarantine" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CattleTypes">
           <Key>
@@ -430,6 +431,7 @@
           <Property Name="DateBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MalParent" Type="Int32" />
           <Property Name="FemaleParent" Type="Int32" />
+          <Property Name="InQuarantine" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CattleProductions" Relationship="Self.FK_CattleProductions_Cattles" FromRole="Cattles" ToRole="CattleProductions" />
           <NavigationProperty Name="Herd" Relationship="Self.FK_CATTLES_HERDS" FromRole="Cattles" ToRole="Herds" />
           <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="Cattles" ToRole="DiseasesHistories" />
@@ -758,6 +760,7 @@
                 <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
                 <ScalarProperty Name="MalParent" ColumnName="MalParent" />
                 <ScalarProperty Name="FemaleParent" ColumnName="FemaleParent" />
+                <ScalarProperty Name="InQuarantine" ColumnName="InQuarantine" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

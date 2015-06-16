@@ -22,6 +22,7 @@
           <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
           <ScalarProperty Name="MalParent" ColumnName="MalParent" />
           <ScalarProperty Name="FemaleParent" ColumnName="FemaleParent" />
+          <ScalarProperty Name="InQuarantine" ColumnName="InQuarantine" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

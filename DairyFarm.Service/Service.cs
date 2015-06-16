@@ -46,7 +46,7 @@ namespace DairyFarm.Service
 
        public IQueryable<IGrouping<int, Cattle>> IndexCattle()
        {
-          return  _db.Cattles.Where(c => c.Active != true).GroupBy(c => c.IdHerd);
+          return  _db.Cattles.Where(c => c.Active != true ).GroupBy(c => c.IdHerd);
        }
        #endregion
        #region DiseaseHistory
@@ -86,6 +86,11 @@ namespace DairyFarm.Service
            var cattle = GetCattleById(id);
            cattle.Active = true;
             return EditCattle(cattle);
+       }
+
+       public IEnumerable<Cattle> GetCattleInQuarantine()
+       {
+           return _db.Cattles.Where(c => c.InQuarantine == true).ToList();
        }
        #endregion
        #region MedicalTreatments
@@ -190,9 +195,10 @@ namespace DairyFarm.Service
        #endregion
 
 
-
-
-
-
+       public IEnumerable<CattleProduction> GetYesterdayProd(DateTime date)
+       {
+           var yesterday = DateTime.Today.AddDays(-1);
+           return _db.CattleProductions.Where(c=>c.Dateprod == yesterday).ToList();
+       }
     }
 }

@@ -29,6 +29,8 @@ namespace DairyFarm.Service
         IEnumerable<Cattle> GetCattles();
         IEnumerable<Cattle> GetCattlesByHerd(int idHerd);
         IEnumerable<Herd> GetHerdById(int idHerd);
+        IEnumerable<Cattle> GetCattleInQuarantine();
+        IEnumerable<CattleProduction> GetYesterdayProd(DateTime date);
         IQueryable<IGrouping<int, Cattle>> IndexCattle();
 
     }

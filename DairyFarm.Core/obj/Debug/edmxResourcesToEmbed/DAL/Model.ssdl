@@ -21,6 +21,7 @@
     <Property Name="DateBirth" Type="date" Nullable="false" />
     <Property Name="MalParent" Type="int" />
     <Property Name="FemaleParent" Type="int" />
+    <Property Name="InQuarantine" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="CattleTypes">
     <Key>

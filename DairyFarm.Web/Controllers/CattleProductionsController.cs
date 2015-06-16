@@ -44,20 +44,45 @@ namespace DairyFarm.Web.Controllers
             return View(cattleProduction);
         }
 
-        public ActionResult SetProductions()
-        {
-            ICollection<CattleProduction> cattleProductions = new List<CattleProduction>();
 
-            foreach (var cattle in _db.Cattles.Where(c => c.Herd.IdCattleType == 3))
+        public ActionResult SetProductions(string period)
+        {
+            var p = period == "matin" ? 6 : 9;
+            ICollection<CattleProduction> cattleProductions = new List<CattleProduction>();
+            var ListCattles = _db.Cattles.Where(c => c.Herd.IdCattleType == 3);
+            var yesterdayProd = _dairyFarmService.GetYesterdayProd(DateTime.Now);
+            foreach (var cattle in ListCattles)
             {
-                cattleProductions.Add(new CattleProduction
+                var production = cattle.CattleProductions.FirstOrDefault(c => c.Period.Hour == p);
+                if (production == null || production.Quantity == 0)
                 {
-                    IdCattle = cattle.IdCattle,
-                    Quantity = 0,
-                    Cattle = cattle
-                });
+                    cattleProductions.Add(new CattleProduction
+                    {
+                        IdCattle = cattle.IdCattle,
+                        Cattle = cattle,
+                        Dateprod = DateTime.Now,
+                        Period = new DateTime(
+                            DateTime.Now.Year, 
+                            DateTime.Now.Month,
+                             DateTime.Now.Day,
+                            p,
+                             0,
+                            0
+                            )
+                    });
+                }
             }
 
+            foreach (var prod in yesterdayProd)
+            {
+                foreach (var cattleprod in cattleProductions)
+                {
+                    if (prod.IdCattle == cattleprod.IdCattle)
+                    {
+                        prod.Quantity = cattleprod.Quantity;
+                    }
+                }
+            }
             ViewBag.message = " Le " + DateTime.Now.ToString("dddd dd MM yyyy");
             return View(cattleProductions);
         }
@@ -106,7 +131,7 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 _dairyFarmService.AddCattleProduction(cattleProduction);
                 return RedirectToAction("Index");
             }

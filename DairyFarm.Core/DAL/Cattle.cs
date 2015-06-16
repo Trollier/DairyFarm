@@ -28,6 +28,7 @@ namespace DairyFarm.Core.DAL
         public System.DateTime DateBirth { get; set; }
         public Nullable<int> MalParent { get; set; }
         public Nullable<int> FemaleParent { get; set; }
+        public bool InQuarantine { get; set; }
     
         public virtual ICollection<CattleProduction> CattleProductions { get; set; }
         public virtual Herd Herd { get; set; }

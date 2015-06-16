@@ -33,3 +33,8 @@ textarea {
     background-color: #c4c4c4;
     margin-top: 7px;
 }
+
+.InQurantine {
+    background-color: #FF7070;
+    opacity: 50%;
+}

@@ -38,7 +38,7 @@ namespace DairyFarm.Web.Controllers
         }
 
         // GET: Cattle/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string message, int? state)
         {
             if (id == null)
             {
@@ -72,7 +72,11 @@ namespace DairyFarm.Web.Controllers
                     cattleDetailViewModel.currentDiseases.Add(disease);
                 }
             }
-
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             return View(cattleDetailViewModel);
         }
 
@@ -90,6 +94,11 @@ namespace DairyFarm.Web.Controllers
             return PartialView("_Gestation");
         }
 
+        public ActionResult CattleInQuarantine()
+        {
+            var cattleInquarantin = _dairyFarmService.GetCattleInQuarantine();
+            return View(cattleInquarantin);
+        }
         public ActionResult ChangeHerd(int idHerd)
         {
             var cattles = _dairyFarmService.GetCattlesByHerd(idHerd);
@@ -154,7 +163,8 @@ namespace DairyFarm.Web.Controllers
                 var contagious = _dairyFarmService.GetDiseaseContagious(cattleCreateViewModel.CurrentDisease.IdDisease);
                 if (contagious)
                 {
-                    cattle.IdHerd = 7;
+                    cattle.InQuarantine = true;
+                    popup.Message += " Cette animal a une maladie contagieuse il a été mis dans les animaux en quarantaine";
                 }
                     }
                 if (_dairyFarmService.AddCattle(cattle) == false)

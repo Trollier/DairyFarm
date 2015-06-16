@@ -7,7 +7,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Traite du matin", "SetProductions", "CattleProductions", new { period = "matin" }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Traite du soir", "SetProductions", "CattleProductions", new { period = "soir" }, new { @class = "btn btn-success" })
+
+
 </p>
 <table class="table">
     <tr>

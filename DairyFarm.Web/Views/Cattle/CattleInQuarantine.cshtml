@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DairyFarm.Core.DAL.Cattle>
+
+@{
+    ViewBag.Title = "CattleInQuarantine";
+}
+
+<h2>Bete en Quarantine</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CodeCattle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MalParent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FemaleParent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InQuarantine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Herd.Label)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodeCattle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MalParent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FemaleParent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InQuarantine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Herd.Label)
+        </td>
+    </tr>
+}
+
+</table>

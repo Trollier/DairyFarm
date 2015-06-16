@@ -22,6 +22,7 @@
     <Property Name="DateBirth" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="MalParent" Type="Int32" />
     <Property Name="FemaleParent" Type="Int32" />
+    <Property Name="InQuarantine" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="CattleProductions" Relationship="Self.FK_CattleProductions_Cattles" FromRole="Cattles" ToRole="CattleProductions" />
     <NavigationProperty Name="Herd" Relationship="Self.FK_CATTLES_HERDS" FromRole="Cattles" ToRole="Herds" />
     <NavigationProperty Name="DiseasesHistories" Relationship="Self.FK_DiseasesHistories_Cattles" FromRole="Cattles" ToRole="DiseasesHistories" />
