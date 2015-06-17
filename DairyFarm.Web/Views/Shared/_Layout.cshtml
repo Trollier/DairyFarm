@@ -148,9 +148,25 @@
                             </li>
                         </ul>
                     </li>
-                    <li >
-                        <a href="/Management/Main">Manage</a>
-
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Management <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo1" class="collapse">
+                            <li>
+                                @Html.ActionLink("Nourriture", "Index", "Foods")
+                            </li>
+                            <li>
+                                <a > Saison</a> 
+                            </li>
+                            <li>
+                                <a > maladies</a> 
+                            </li>
+                            <li>
+                                <a > traitement</a>
+                            </li>
+                            <li>
+                                <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> type bête</a> 
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         @Html.ActionLink("En quarantaine", "CattleInQuarantine", "Cattle")

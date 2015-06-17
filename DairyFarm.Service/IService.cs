@@ -17,10 +17,12 @@ namespace DairyFarm.Service
         bool EditCattle(Cattle cattle);
         bool EditCattleProductions(CattleProduction cattleProduction);
         bool DeleteCattle(int id);
+        bool EditHerd(Herd herd);
         Cattle GetCattleById(int? id);
         CattleProduction GetCattleProductionById(int? id);
         MedicalTreatment GetMedicalTreatmentById (int? id);
         Disease GetDiseaseById(int ?id);
+        Herd GetHerdById(int idHerd);
         bool GetDiseaseContagious(int? id);
         IEnumerable<Disease> GetDiseases();
         IEnumerable<CattleType> GetCattleTypes();
@@ -29,11 +31,14 @@ namespace DairyFarm.Service
         IEnumerable<MedicalTreatment> GetMedicalTreatments();
         IEnumerable<Cattle> GetCattles();
         IEnumerable<Cattle> GetCattlesByHerd(int idHerd);
-        IEnumerable<Herd> GetHerdById(int idHerd);
+        IEnumerable<Herd> GetHerdListById(int idHerd);
         IEnumerable<Cattle> GetCattleInQuarantine();
         IEnumerable<CattleProduction> GetYesterdayProd(DateTime date);
-        IEnumerable<CattleProduction> GetTodayProduction(DateTime date);
+        IEnumerable<CattleProduction> GetProductionsByDate(DateTime date);
+        IEnumerable<CattleProduction> GetProductions();
         IQueryable<IGrouping<int, Cattle>> IndexCattle();
+        void DecrementHerd(int id);
+        void IncrementHerd(int id);
 
     }
 }

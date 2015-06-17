@@ -46,11 +46,11 @@ namespace DairyFarm.Web.Controllers
                 {
                     IdCattleType = (int)idCattleType,
                     MaxAnimals = (int)maxAnimals,
-                    Label = label
+                    Label = label,
+                    AvailablePlaces = (int)maxAnimals
                 };
                 _db.Herds.Add(herd);
                 _db.SaveChanges();
-                //herds.Add(new { Value = herd.IdHerd, Text = herd.Label });
             }
             foreach (var herd in _db.Herds.Where(h => h.IdCattleType == idCattleType).ToList())
             {

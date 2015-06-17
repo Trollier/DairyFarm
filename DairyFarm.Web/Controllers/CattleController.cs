@@ -102,7 +102,7 @@ namespace DairyFarm.Web.Controllers
         public ActionResult ChangeHerd(int idHerd)
         {
             var cattles = _dairyFarmService.GetCattlesByHerd(idHerd);
-            var herds = _dairyFarmService.GetHerdById(idHerd);
+            var herds = _dairyFarmService.GetHerdListById(idHerd);
             ViewBag.Cattles = new SelectList(cattles, "IdCattle", "CodeCattle");
             ViewBag.Herds = new SelectList(herds, "IdHerd", "Label");
             return View();
@@ -116,12 +116,15 @@ namespace DairyFarm.Web.Controllers
                     State = 1,
                     Message = "troupeau bien changé"
                 };
+               
             foreach (var cattle in changeHerd.IdChangeCattle)
             {
+                 var herdDecrement =_dairyFarmService.GetCattleById(cattle);
+                 _dairyFarmService.DecrementHerd(changeHerd.IdChangeHerd);
+                 _dairyFarmService.IncrementHerd(herdDecrement.IdHerd);
                var cattleToEdit = _dairyFarmService.GetCattleById(cattle);
                 cattleToEdit.IdHerd = changeHerd.IdChangeHerd;
                 bool edited = _dairyFarmService.EditCattle(cattleToEdit);
-
             }
             return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
 
@@ -160,12 +163,6 @@ namespace DairyFarm.Web.Controllers
                     DateBirth = cattleCreateViewModel.DateBirth,
                 };
                 if(cattleCreateViewModel.CurrentDisease!=null){
-                var contagious = _dairyFarmService.GetDiseaseContagious(cattleCreateViewModel.CurrentDisease.IdDisease);
-                if (contagious)
-                {
-                    cattle.InQuarantine = true;
-                    popup.Message += " Cette animal a une maladie contagieuse il a été mis dans les animaux en quarantaine";
-                }
                     }
                 if (_dairyFarmService.AddCattle(cattle) == false)
                 {

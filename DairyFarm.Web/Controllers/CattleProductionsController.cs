@@ -27,7 +27,7 @@ namespace DairyFarm.Web.Controllers
         // GET: CattleProductions
         public ActionResult Index( string message, int? state)
         {
-            var cattleProductions = _dairyFarmService.GetTodayProduction(DateTime.Now);
+            var cattleProductions = _dairyFarmService.GetProductions();
                if (message != null)
             {
                 ViewBag.Message = message;
@@ -61,7 +61,7 @@ namespace DairyFarm.Web.Controllers
             foreach (var cattle in ListCattles)
             {
                 var production = cattle.CattleProductions.FirstOrDefault(c => c.Period.Hour == p && c.Dateprod.Month == DateTime.Now.Month && c.Dateprod.Day == DateTime.Now.Day);
-                if (production == null )
+                if (production == null || production.Quantity==0 )
                 {
                     cattleProductions.Add(new CattleProduction
                     {
@@ -100,6 +100,47 @@ namespace DairyFarm.Web.Controllers
             }
             return View(cattleProductions);
         }
+
+
+        public ActionResult DifferentDateProd(DateTime dateProdDifferent,string period)
+        {
+            var p = period == "matin" ? 6 : 18;
+            ICollection<CattleProduction> cattleProductions = new List<CattleProduction>();
+            var ListCattles = _db.Cattles.Where(c => c.Herd.IdCattleType == 3);
+            foreach (var cattle in ListCattles)
+            {
+                var production = cattle.CattleProductions.FirstOrDefault(c => c.Period.Hour == p && c.Dateprod.Month == dateProdDifferent.Month && c.Dateprod.Day == dateProdDifferent.Day);
+                if (production == null || production.Quantity == 0)
+                {
+                    cattleProductions.Add(new CattleProduction
+                    {
+                        IdCattle = cattle.IdCattle,
+                        Cattle = cattle,
+                        Dateprod = dateProdDifferent,
+                        Period = new DateTime(
+                            dateProdDifferent.Year,
+                            dateProdDifferent.Month,
+                             dateProdDifferent.Day,
+                            p,
+                             0,
+                            0
+                            )
+                    });
+                }
+            }
+
+           
+            ViewBag.message = " Le " + dateProdDifferent.ToString("dddd dd MM yyyy");
+            if (!cattleProductions.Any())
+            {
+                MessageInfo message = new MessageInfo();
+                message.Message = "Les production ont déja été introduite";
+                message.State = 0;
+                return RedirectToAction("Index", new { message = message.Message, state = message.State });
+            }
+            return View("SetProductions", cattleProductions);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

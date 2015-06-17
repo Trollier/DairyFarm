@@ -1,6 +1,20 @@
-﻿@{ Layout = null;}
-@model IEnumerable<DairyFarm.Core.DAL.Food>
+﻿@model IEnumerable<DairyFarm.Core.DAL.Food>
+@{
+    ViewBag.Title = "Index";
+}
 
+<h2>Nourritures</h2>
+
+@Ajax.ActionLink("Ajouter",
+        "Create", "Foods",
+        new { id = "newFood" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createFood",
+            OnSuccess = "dialogBox('createFood');"
+        })
 
 <table class="table">
     <tr>
@@ -9,9 +23,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Label)
-        </th>
-        <th>
-            Editer
         </th>
     </tr>
 
@@ -39,15 +50,6 @@
 }
 
 </table>
-@Ajax.ActionLink("Ajouter",
-        "Create", "Foods",
-        new { id = "newFood" },
-        new AjaxOptions
-        {
-            HttpMethod = "GET",
-            InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "createFood",
-            OnSuccess = "dialogBox('createFood');"
-        })
+
 <div id="createFood" class="DisplayNone"></div>
 <div id="editFood" class="DisplayNone"></div>

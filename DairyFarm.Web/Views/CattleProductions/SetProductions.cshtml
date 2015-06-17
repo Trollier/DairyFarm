@@ -1,4 +1,5 @@
-﻿@model List<DairyFarm.Core.DAL.CattleProduction>
+﻿@using System.Collections.Specialized
+@model List<DairyFarm.Core.DAL.CattleProduction>
 
 @{
     ViewBag.Title = "Encodage des traites";
@@ -7,8 +8,17 @@
 <h2>Encodage des traites</h2>
 <h4>@ViewBag.message</h4>
 
+<input type="checkbox" id="differentDate"> Date différente d'aujourd'hui?<br>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("DifferentDateProd", "CattleProductions", FormMethod.Post, new { @id = "dateDifferentProd", @class = "DisplayNone" }))
+{
+    <input type="hidden" name="period" id="periodTime" required>
+    <input  name="dateProdDifferent" id="datedif" class="class="form-control text-box single-line hasdatepicker">
+    <div class="form-group">
+        <input type="submit" value="Soumettre" class="btn btn-primary" />
+    </div>
+}
+@using (Html.BeginForm("SetProductions", "CattleProductions", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -48,7 +58,30 @@
         <input type="submit" value="Soumettre" class="btn btn-primary" />
     </div>
 }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+    <script>
+        $(function() {
+            $("#differentDate").click(function () {
+                $('#datedif').datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+                var $this = $(this);
+                if ($this.is(':checked')) {
+                    $('#dateDifferentProd').show();
 
+                } else {
+                    $('#dateDifferentProd').hide();
+                }
+            });
+            var parameter = getUrlParameter('period');
+            $("#periodTime").val(parameter);
+        });
+      
+    </script>
 
-
-
+}

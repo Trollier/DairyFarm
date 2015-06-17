@@ -21,7 +21,7 @@
         <h2>
             <a class=" colp btn btn-default " id='btnCollapseHerd[@i]' herd="@i">-</a> @list.ElementAt(0).Herd.Label
         </h2>
-        @Ajax.ActionLink("Changer ",
+        @Ajax.ActionLink("Transférer bête(s) ",
         "ChangeHerd", "Cattle", new { idHerd = list.ElementAt(0).IdHerd },
         new AjaxOptions
         {
@@ -29,7 +29,9 @@
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "divChangeHerd",
             OnSuccess = "dialogBox('divChangeHerd');"
-        })
+        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
+
+        <label> Nombre de places disponibles : @list.ElementAt(0).Herd.AvailablePlaces</label>
         <div class='@i collapse in'>
             @{i++;}
             <table class="table">
@@ -96,8 +98,7 @@
                                                                      var s = cattle.InQuarantine ? "checked" : "";
                                                                  } @s>
                              </td>
-
-
+                       
                              <td>
                                  @Html.ActionLink("Edit", "Edit", new {id = cattle.IdCattle}, htmlAttributes: new {@class = "btn btn-primary"})
                                  @Html.ActionLink("Details", "Details", new {id = cattle.IdCattle}, htmlAttributes: new {@class = "btn btn-info"})

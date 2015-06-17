@@ -35,13 +35,13 @@ textarea {
 }
 
 .InQurantine {
-    background-color: #FF7070;
+    background-color: #FFE6E6;
     opacity: 50%;
 }
 
 .addProd {
     background-color: #7A7A7A;
-    padding: 5px;
+    padding: 7px;
     border: 1px solid black;
     margin-bottom: 10px;
 }

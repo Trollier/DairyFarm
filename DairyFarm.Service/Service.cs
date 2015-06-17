@@ -22,15 +22,20 @@ namespace DairyFarm.Service
        {
            try
            {
+               
                _db.Cattles.Add(cattle);
                _db.SaveChanges();
+               var herd = GetHerdById(cattle.IdHerd);
+               herd.AvailablePlaces--;
+               EditHerd(herd);
+               return true;
            }
            catch
            {
                return false;
 
            }
-           return true;
+           
 
        }
 
@@ -48,23 +53,6 @@ namespace DairyFarm.Service
        {
           return  _db.Cattles.Where(c => c.Active != true ).GroupBy(c => c.IdHerd);
        }
-       #endregion
-       #region DiseaseHistory
-       public bool AddDiseasesHistory(DiseasesHistory diseasesHistory)
-       {
-           try
-           {
-               _db.DiseasesHistories.Add(diseasesHistory);
-               _db.SaveChanges();
-               return true;
-           }
-           catch
-           {
-               return false;
-           }
-
-       }
-
        public bool EditCattle(Cattle cattle)
        {
            try
@@ -85,13 +73,31 @@ namespace DairyFarm.Service
        {
            var cattle = GetCattleById(id);
            cattle.Active = true;
-            return EditCattle(cattle);
+           return EditCattle(cattle);
        }
 
        public IEnumerable<Cattle> GetCattleInQuarantine()
        {
            return _db.Cattles.Where(c => c.InQuarantine == true).ToList();
        }
+       #endregion
+       #region DiseaseHistory
+       public bool AddDiseasesHistory(DiseasesHistory diseasesHistory)
+       {
+           try
+           {
+               _db.DiseasesHistories.Add(diseasesHistory);
+               _db.SaveChanges();
+               return true;
+           }
+           catch
+           {
+               return false;
+           }
+
+       }
+
+       
        #endregion
        #region MedicalTreatments
        public IEnumerable<MedicalTreatment> GetMedicalTreatments()
@@ -136,7 +142,7 @@ namespace DairyFarm.Service
        }
        public IEnumerable<Cattle> GetCattlesByHerd(int idHerd)
        {
-           return _db.Cattles.Where(c => c.IdHerd == idHerd).ToList();
+           return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active==false).ToList();
        }
        #endregion
        #region CattleType
@@ -148,18 +154,43 @@ namespace DairyFarm.Service
        #region Herd
        public IEnumerable<Herd> GetHerds()
        {
-           return _db.Herds;
+           return _db.Herds.Where(h=>h.MaxAnimals-h.AvailablePlaces != 0);
        }
-       public IEnumerable<Herd> GetHerdById(int idHerd)
+       public Herd GetHerdById(int idHerd)
+       {
+           return  _db.Herds.Find(idHerd);
+       }
+       public IEnumerable<Herd> GetHerdListById(int idHerd)
        {
            var herdSelect = _db.Herds.Find(idHerd);
-           if (herdSelect.Label == "Animal en quarantaine")
+           return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd && herdSelect.AvailablePlaces!=0).ToList();
+       }
+       public bool EditHerd(Herd herd)
+       {
+           try
            {
-               return _db.Herds.Where(c=> c.IdHerd != herdSelect.IdHerd).ToList();
-               
-           }
-           return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd).ToList();
+               _db.Entry(herd).State = EntityState.Modified;
+               _db.SaveChanges();
+               return true;
 
+           }
+           catch
+           {
+               return false;
+
+           }
+       }
+       public void DecrementHerd(int id)
+       {
+           var herd = GetHerdById(id);
+           herd.AvailablePlaces--;
+           EditHerd(herd);
+       }
+       public void IncrementHerd(int id)
+       {
+           var herd = GetHerdById(id);
+           herd.AvailablePlaces++;
+           EditHerd(herd);
        }
        #endregion
        #region CattleProduction
@@ -206,9 +237,13 @@ namespace DairyFarm.Service
 
            }
        }
-       public IEnumerable<CattleProduction> GetTodayProduction(DateTime date)
+       public IEnumerable<CattleProduction> GetProductionsByDate(DateTime date)
        {
-           return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day);
+           return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day &&  d.Cattle.Active==true);
+       }
+       public IEnumerable<CattleProduction> GetProductions()
+       {
+           return _db.CattleProductions.Where(d=>d.Cattle.Active == true);
        }
        #endregion
        #region Food
@@ -218,13 +253,6 @@ namespace DairyFarm.Service
        #region Meal
        #endregion
 
-
-
-
-
-
-
-
-      
+    
     }
 }
