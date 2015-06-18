@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DairyFarm.Core.DAL.Herd>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    
+    @Ajax.ActionLink("Créer troupeau ",
+        "Create", "Herds", null,
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createHerd",
+            OnSuccess = "dialogBox('createHerd');"
+        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxAnimals)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailablePlaces)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CattleType.Label)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxAnimals)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Label)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailablePlaces)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CattleType.Label)
+        </td>
+        <td>
+          
+            @Ajax.ActionLink("Editer troupeau ",
+            "Edit", "Herds", new { id = item.IdHerd },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createHerd",
+            OnSuccess = "dialogBox('createHerd');"
+        }, htmlAttributes: new { @class = "btn btn-default"}) 
+            @if (item.AvailablePlaces == item.MaxAnimals)
+            {
+                @Ajax.ActionLink("supprimer", "Delete", "Herds",
+                                     new { id = item.IdHerd },
+                                     new AjaxOptions
+                                     {
+                                         HttpMethod = "GET",
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = "createHerd",
+                                         OnSuccess = "dialogBox('createHerd');"
+                                     }, htmlAttributes: new { @class = "btn btn-danger" })
+            }
+           
+        </td>
+    </tr>
+}
+
+</table>
+
+<div id="createHerd"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+}

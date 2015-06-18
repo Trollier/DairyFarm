@@ -265,7 +265,7 @@ $("#ListItem").change(function () {
 //
 //URGENT
 function dialogBox(variable) {
-    console.log(variable);
+   
     //set the diaglog properties
     $('#' + variable + ' ').dialog({
         title: 'Assign',

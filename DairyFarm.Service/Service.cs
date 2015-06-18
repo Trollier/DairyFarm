@@ -35,8 +35,6 @@ namespace DairyFarm.Service
                return false;
 
            }
-           
-
        }
 
        public Cattle GetCattleById(int? id)
@@ -79,6 +77,19 @@ namespace DairyFarm.Service
        public IEnumerable<Cattle> GetCattleInQuarantine()
        {
            return _db.Cattles.Where(c => c.InQuarantine == true).ToList();
+       }
+
+       public IEnumerable<Cattle> GetCattlesMilk()
+       {
+           try
+           {
+               return _db.Cattles.Where(c => c.Herd.IdCattleType == 3 && c.Active == true);
+           }
+           catch (Exception)
+           {
+
+               return null;
+           }
        }
        #endregion
        #region DiseaseHistory
@@ -245,6 +256,27 @@ namespace DairyFarm.Service
        {
            return _db.CattleProductions.Where(d=>d.Cattle.Active == true);
        }
+
+       public bool AddHerd(Herd herd)
+       {
+           try
+           {
+
+               _db.Herds.Add(herd);
+               _db.SaveChanges();
+               return true;
+           }
+           catch
+           {
+               return false;
+
+           }
+       }
+
+       public IQueryable<Herd> GetHerdsIncludeCattle()
+       {
+           return _db.Herds.Where(c => c.Active == false).Include(h => h.CattleType);
+       }
        #endregion
        #region Food
        #endregion
@@ -253,6 +285,12 @@ namespace DairyFarm.Service
        #region Meal
        #endregion
 
-    
+
+
+
+     
+
+
+
     }
 }

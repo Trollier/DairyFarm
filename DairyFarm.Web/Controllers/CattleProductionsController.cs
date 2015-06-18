@@ -56,17 +56,18 @@ namespace DairyFarm.Web.Controllers
         {
             var p = period == "matin" ? 6 : 18;
             ICollection<CattleProduction> cattleProductions = new List<CattleProduction>();
-            var ListCattles = _db.Cattles.Where(c => c.Herd.IdCattleType == 3);
+            var ListCattles = _dairyFarmService.GetCattlesMilk();
             var yesterdayProd = _dairyFarmService.GetYesterdayProd(DateTime.Now);
             foreach (var cattle in ListCattles)
             {
                 var production = cattle.CattleProductions.FirstOrDefault(c => c.Period.Hour == p && c.Dateprod.Month == DateTime.Now.Month && c.Dateprod.Day == DateTime.Now.Day);
-                if (production == null || production.Quantity==0 )
+                if (production == null )
                 {
                     cattleProductions.Add(new CattleProduction
                     {
                         IdCattle = cattle.IdCattle,
                         Cattle = cattle,
+                        Quantity2 = null,
                         Dateprod = DateTime.Now,
                         Period = new DateTime(
                             DateTime.Now.Year, 
@@ -116,6 +117,7 @@ namespace DairyFarm.Web.Controllers
                     {
                         IdCattle = cattle.IdCattle,
                         Cattle = cattle,
+                        Quantity2 = null,
                         Dateprod = dateProdDifferent,
                         Period = new DateTime(
                             dateProdDifferent.Year,
@@ -156,11 +158,16 @@ namespace DairyFarm.Web.Controllers
                 
                 foreach (var production in cattleProductions)
                 {
-                    if (_dairyFarmService.AddCattleProduction(production)==false)
+                    if (production.Quantity2 != null)
                     {
-                        popup.Message = "Erreur dans l'ajout";
-                        popup.State = 0;
+                        production.Quantity = (decimal) production.Quantity2;
+                        if (_dairyFarmService.AddCattleProduction(production) == false)
+                        {
+                            popup.Message = "Erreur dans l'ajout";
+                            popup.State = 0;
+                        }
                     }
+                    
                 }
                 
                 return RedirectToAction("Index",new{ message = popup.Message, state = popup.State});

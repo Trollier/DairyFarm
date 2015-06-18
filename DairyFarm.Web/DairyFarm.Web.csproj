@@ -193,6 +193,7 @@
     <Compile Include="Controllers\DiseasesHistoriesController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\GestationsController.cs" />
+    <Compile Include="Controllers\HerdsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Management.cs" />
@@ -474,6 +475,10 @@
     <Content Include="Views\Cattle\Edit.cshtml" />
     <Content Include="Views\Cattle\Delete.cshtml" />
     <Content Include="Views\Cattle\CattleInQuarantine.cshtml" />
+    <Content Include="Views\Herds\Index.cshtml" />
+    <Content Include="Views\Herds\Create.cshtml" />
+    <Content Include="Views\Herds\Edit.cshtml" />
+    <Content Include="Views\Herds\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

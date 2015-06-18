@@ -14,6 +14,11 @@ namespace DairyFarm.Core.DAL
     }
     public class CattleTypeMetaData
     {
-
+        [Required(ErrorMessage = "Select un {0}")]
+        [Display(Name = "Type de la bête")]
+        public string Label { get; set; }
+        [Required(ErrorMessage = "Select un {0}")]
+        [Display(Name = "Sexe")]
+        public string Sex { get; set; }
     }
 }

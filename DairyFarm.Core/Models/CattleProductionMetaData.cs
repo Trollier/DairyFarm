@@ -10,6 +10,7 @@ namespace DairyFarm.Core.DAL
     [MetadataType(typeof(CattleProductionMetaData))]
     public partial class CattleProduction
     {
+        public Nullable<decimal>   Quantity2 { get; set; }
 
     }
     public class CattleProductionMetaData
