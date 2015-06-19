@@ -33,7 +33,7 @@ namespace DairyFarm.Service
 
         public IQueryable<IGrouping<int, Cattle>> IndexCattle()
         {
-            return  _db.Cattles.Where(c => c.Active == true ).GroupBy(c => c.IdHerd);
+            return  _db.Cattles.Where(c => c.Active == true && c.Herd.Active == true ).GroupBy(c => c.IdHerd);
         }
 
         public IEnumerable<Cattle> GetCattleInQuarantine()
@@ -58,7 +58,7 @@ namespace DairyFarm.Service
         {
             try
             {
-               
+                cattle.Active = true;
                 _db.Cattles.Add(cattle);
                 _db.SaveChanges();
                 var herd = GetHerdById(cattle.IdHerd);
@@ -109,7 +109,7 @@ namespace DairyFarm.Service
         public IEnumerable<Herd> GetHerdListById(int idHerd)
         {
             var herdSelect = _db.Herds.Find(idHerd);
-            return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd && herdSelect.AvailablePlaces!=0).ToList();
+            return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd && herdSelect.AvailablePlaces!=0 && c.Active==true).ToList();
         }
         public void DecrementHerd(int id)
         {
@@ -163,7 +163,7 @@ namespace DairyFarm.Service
         }
         public IEnumerable<Cattle> GetCattlesByHerd(int idHerd)
         {
-            return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active==false).ToList();
+            return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active==true).ToList();
         }
 
         public bool AddDisease(Disease disease)

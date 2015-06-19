@@ -106,14 +106,15 @@
 
         <div id="divGestation" class="DisplayNone">
             <div class="form-group ">
-                @Html.LabelFor(model => model.IsGestation, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.IsGestation, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label col-md-3" } })
-                        @Html.ValidationMessageFor(model => model.IsGestation, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.IsGestation, new {htmlAttributes = new {@class = "control-label col-md-3"}})
+                        @Html.ValidationMessageFor(model => model.IsGestation, "", new {@class = "text-danger"})
                     </div>
                 </div>
             </div>
+            <div id="divDeGestation"></div>
             <div id="divGestation"></div>
             @Ajax.ActionLink("New Gestation",
         "NewGestation",
@@ -122,7 +123,7 @@
         {
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "divGestation",
+            UpdateTargetId = "divDeGestation",
             OnSuccess = "setSelect2Gestation();"
         }, htmlAttributes: new { @class = "DisplayNone", id = "newGestation" })
         </div>

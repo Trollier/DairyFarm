@@ -66,11 +66,11 @@ namespace DairyFarm.Web.Controllers
                 };
                  if (_dairyFarmService.AddFood(food)==false)
                 {
-                    return RedirectToAction("Index", "Food", new { message = "Erreur dans l'ajout", state = 0 });
+                    return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'ajout", state = 0 });
                 }
-                return RedirectToAction("Index", "Food", new {  message = popup.Message, state = popup.State });
+                return RedirectToAction("Index", "Foods", new {  message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Index", "Food", new {  message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Index", "Foods", new {  message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Foods/Edit/5
@@ -103,11 +103,11 @@ namespace DairyFarm.Web.Controllers
                 };
                 if (_dairyFarmService.EditFood(food) == false)
                 {
-                    return RedirectToAction("Index", "Food", new { message = "Erreur dans l'édition", state = 0 });
+                    return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'édition", state = 0 });
                 }
-                return RedirectToAction("Index", "Food", new { id = popup.Id, message = popup.Message, state = popup.State });
+                return RedirectToAction("Index", "Foods", new { id = popup.Id, message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Index", "Food", new {  message = "Erreur dans l'édition", state = 0 });
+            return RedirectToAction("Index", "Foods", new {  message = "Erreur dans l'édition", state = 0 });
         }
 
         // GET: Foods/Delete/5
@@ -136,7 +136,7 @@ namespace DairyFarm.Web.Controllers
                 Message = "Supprimé"
             };
             _dairyFarmService.DeleteFood(id);
-            return RedirectToAction("Index", "Food", new {  message = popup.Message, state = popup.State });
+            return RedirectToAction("Index", "Foods", new {  message = popup.Message, state = popup.State });
         }
 
    

@@ -7,7 +7,16 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Creer nouvelle bête", "Create")
+    @Ajax.ActionLink("Creer nouveau bête ",
+        "Create", "Herds", new{id="ajax"},
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "CreateHerd",
+            OnSuccess = "dialogBox('CreateHerd');"
+        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
 </p>
 @{
     int i = 0;
@@ -31,7 +40,7 @@
             OnSuccess = "dialogBox('divChangeHerd');"
         }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
 
-        <label> Nombre de places disponibles : @list.ElementAt(0).Herd.AvailablePlaces</label>
+        <label>Type du troupeau: @list.ElementAt(0).Herd.CattleType.Label &nbsp;&nbsp;&nbsp; Nombre de places disponibles : @list.ElementAt(0).Herd.AvailablePlaces</label>
         <div class='@i collapse in'>
             @{i++;}
             <table class="table">
@@ -39,9 +48,13 @@
                     <th>
                         Code
                     </th>
-                    <th>
-                        en gestation
-                    </th>
+                    @if (list.ElementAt(0).Herd.CattleType.Sex == "F")
+                    {
+                        <th>
+                            en gestation
+                        </th>
+                    }
+                    
                     <th>
                         Malade
                     </th>
@@ -64,7 +77,7 @@
                              <td>
                                  @Html.DisplayFor(modelItem => cattle.CodeCattle)
                              </td>
-                             @if (cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null) != null)
+                             @if (cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null) != null && cattle.Herd.CattleType.Sex=="F")
                              {
                                  <td>
                                      <input type="checkbox" checked disabled>
@@ -120,8 +133,10 @@
     }
 
 }
+
 <div id="divChangeHerd"></div>
 <div id="divDelete"></div>
+<div id="CreateHerd"></div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/custom")
@@ -143,7 +158,6 @@
         });
 
         $(document).ready(function () {
-
 
             @if (@ViewBag.Message != null)
        {

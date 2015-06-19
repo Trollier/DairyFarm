@@ -150,7 +150,7 @@ $('#IsGestation').click(function () {
         $('#newGestation').click();
 
     } else {
-        $('#divGestation').empty();
+        $('#divDeGestation').empty();
     }
 
 });
