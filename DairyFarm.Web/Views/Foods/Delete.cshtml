@@ -1,0 +1,40 @@
+﻿@model DairyFarm.Core.DAL.Food
+
+@{
+    ViewBag.Title = "Suppresion d'une nouriiture";
+}
+
+<h2>Delete</h2>
+
+<h3>Etes vous sur de vouloir supprimé cette nourriture?</h3>
+<div>
+    <h4>Food</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Label)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Label)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Retour à la liste des nourriture", "Index")
+        </div>
+    }
+</div>

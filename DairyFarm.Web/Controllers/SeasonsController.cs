@@ -7,18 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.Core.DAL;
+using DairyFarm.Service;
 using DairyFarm.Web.Models;
 
 namespace DairyFarm.Controllers
 {
     public class SeasonsController : Controller
     {
-        private DairyFarmEntities db = new DairyFarmEntities();
+        //private DairyFarmEntities db = new DairyFarmEntities();
+        private readonly IDairyFarmService _dairyFarmService;
 
+        public SeasonsController(IDairyFarmService dairyFarmService)
+        {
+            _dairyFarmService = dairyFarmService;
+        }
         // GET: Seasons
         public ActionResult Index()
         {
-            return View(db.Seasons.ToList());
+            return View(_dairyFarmService.GetSeasons());
         }
 
         // GET: Seasons/Details/5
@@ -28,7 +34,7 @@ namespace DairyFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Season season = db.Seasons.Find(id);
+            Season season = _dairyFarmService.GetSeasonById(id);
             if (season == null)
             {
                 return HttpNotFound();
@@ -43,26 +49,24 @@ namespace DairyFarm.Controllers
         }
 
         // POST: Seasons/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create( Season season)
         {
             if (ModelState.IsValid)
             {
-                db.Seasons.Add(season);
-                db.SaveChanges();
                 var popup = new MessageInfo
                 {
                     State = 1,
-                    Message = "Saison bien ajouté",
-                    Id = "Seasons"
+                    Message = "Saison bien ajouté"
                 };
-                return RedirectToAction("Main", "Management", new { id = popup.Id, message = popup.Message, state = popup.State });
+                if (_dairyFarmService.AddSeason(season) == false)
+                {
+                    return RedirectToAction("Index", "Seasons", new { message = "Erreur dans l'ajout", state = 0 });
+                }
+                return RedirectToAction("Index", "Seasons", new { message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Main", "Management", new { id = "Seasons", message = "Erreur dans l'ajout", state = 0 });
-            return View(season);
+            return RedirectToAction("Index", "Seasons", new { message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Seasons/Edit/5
@@ -72,7 +76,7 @@ namespace DairyFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Season season = db.Seasons.Find(id);
+            Season season = _dairyFarmService.GetSeasonById(id);
             if (season == null)
             {
                 return HttpNotFound();
@@ -81,19 +85,24 @@ namespace DairyFarm.Controllers
         }
 
         // POST: Seasons/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdSeason,Label,StartDate,EndDate")] Season season)
+        public ActionResult Edit(Season season)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(season).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "Saison bien édité"
+                };
+                if (_dairyFarmService.EditSeason(season) == false)
+                {
+                    return RedirectToAction("Index", "Seasons", new { message = "Erreur dans l'édition", state = 0 });
+                }
+                return RedirectToAction("Index", "Seasons", new {  message = popup.Message, state = popup.State });
             }
-            return View(season);
+            return RedirectToAction("Index", "Seasons", new {  message = "Erreur dans l'édition", state = 0 });
         }
 
         // GET: Seasons/Delete/5
@@ -103,7 +112,7 @@ namespace DairyFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Season season = db.Seasons.Find(id);
+            Season season = _dairyFarmService.GetSeasonById(id);
             if (season == null)
             {
                 return HttpNotFound();
@@ -116,19 +125,15 @@ namespace DairyFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Season season = db.Seasons.Find(id);
-            db.Seasons.Remove(season);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var popup = new MessageInfo
+            {
+              State = 1,
+                Message = "Supprimé",
+               
+            };
+            _dairyFarmService.DeleteFood(id);
+            return RedirectToAction("Index", "Seasons", new { message = popup.Message, state = popup.State });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

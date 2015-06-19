@@ -6,8 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using DairyFarm.Core.DAL;
 using DairyFarm.Service;
+using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
@@ -21,8 +23,13 @@ namespace DairyFarm.Web.Controllers
             _dairyFarmService = dairyFarmService;
         }
         // GET: Herds
-        public ActionResult Index()
+        public ActionResult Index(string message, int? state)
         {
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             var herds = _dairyFarmService.GetHerdsIncludeCattle();
             return View(herds.ToList());
         }
@@ -59,13 +66,21 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "troupeau bien créé"
+                };
                 herd.AvailablePlaces = herd.MaxAnimals;
-                _dairyFarmService.AddHerd(herd);
-                return RedirectToAction("Index");
+                if (_dairyFarmService.AddHerd(herd) == false)
+                {
+                    popup.State = 0;
+                    popup.Message = "Erreur à la création";
+                }
+                return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
             }
-
             ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label", herd.IdCattleType);
-            return View(herd);
+            return RedirectToAction("Create", new { message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Herds/Edit/5
@@ -84,25 +99,32 @@ namespace DairyFarm.Web.Controllers
             return View(herd);
         }
 
-        // POST: Herds/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Herd herd)
         {
             if (ModelState.IsValid)
             {
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "troupeau bien édité"
+                };
                 var dbHerd = _dairyFarmService.GetHerdById(herd.IdHerd);
                 dbHerd.Label = herd.Label;
                 var available = herd.MaxAnimals - dbHerd.MaxAnimals + dbHerd.AvailablePlaces;
                 dbHerd.AvailablePlaces = available;
                 dbHerd.MaxAnimals = herd.MaxAnimals;
-                _dairyFarmService.EditHerd(dbHerd);
-                return RedirectToAction("Index");
+                if (_dairyFarmService.EditHerd(dbHerd) == false)
+                {
+                    popup.State = 0;
+                    popup.Message = "erreur dans l'édition";
+                }
+                return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
             }
             ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label", herd.IdCattleType);
-            return View(herd);
+            return RedirectToAction("Create", new { message = "Erreur dans l'édition", state = 0 });
         }
 
         // GET: Herds/Delete/5
@@ -127,8 +149,17 @@ namespace DairyFarm.Web.Controllers
         {
             Herd herd = _dairyFarmService.GetHerdById(id);
             herd.Active = true;
-            _dairyFarmService.EditHerd(herd);
-            return RedirectToAction("Index");
+            var popup = new MessageInfo
+            {
+                State = 1,
+                Message = "troupeau bien supprimé"
+            };
+            if (_dairyFarmService.EditHerd(herd) == false)
+            {
+                popup.State = 0;
+                popup.Message = "erreur dans la suppression";
+            }
+            return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
         }
 
     

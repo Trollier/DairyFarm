@@ -479,6 +479,9 @@
     <Content Include="Views\Herds\Create.cshtml" />
     <Content Include="Views\Herds\Edit.cshtml" />
     <Content Include="Views\Herds\Delete.cshtml" />
+    <Content Include="Views\Foods\Delete.cshtml" />
+    <Content Include="Views\Seasons\Edit.cshtml" />
+    <Content Include="Views\Seasons\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

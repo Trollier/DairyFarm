@@ -87,4 +87,36 @@
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
     @Scripts.Render("~/bundles/bootstrap-dialog")
+<script>
+        $(document).ready(function () {
+
+            @if (@ViewBag.Message != null)
+       {
+        <text>
+
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
+
+
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
+    }
+
+
+        });
+
+</script>
 }

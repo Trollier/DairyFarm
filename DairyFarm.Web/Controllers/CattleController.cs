@@ -191,7 +191,7 @@ namespace DairyFarm.Web.Controllers
                 if (cattleCreateViewModel.CurrentGestation != null)
                 {
                     cattleCreateViewModel.CurrentGestation.IdCattle = cattle.IdCattle;
-                    if (_dairyFarmService.AddDGestation(cattleCreateViewModel.CurrentGestation) == false)
+                    if (_dairyFarmService.AddGestation(cattleCreateViewModel.CurrentGestation) == false)
                     {
                         popup.State = 0;
                     }

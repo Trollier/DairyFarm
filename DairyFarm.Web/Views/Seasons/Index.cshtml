@@ -1,7 +1,24 @@
-﻿@{ Layout = null;}
-@model IEnumerable<DairyFarm.Core.DAL.Season>
+﻿@model IEnumerable<DairyFarm.Core.DAL.Season>
 
+@{
+    ViewBag.Title = "Index";
+}
 
+<h2>Index</h2>
+
+<p>
+   
+    @Ajax.ActionLink("Ajouter",
+        "Create", "Seasons",
+        new { id = "newFood" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createFood",
+            OnSuccess = "dialogBox('createFood');"
+        })
+</p>
 <table class="table">
     <tr>
         <th>
@@ -16,44 +33,67 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Label)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Ajax.ActionLink("Editer",
-                    "Edit", "Seasons",
-                    new {id = item.IdSeason},
-                    new AjaxOptions
-                    {
-                        HttpMethod = "GET",
-                        InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "editFood",
-                        OnSuccess = "dialogBox('createSeason');"
-                    })
-            </td>>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Label)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Ajax.ActionLink("Editer",
+                "Edit", "Seasons",
+                new { id = item.IdSeason },
+                new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "editFood",
+                    OnSuccess = "dialogBox('editFood');"
+                }, htmlAttributes: new { @class = "btn btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdSeason })
+        </td>
+    </tr>
+}
 
 </table>
-
-@Ajax.ActionLink("Ajouter",
-        "Create", "Seasons",
-        new { id = "newSeason" },
-        new AjaxOptions
-        {
-            HttpMethod = "GET",
-            InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "createSeason",
-            OnSuccess = "dialogBox('createSeason');"
-        })
-<div id="createSeason" class="DisplayNone"></div>
+<div id="createFood" class="DisplayNone"></div>
 <div id="editFood" class="DisplayNone"></div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+
+    <script>
+        $(document).ready(function () {
+            @if (@ViewBag.Message != null)
+       {
+        <text>
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
+    }
+        });
+
+    </script>
+}

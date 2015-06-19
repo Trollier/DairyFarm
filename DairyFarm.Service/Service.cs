@@ -11,286 +11,565 @@ namespace DairyFarm.Service
 {
    public class DairyFarmService : IDairyFarmService
     {
-       private readonly DairyFarmEntities _db;
-       public DairyFarmService(DairyFarmEntities db)
-       {
+        private readonly DairyFarmEntities _db;
+        public DairyFarmService(DairyFarmEntities db)
+        {
             this._db = db;
-       }
-
-       #region Cattle
-       public bool AddCattle(Cattle cattle)
-       {
-           try
-           {
-               
-               _db.Cattles.Add(cattle);
-               _db.SaveChanges();
-               var herd = GetHerdById(cattle.IdHerd);
-               herd.AvailablePlaces--;
-               EditHerd(herd);
-               return true;
-           }
-           catch
-           {
-               return false;
-
-           }
-       }
-
-       public Cattle GetCattleById(int? id)
-       {
-           return _db.Cattles.Find(id);
-       }
-
-       public IEnumerable<Cattle> GetCattles()
-       {
-           return _db.Cattles;
-       }
-
-       public IQueryable<IGrouping<int, Cattle>> IndexCattle()
-       {
-          return  _db.Cattles.Where(c => c.Active != true ).GroupBy(c => c.IdHerd);
-       }
-       public bool EditCattle(Cattle cattle)
-       {
-           try
-           {
-               _db.Entry(cattle).State = EntityState.Modified;
-               _db.SaveChanges();
-               return true;
-
-           }
-           catch
-           {
-               return false;
-
-           }
-       }
-
-       public bool DeleteCattle(int id)
-       {
-           var cattle = GetCattleById(id);
-           cattle.Active = true;
-           return EditCattle(cattle);
-       }
-
-       public IEnumerable<Cattle> GetCattleInQuarantine()
-       {
-           return _db.Cattles.Where(c => c.InQuarantine == true).ToList();
-       }
-
-       public IEnumerable<Cattle> GetCattlesMilk()
-       {
-           try
-           {
-               return _db.Cattles.Where(c => c.Herd.IdCattleType == 3 && c.Active == true);
-           }
-           catch (Exception)
-           {
-
-               return null;
-           }
-       }
-       #endregion
-       #region DiseaseHistory
-       public bool AddDiseasesHistory(DiseasesHistory diseasesHistory)
-       {
-           try
-           {
-               _db.DiseasesHistories.Add(diseasesHistory);
-               _db.SaveChanges();
-               return true;
-           }
-           catch
-           {
-               return false;
-           }
-
-       }
-
+        }
        
-       #endregion
-       #region MedicalTreatments
-       public IEnumerable<MedicalTreatment> GetMedicalTreatments()
-       {
-           return _db.MedicalTreatments;
-       }
-       public MedicalTreatment GetMedicalTreatmentById(int? id)
-       {
-           return _db.MedicalTreatments.Find(id);
-       }
-       #endregion
-       #region Gestation
-       public bool AddDGestation(Gestation gestation)
-       {
-           try
-           {
-               _db.Gestations.Add(gestation);
-               _db.SaveChanges();
-               return true;
-           }
-           catch
-           {
-               return false;
-           }
-       }
-       #endregion
-       #region Disease
-       public IEnumerable<Disease> GetDiseases()
-       {
-           return _db.Diseases;
+       
+        /* ------------------------ Cattle --------------------------------*/
+        #region Cattle
 
-       }
+        public Cattle GetCattleById(int? id)
+        {
+            return _db.Cattles.Find(id);
+        }
 
-       public Disease GetDiseaseById(int? id)
-       {
-           return _db.Diseases.Find(id);
-       }
+        public IEnumerable<Cattle> GetCattles()
+        {
+            return _db.Cattles;
+        }
 
-       public bool GetDiseaseContagious(int? id)
-       {
-           return _db.Diseases.Find(id).Contagious;
-       }
-       public IEnumerable<Cattle> GetCattlesByHerd(int idHerd)
-       {
-           return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active==false).ToList();
-       }
-       #endregion
-       #region CattleType
-       public IEnumerable<CattleType> GetCattleTypes()
-       {
-           return _db.CattleTypes;
-       }
-       #endregion
-       #region Herd
-       public IEnumerable<Herd> GetHerds()
-       {
-           return _db.Herds.Where(h=>h.MaxAnimals-h.AvailablePlaces != 0);
-       }
-       public Herd GetHerdById(int idHerd)
-       {
-           return  _db.Herds.Find(idHerd);
-       }
-       public IEnumerable<Herd> GetHerdListById(int idHerd)
-       {
-           var herdSelect = _db.Herds.Find(idHerd);
-           return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd && herdSelect.AvailablePlaces!=0).ToList();
-       }
-       public bool EditHerd(Herd herd)
-       {
-           try
-           {
-               _db.Entry(herd).State = EntityState.Modified;
-               _db.SaveChanges();
-               return true;
+        public IQueryable<IGrouping<int, Cattle>> IndexCattle()
+        {
+            return  _db.Cattles.Where(c => c.Active == true ).GroupBy(c => c.IdHerd);
+        }
 
-           }
-           catch
-           {
-               return false;
+        public IEnumerable<Cattle> GetCattleInQuarantine()
+        {
+            return _db.Cattles.Where(c => c.InQuarantine == true).ToList();
+        }
 
-           }
-       }
-       public void DecrementHerd(int id)
-       {
-           var herd = GetHerdById(id);
-           herd.AvailablePlaces--;
-           EditHerd(herd);
-       }
-       public void IncrementHerd(int id)
-       {
-           var herd = GetHerdById(id);
-           herd.AvailablePlaces++;
-           EditHerd(herd);
-       }
-       #endregion
-       #region CattleProduction
-       public IEnumerable<CattleProduction> GetCattleProductions()
-       {
-           return _db.CattleProductions.Include(c => c.Cattle);
-       }
+        public IEnumerable<Cattle> GetCattlesMilk()
+        {
+            try
+            {
+                return _db.Cattles.Where(c => c.Herd.IdCattleType == 3 && c.Active == true);
+            }
+            catch (Exception)
+            {
 
-       public bool AddCattleProduction(CattleProduction cattleProduction)
-       {
-           try
-           {
-               _db.CattleProductions.Add(cattleProduction);
-               _db.SaveChanges();
-               return true;
-           }
-           catch
-           {
-               return false;
-           }
-       }
+                return null;
+            }
+        }
+       
+        public bool AddCattle(Cattle cattle)
+        {
+            try
+            {
+               
+                _db.Cattles.Add(cattle);
+                _db.SaveChanges();
+                var herd = GetHerdById(cattle.IdHerd);
+                herd.AvailablePlaces--;
+                EditHerd(herd);
+                return true;
+            }
+            catch
+            {
+                return false;
 
-       public CattleProduction GetCattleProductionById(int? id)
-       {
-           return _db.CattleProductions.Find(id);
-       }
-       public IEnumerable<CattleProduction> GetYesterdayProd(DateTime date)
-       {
-           var yesterday = DateTime.Today.AddDays(-1);
-           return _db.CattleProductions.Where(c => c.Dateprod.Month == yesterday.Month && c.Dateprod.Day == yesterday.Day).ToList();
-       }
-       public bool EditCattleProductions(CattleProduction cattleProduction)
-       {
-           try
-           {
-               _db.Entry(cattleProduction).State = EntityState.Modified;
-               _db.SaveChanges();
-               return true;
+            }
+        }
+        public bool EditCattle(Cattle cattle)
+        {
+            try
+            {
+                _db.Entry(cattle).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
 
-           }
-           catch
-           {
-               return false;
+            }
+            catch
+            {
+                return false;
 
-           }
-       }
-       public IEnumerable<CattleProduction> GetProductionsByDate(DateTime date)
-       {
-           return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day &&  d.Cattle.Active==true);
-       }
-       public IEnumerable<CattleProduction> GetProductions()
-       {
-           return _db.CattleProductions.Where(d=>d.Cattle.Active == true);
-       }
+            }
+        }
+        public bool DeleteCattle(int id)
+        {
+            var cattle = GetCattleById(id);
+            cattle.Active = true;
+            return EditCattle(cattle);
+        }
+        #endregion Cattle
 
-       public bool AddHerd(Herd herd)
-       {
-           try
-           {
+       /* ------------------------ Herds --------------------------------*/
+        #region Herds
+        public Herd GetHerdById(int idHerd)
+        {
+            return  _db.Herds.Find(idHerd);
+        }
+        public IEnumerable<Herd> GetHerds()
+        {
+            return _db.Herds.Where(h=>h.MaxAnimals-h.AvailablePlaces != 0);
+        }
 
-               _db.Herds.Add(herd);
-               _db.SaveChanges();
-               return true;
-           }
-           catch
-           {
-               return false;
+        public IEnumerable<Herd> GetHerdListById(int idHerd)
+        {
+            var herdSelect = _db.Herds.Find(idHerd);
+            return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd && herdSelect.AvailablePlaces!=0).ToList();
+        }
+        public void DecrementHerd(int id)
+        {
+            var herd = GetHerdById(id);
+            herd.AvailablePlaces--;
+            EditHerd(herd);
+        }
+        public void IncrementHerd(int id)
+        {
+            var herd = GetHerdById(id);
+            herd.AvailablePlaces++;
+            EditHerd(herd);
+        }
+        public bool EditHerd(Herd herd)
+        {
+            try
+            {
+                _db.Entry(herd).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
 
-           }
-       }
+            }
+            catch
+            {
+                return false;
 
-       public IQueryable<Herd> GetHerdsIncludeCattle()
-       {
-           return _db.Herds.Where(c => c.Active == false).Include(h => h.CattleType);
-       }
-       #endregion
-       #region Food
-       #endregion
-       #region Season
-       #endregion
-       #region Meal
-       #endregion
+            }
+        }
+        public bool DeleteCHerd(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion Herds
+
+        /* ------------------------ Diseases --------------------------------*/
+        #region Diseases
+        public IEnumerable<Disease> GetDiseases()
+        {
+            return _db.Diseases;
+
+        }
+
+        public Disease GetDiseaseById(int? id)
+        {
+            return _db.Diseases.Find(id);
+        }
+
+        public bool GetDiseaseContagious(int? id)
+        {
+            return _db.Diseases.Find(id).Contagious;
+        }
+        public IEnumerable<Cattle> GetCattlesByHerd(int idHerd)
+        {
+            return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active==false).ToList();
+        }
+
+        public bool AddDisease(Disease disease)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditDisease(Disease disease)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteCDisease(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion Diseases
+        /* ------------------------ DiseasesHistory --------------------------------*/
+        #region DiseasesHistory
+        public DiseasesHistory GetDiseasesHistoryById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DiseasesHistory> GetDiseasesHistories()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddDiseasesHistory(DiseasesHistory diseasesHistory)
+        {
+            try
+            {
+                _db.DiseasesHistories.Add(diseasesHistory);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public bool EditDiseasesHistory(DiseasesHistory diseasesHistory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteCDiseasesHistory(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion DiseasesHistory
+
+        /* ------------------------ MedicalTreatment --------------------------------*/
+        #region MedicalTreatment
+        public IEnumerable<MedicalTreatment> GetMedicalTreatments()
+        {
+            return _db.MedicalTreatments;
+        }
+        public MedicalTreatment GetMedicalTreatmentById(int? id)
+        {
+            return _db.MedicalTreatments.Find(id);
+        }
 
 
+        public bool AddMedicalTreatment(MedicalTreatment medicalTreatment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditMedicalTreatment(MedicalTreatment medicalTreatment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteCMedicalTreatment(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion MedicalTreatment
+       
+        /* ------------------------ Gestations --------------------------------*/
+        #region Gestations
+        public Gestation GetGestationById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Gestation> GetGestations()
+        {
+            throw new NotImplementedException();
+        }
+        
+        public bool AddGestation(Gestation gestation)
+        {
+            try
+            {
+                _db.Gestations.Add(gestation);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool EditGestation(Gestation gestation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteCGestation(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion Gestations
+
+        /* ------------------------ Food --------------------------------*/
+        #region Food
+        public Food GetFoodById(int? id)
+        {
+            return _db.Foods.Find(id);
+        }
+        public IEnumerable<Food> GetFoods()
+        {
+            return _db.Foods.ToList();
+        }
+
+        public bool AddFood(Food food)
+        {
+            try
+            {
+
+                _db.Foods.Add(food);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+
+        public bool EditFood(Food food)
+        {
+            try
+            {
+                _db.Entry(food).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+
+        public bool DeleteFood(int id)
+        {
+            try
+            {
+                Food food = _db.Foods.Find(id);
+                _db.Foods.Remove(food);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+        #endregion Food 
+        
+        /* ------------------------ CattleProductions --------------------------------*/
+        #region CattleProduction
+        public CattleProduction GetCattleProductionById(int? id)
+        {
+            return _db.CattleProductions.Find(id);
+        }
+        public IEnumerable<CattleProduction> GetCattleProductions()
+        {
+            return _db.CattleProductions.Include(c => c.Cattle);
+        }
 
 
-     
+        public IEnumerable<CattleProduction> GetYesterdayProd(DateTime date)
+        {
+            var yesterday = DateTime.Today.AddDays(-1);
+            return _db.CattleProductions.Where(c => c.Dateprod.Month == yesterday.Month && c.Dateprod.Day == yesterday.Day).ToList();
+        }
+        public IEnumerable<CattleProduction> GetProductionsByDate(DateTime date)
+        {
+            return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day &&  d.Cattle.Active==true);
+        }
+        public IEnumerable<CattleProduction> GetProductions()
+        {
+            return _db.CattleProductions.Where(d=>d.Cattle.Active == true);
+        }
+
+        public bool AddHerd(Herd herd)
+        {
+            try
+            {
+
+                _db.Herds.Add(herd);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+
+        public IQueryable<Herd> GetHerdsIncludeCattle()
+        {
+            return _db.Herds.Where(c => c.Active == false).Include(h => h.CattleType);
+        }
+        public bool AddCattleProduction(CattleProduction cattleProduction)
+        {
+            try
+            {
+                _db.CattleProductions.Add(cattleProduction);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool EditCattleProductions(CattleProduction cattleProduction)
+        {
+            try
+            {
+                _db.Entry(cattleProduction).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+        public bool DeleteCattleProduction(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion CattleProductions
+       
+        /* ------------------------ Meals --------------------------------*/
+        #region Meals
+        public Meal GetMealById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Meal> GetMeals()
+        {
+            throw new NotImplementedException();
+        }
 
 
+        public bool AddMeal(Meal meal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditMeal(Meal meal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteMeal(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion Meals
+
+        /* ------------------------ Diets --------------------------------*/
+        #region Diets
+        public Diet GetDietById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Diet> GetDiets()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddDiet(Diet diet)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditDiet(Diet diet)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteDiet(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Diets
+
+        /* ------------------------ Seasons --------------------------------*/
+        #region Seasons
+        public Season GetSeasonById(int? id)
+        {
+            return _db.Seasons.Find(id);
+        }
+
+        public IEnumerable<Season> GetSeasons()
+        {
+            return _db.Seasons.ToList();
+        }
+        
+
+        public bool AddSeason(Season season)
+        {
+            try
+            {
+
+                _db.Seasons.Add(season);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+
+        public bool EditSeason(Season season)
+        {
+            try
+            {
+                _db.Entry(season).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+
+        public bool DeleteSeason(int id)
+        {
+            try
+            {
+                Season season = _db.Seasons.Find(id);
+                _db.Seasons.Remove(season);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+        #endregion Seasons
+
+        /* ------------------------ CattleTypes --------------------------------*/
+        #region CattleTypes
+        public CattleType GetCattleTypeById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<CattleType> GetCattleTypes()
+        {
+            return _db.CattleTypes;
+        }
+        
+
+        public bool AddCattleType(CattleType cattleType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EditCattleType(CattleType cattleType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteCattleType(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion CattleTypes
 
     }
 }

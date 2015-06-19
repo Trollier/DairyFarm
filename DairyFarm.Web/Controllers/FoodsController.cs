@@ -8,18 +8,24 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DairyFarm.Core.DAL;
+using DairyFarm.Service;
 using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
     public class FoodsController : Controller
     {
-        private DairyFarmEntities db = new DairyFarmEntities();
+        //private DairyFarmEntities db = new DairyFarmEntities();
+        private readonly IDairyFarmService _dairyFarmService;
 
+        public FoodsController(IDairyFarmService dairyFarmService)
+        {
+            _dairyFarmService = dairyFarmService;
+        }
         // GET: Foods
         public ActionResult Index()
         {
-            return View(db.Foods.ToList());
+            return View(_dairyFarmService.GetFoods());
         }
 
         // GET: Foods/Details/5
@@ -29,7 +35,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Food food = db.Foods.Find(id);
+            Food food = _dairyFarmService.GetFoodById(id);
             if (food == null)
             {
                 return HttpNotFound();
@@ -52,17 +58,19 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Foods.Add(food);
-                db.SaveChanges();
+               
                 var popup = new MessageInfo
                 {
                     State = 1,
-                    Message = "Nourriture bien ajouté",
-                    Id = "Foods"
+                    Message = "Nourriture bien ajouté"
                 };
-                return RedirectToAction("Main", "Management", new { id = popup.Id, message = popup.Message, state = popup.State });
+                 if (_dairyFarmService.AddFood(food)==false)
+                {
+                    return RedirectToAction("Index", "Food", new { message = "Erreur dans l'ajout", state = 0 });
+                }
+                return RedirectToAction("Index", "Food", new {  message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Main", "Management", new { id = "Foods", message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Index", "Food", new {  message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Foods/Edit/5
@@ -72,7 +80,8 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Food food = db.Foods.Find(id);
+            Food food = _dairyFarmService.GetFoodById(id);
+
             if (food == null)
             {
                 return HttpNotFound();
@@ -80,26 +89,25 @@ namespace DairyFarm.Web.Controllers
             return View(food);
         }
 
-        // POST: Foods/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( Food food)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(food).State = EntityState.Modified;
-                db.SaveChanges();
                 var popup = new MessageInfo
                 {
                     State = 1,
-                    Message = "Nourriture bien édité",
-                    Id = "Foods"
+                    Message = "Nourriture bien édité"
                 };
-                return RedirectToAction("Main", "Management", new { id = popup.Id, message = popup.Message, state = popup.State });
+                if (_dairyFarmService.EditFood(food) == false)
+                {
+                    return RedirectToAction("Index", "Food", new { message = "Erreur dans l'édition", state = 0 });
+                }
+                return RedirectToAction("Index", "Food", new { id = popup.Id, message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Main", "Management", new { id = "Foods", message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Index", "Food", new {  message = "Erreur dans l'édition", state = 0 });
         }
 
         // GET: Foods/Delete/5
@@ -109,7 +117,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Food food = db.Foods.Find(id);
+            Food food = _dairyFarmService.GetFoodById(id);
             if (food == null)
             {
                 return HttpNotFound();
@@ -122,19 +130,15 @@ namespace DairyFarm.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Food food = db.Foods.Find(id);
-            db.Foods.Remove(food);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var popup = new MessageInfo
+            {
+                State = 1,
+                Message = "Supprimé"
+            };
+            _dairyFarmService.DeleteFood(id);
+            return RedirectToAction("Index", "Food", new {  message = popup.Message, state = popup.State });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+   
     }
 }
