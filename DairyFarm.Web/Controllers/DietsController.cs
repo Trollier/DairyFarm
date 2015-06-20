@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using DairyFarm.Core.DAL;
 using DairyFarm.Service;
 using DairyFarm.Web.Models;
@@ -47,9 +48,9 @@ namespace DairyFarm.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.IdSeason = new SelectList(_dairyFarmService.GetSeasons(), "IdSeason", "Label");
-            ViewBag.IdFood = new SelectList(_dairyFarmService.GetFoods(), "IdFood", "Label");
-            ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label");
-            return View();
+            ViewBag.IdFoods = new SelectList(_dairyFarmService.GetFoods(), "IdFood", "Label");
+            ViewBag.IdCattleTypes = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label");
+            return PartialView();
         }
 
         [HttpPost]
@@ -58,7 +59,14 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                foreach (var idFood in diet.IdFoods)
+                {
+                    diet.Foods.Add(_dairyFarmService.GetFoodById(idFood));
+                }
+                foreach (var idCattleType in diet.IdCattleTypes)
+                {
+                    diet.CattleTypes.Add(_dairyFarmService.GetCattleTypeById(idCattleType));
+                }
                 var popup = new MessageInfo
                 {
                     State = 1,
@@ -66,11 +74,11 @@ namespace DairyFarm.Web.Controllers
                 };
                 if (_dairyFarmService.AddDiet(diet) == false)
                 {
-                    return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'ajout", state = 0 });
+                    return RedirectToAction("Index", "Diets", new { message = "Erreur dans l'ajout", state = 0 });
                 }
-                return RedirectToAction("Index", "Foods", new { message = popup.Message, state = popup.State });
+                return RedirectToAction("Index", "Diets", new { message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Index", "Diets", new { message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Diets/Edit/5
@@ -86,6 +94,8 @@ namespace DairyFarm.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdSeason = new SelectList(_dairyFarmService.GetSeasons(), "IdSeason", "Label", diet.IdSeason);
+            ViewBag.IdFoods = new MultiSelectList(_dairyFarmService.GetFoods(), "IdFood", "Label", diet.Foods.Select(m => m.IdFood).ToArray());
+            ViewBag.IdCattleTypes = new MultiSelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label", diet.CattleTypes.Select(m => m.IdCattleType).ToArray());
             return View(diet);
         }
 
@@ -96,19 +106,34 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var dietEdit = _dairyFarmService.GetDietById(diet.IdDiet);
+                dietEdit.Foods.Clear();
+                dietEdit.CattleTypes.Clear();
+                foreach (var idFood in diet.IdFoods)
+                {
+                    dietEdit.Foods.Add(_dairyFarmService.GetFoodById(idFood));
+                }
+                foreach (var idCattleType in diet.IdCattleTypes)
+                {
+                    dietEdit.CattleTypes.Add(_dairyFarmService.GetCattleTypeById(idCattleType));
+                }
+
+                dietEdit.IdSeason = diet.IdSeason;
+                dietEdit.Label = diet.Label;
+                
                 var popup = new MessageInfo
                {
                    State = 1,
                    Message = "Nourriture bien édité"
                };
-                if (_dairyFarmService.EditDiet(diet) == false)
+                if (_dairyFarmService.EditDiet(dietEdit) == false)
                 {
-                    return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'édition", state = 0 });
+                    return RedirectToAction("Index", "Diets", new { message = "Erreur dans l'édition", state = 0 });
                 }
-                return RedirectToAction("Index", "Foods", new { id = popup.Id, message = popup.Message, state = popup.State });
+                return RedirectToAction("Index", "Diets", new { id = popup.Id, message = popup.Message, state = popup.State });
 
             }
-            return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'édition", state = 0 });
+            return RedirectToAction("Index", "Diets", new { message = "Erreur dans l'édition", state = 0 });
         }
 
         // GET: Diets/Delete/5

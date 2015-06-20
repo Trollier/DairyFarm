@@ -277,6 +277,9 @@ function dialogBox(variable) {
     $('#' + variable + ' ').dialog("open");
     $("#IdChangeCattle").select2();
     $("#IdChangeHerd").select2();
+    $("#IdSeason").select2();
+    $("#IdFoods").select2();
+    $("#IdCattleTypes").select2();
 }
 
 function getUrlParameter(sParam) {

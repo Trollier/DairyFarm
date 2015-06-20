@@ -11,7 +11,7 @@ namespace DairyFarm.Web.Models
         public int IdDiet { get; set; }
         public int IdSeason { get; set; }
         public string Label { get; set; }
-        public ICollection<CattleType> CattleTypes { get; set; }
-        public ICollection<Food> Foods { get; set; }
+        public ICollection<int> CattleTypes { get; set; }
+        public ICollection<int> Foods { get; set; }
     }
 }
