@@ -7,17 +7,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.Core.DAL;
+using DairyFarm.Service;
+using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
     public class DiseasesController : Controller
     {
-        private DairyFarmEntities _db = new DairyFarmEntities();
+       // private DairyFarmEntities _db = new DairyFarmEntities();
+        private readonly IDairyFarmService _dairyFarmService;
 
-        // GET: Diseases
-        public ActionResult Index()
+        public DiseasesController(IDairyFarmService dairyFarmService)
         {
-            return View("Manage", _db.Diseases.ToList());
+            _dairyFarmService = dairyFarmService;
+        }
+        // GET: Diseases
+        public ActionResult Index(string message, int? state)
+        {
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
+            return View(_dairyFarmService.GetDiseases());
         }
 
         // GET: Diseases/Details/5
@@ -27,7 +39,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disease disease = _db.Diseases.Find(id);
+            Disease disease = _dairyFarmService.GetDiseaseById(id);
             if (disease == null)
             {
                 return HttpNotFound();
@@ -35,27 +47,32 @@ namespace DairyFarm.Web.Controllers
             return View(disease);
         }
 
-        // GET: Diseases/Create
+        
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Diseases/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+   
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdDisease,Label,Contagious")] Disease disease)
+        public ActionResult Create(Disease disease)
         {
             if (ModelState.IsValid)
             {
-                _db.Diseases.Add(disease);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(disease);
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "Maladie bien ajouté"
+                };
+                if (_dairyFarmService.AddDisease(disease) == false)
+                {
+                    return RedirectToAction("Index", "Diseases", new { message = "Erreur dans l'ajout", state = 0 });
+                }
+                return RedirectToAction("Index", "Diseases", new { message = popup.Message, state = popup.State });
+            }
+            return RedirectToAction("Index", "Diseases", new { message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Diseases/Edit/5
@@ -65,7 +82,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disease disease = _db.Diseases.Find(id);
+            Disease disease = _dairyFarmService.GetDiseaseById(id);
             if (disease == null)
             {
                 return HttpNotFound();
@@ -73,20 +90,25 @@ namespace DairyFarm.Web.Controllers
             return View(disease);
         }
 
-        // POST: Diseases/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdDisease,Label,Contagious")] Disease disease)
+        public ActionResult Edit(Disease disease)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(disease).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                var popup = new MessageInfo
+                {
+                    State = 1,
+                    Message = "Maladie bien édité"
+                };
+                if (_dairyFarmService.EditDisease(disease) == false)
+                {
+                    return RedirectToAction("Index", "Diseases", new { message = "Erreur dans l'édition", state = 0 });
+                }
+                return RedirectToAction("Index", "Diseases", new { id = popup.Id, message = popup.Message, state = popup.State });
             }
-            return View(disease);
+            return RedirectToAction("Index", "Diseases", new { message = "Erreur dans l'édition", state = 0 });
         }
 
         // GET: Diseases/Delete/5
@@ -96,7 +118,7 @@ namespace DairyFarm.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Disease disease = _db.Diseases.Find(id);
+            Disease disease = _dairyFarmService.GetDiseaseById(id);
             if (disease == null)
             {
                 return HttpNotFound();
@@ -109,19 +131,15 @@ namespace DairyFarm.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Disease disease = _db.Diseases.Find(id);
-            _db.Diseases.Remove(disease);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            var popup = new MessageInfo
+            {
+                State = 1,
+                Message = "Supprimé"
+            };
+            _dairyFarmService.DeleteFood(id);
+            return RedirectToAction("Index", "Diseases", new { message = popup.Message, state = popup.State });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }

@@ -483,10 +483,17 @@
     <Content Include="Views\Seasons\Edit.cshtml" />
     <Content Include="Views\Seasons\Delete.cshtml" />
     <Content Include="Views\Shared\CreateNewHerd.cshtml" />
+    <Content Include="Views\Diseases\Create.cshtml" />
+    <Content Include="Views\Diseases\Edit.cshtml" />
+    <Content Include="Views\Diseases\Delete.cshtml" />
+    <Content Include="Views\Diseases\DeleteConfirmed.cshtml" />
+    <Content Include="Views\MedicalTreatments\Create.cshtml" />
+    <Content Include="Views\CattleTypes\Index.cshtml" />
+    <Content Include="Views\CattleTypes\Create.cshtml" />
+    <Content Include="Views\CattleTypes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CattleTypes\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>

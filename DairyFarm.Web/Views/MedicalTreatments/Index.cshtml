@@ -7,7 +7,16 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Ajax.ActionLink("Ajouter",
+                "Create", "MedicalTreatments",
+        null,
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createFood",
+            OnSuccess = "dialogBox('createFood');"
+        })
 </p>
 <table class="table">
     <tr>
@@ -23,11 +32,55 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdTreatment }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdTreatment }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdTreatment })
+            @Ajax.ActionLink("Editer",
+             "Edit", "MedicalTreatments",
+                new { id = item.IdTreatment },
+                new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "editFood",
+                    OnSuccess = "dialogBox('editFood');"
+                }, htmlAttributes: new { @class = "btn btn-primary" })
         </td>
     </tr>
 }
 
 </table>
+<div id="createFood" class="DisplayNone"></div>
+<div id="editFood" class="DisplayNone"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+
+    <script>
+        $(document).ready(function () {
+            @if (@ViewBag.Message != null)
+       {
+        <text>
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
+    }
+        });
+
+    </script>
+}

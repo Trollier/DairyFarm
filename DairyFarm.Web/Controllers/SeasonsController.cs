@@ -22,8 +22,13 @@ namespace DairyFarm.Controllers
             _dairyFarmService = dairyFarmService;
         }
         // GET: Seasons
-        public ActionResult Index()
+        public ActionResult Index(string message, int? state)
         {
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             return View(_dairyFarmService.GetSeasons());
         }
 

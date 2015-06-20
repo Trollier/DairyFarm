@@ -44,7 +44,7 @@ namespace DairyFarm.Service
 
         bool AddDisease(Disease disease);
         bool EditDisease(Disease disease);
-        bool DeleteCDisease(int id);
+        bool DeleteDisease(int id);
         #endregion Diseases
 
         /* ------------------------ DiseasesHistory --------------------------------*/

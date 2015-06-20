@@ -23,8 +23,13 @@ namespace DairyFarm.Web.Controllers
             _dairyFarmService = dairyFarmService;
         }
         // GET: Foods
-        public ActionResult Index()
+        public ActionResult Index(string message, int? state)
         {
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             return View(_dairyFarmService.GetFoods());
         }
 

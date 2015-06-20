@@ -1,10 +1,14 @@
-﻿@model IEnumerable<DairyFarm.Core.DAL.Disease>
+﻿@model IEnumerable<DairyFarm.Core.DAL.CattleType>
 
-<h2>Maladies</h2>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
 <p>
     @Ajax.ActionLink("Ajouter",
-        "Create", "Diseases",
-        new { id = "newFood" },
+                        "Create", "CattleTypes",
+        null,
         new AjaxOptions
         {
             HttpMethod = "GET",
@@ -19,7 +23,10 @@
             @Html.DisplayNameFor(model => model.Label)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Contagious)
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rank)
         </th>
         <th></th>
     </tr>
@@ -30,12 +37,15 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Contagious)
+            @Html.DisplayFor(modelItem => item.Sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rank)
         </td>
         <td>
             @Ajax.ActionLink("Editer",
-                "Edit", "Diseases",
-                new { id = item.IdDisease },
+          "Edit", "CattleTypes",
+                new { id = item.IdCattleType },
                 new AjaxOptions
                 {
                     HttpMethod = "GET",
@@ -43,7 +53,6 @@
                     UpdateTargetId = "editFood",
                     OnSuccess = "dialogBox('editFood');"
                 }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdDisease })
         </td>
     </tr>
 }

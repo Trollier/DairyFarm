@@ -168,15 +168,37 @@ namespace DairyFarm.Service
 
         public bool AddDisease(Disease disease)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                _db.Diseases.Add(disease);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool EditDisease(Disease disease)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(disease).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
-        public bool DeleteCDisease(int id)
+        public bool DeleteDisease(int id)
         {
             throw new NotImplementedException();
         }
@@ -233,12 +255,33 @@ namespace DairyFarm.Service
 
         public bool AddMedicalTreatment(MedicalTreatment medicalTreatment)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.MedicalTreatments.Add(medicalTreatment);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool EditMedicalTreatment(MedicalTreatment medicalTreatment)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(medicalTreatment).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool DeleteCMedicalTreatment(int id)
@@ -547,29 +590,53 @@ namespace DairyFarm.Service
         #region CattleTypes
         public CattleType GetCattleTypeById(int? id)
         {
-            throw new NotImplementedException();
+            return _db.CattleTypes.Find(id);
         }
         public IEnumerable<CattleType> GetCattleTypes()
         {
-            return _db.CattleTypes;
+            return _db.CattleTypes.ToList();
         }
         
 
         public bool AddCattleType(CattleType cattleType)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                _db.CattleTypes.Add(cattleType);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool EditCattleType(CattleType cattleType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(cattleType).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
         }
+
+        #endregion CattleTypes
+
+
 
         public bool DeleteCattleType(int id)
         {
             throw new NotImplementedException();
         }
-        #endregion CattleTypes
-
     }
 }
