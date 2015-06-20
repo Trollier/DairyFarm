@@ -470,23 +470,45 @@ namespace DairyFarm.Service
         #region Meals
         public Meal GetMealById(int? id)
         {
-            throw new NotImplementedException();
+           return _db.Meals.Find(id);
         }
 
         public IEnumerable<Meal> GetMeals()
         {
-            throw new NotImplementedException();
+            return _db.Meals.Include(m => m.Food).Include(m => m.Herd);
         }
 
 
         public bool AddMeal(Meal meal)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                _db.Meals.Add(meal);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool EditMeal(Meal meal)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(meal).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool DeleteMeal(int id)
@@ -499,22 +521,44 @@ namespace DairyFarm.Service
         #region Diets
         public Diet GetDietById(int? id)
         {
-            throw new NotImplementedException();
+            return _db.Diets.Find(id);
         }
 
         public IEnumerable<Diet> GetDiets()
         {
-            throw new NotImplementedException();
+            return _db.Diets.Include(d => d.Season);
         }
 
         public bool AddDiet(Diet diet)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                _db.Diets.Add(diet);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool EditDiet(Diet diet)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Entry(diet).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
         }
 
         public bool DeleteDiet(int id)

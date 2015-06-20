@@ -1,0 +1,125 @@
+﻿@model IEnumerable<DairyFarm.Core.DAL.Meal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table  table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateMeal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HourMeal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Food.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Herd.Label)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateMeal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HourMeal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Food.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Herd.Label)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.IdMeal}) |
+                @Html.ActionLink("Details", "Details", new {id = item.IdMeal}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.IdMeal})
+            </td>
+        </tr>
+
+    }
+    </tbody>
+</table>
+    
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "order": [ 0, 'desc' ],
+                language: {
+                    processing: "Traitement en cours...",
+                    search: "Filtre&nbsp;:",
+                    lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                    infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix: "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable: "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first: "Premier",
+                        previous: "Pr&eacute;c&eacute;dent",
+                        next: "Suivant",
+                        last: "Dernier"
+                    },
+                    aria: {
+                        sortAscending: ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+
+            @if (@ViewBag.Message != null)
+       {
+        <text>
+
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
+
+
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
+    }
+        });
+
+    </script>
+}

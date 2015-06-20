@@ -114,6 +114,7 @@ namespace DairyFarm.Service
         /* ------------------------ Diets --------------------------------*/
         #region Diets
         Diet GetDietById(int? id);
+
         IEnumerable<Diet> GetDiets();
 
         bool AddDiet(Diet diet);
