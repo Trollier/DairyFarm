@@ -496,6 +496,7 @@
     <Content Include="Views\CattleTypes\Edit.cshtml" />
     <Content Include="Views\Diets\Create.cshtml" />
     <Content Include="Views\Meals\Index.cshtml" />
+    <Content Include="Views\Diets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

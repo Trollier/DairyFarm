@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DairyFarm.Core.DAL.Diet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Régimes</h2>
+
+<p>
+  @Ajax.ActionLink("Ajouter",
+        "Create", "Diets",
+        new { id = "newFood" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "createFood",
+            OnSuccess = "dialogBox('createFood');"
+        })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Season.Label)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Label)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Season.Label)
+        </td>
+        <td>
+            @Ajax.ActionLink("Editer",
+             "Edit", "Diets",
+                new { id = item.IdDiet },
+                new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "editFood",
+                    OnSuccess = "dialogBox('editFood');"
+                }, htmlAttributes: new { @class = "btn btn-primary" })
+        </td>
+    </tr>
+}
+
+</table>
+<div id="createFood" class="DisplayNone"></div>
+<div id="editFood" class="DisplayNone"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+
+    <script>
+        $(document).ready(function () {
+            @if (@ViewBag.Message != null)
+       {
+        <text>
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
+    }
+        });
+
+    </script>
+}
