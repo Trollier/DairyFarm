@@ -8,7 +8,7 @@
 
 <p>
     @Html.ActionLink("Creer nouvelle bête", "Create")
-    @Ajax.ActionLink("Creer nouveau bête ",
+    @Ajax.ActionLink("Creer nouveau troupeau ",
         "Create", "Herds", new{id="ajax"},
         new AjaxOptions
         {
@@ -30,6 +30,7 @@
         <h2>
             <a class=" colp btn btn-default " id='btnCollapseHerd[@i]' herd="@i">-</a> @list.ElementAt(0).Herd.Label
         </h2>
+        @Html.ActionLink("Nourriture", "Create", "Meals", new { id = @list.ElementAt(0).Herd.IdHerd }, null)
         @Ajax.ActionLink("Transférer bête(s) ",
         "ChangeHerd", "Cattle", new { idHerd = list.ElementAt(0).IdHerd },
         new AjaxOptions

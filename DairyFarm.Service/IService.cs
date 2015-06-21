@@ -120,6 +120,7 @@ namespace DairyFarm.Service
         bool AddDiet(Diet diet);
         bool EditDiet(Diet diet);
         bool DeleteDiet(int id);
+        Diet getDietByDate(DateTime date, int id);
         #endregion Diets
 
         /* ------------------------ Seasons --------------------------------*/

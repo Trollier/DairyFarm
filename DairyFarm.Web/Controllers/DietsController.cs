@@ -25,6 +25,11 @@ namespace DairyFarm.Web.Controllers
         // GET: Diets
         public ActionResult Index(string message, int? state)
         {
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             var diets = _dairyFarmService.GetDiets();
             return View(diets.ToList());
         }
@@ -124,7 +129,7 @@ namespace DairyFarm.Web.Controllers
                 var popup = new MessageInfo
                {
                    State = 1,
-                   Message = "Nourriture bien édité"
+                   Message = "Regime bien édité"
                };
                 if (_dairyFarmService.EditDiet(dietEdit) == false)
                 {

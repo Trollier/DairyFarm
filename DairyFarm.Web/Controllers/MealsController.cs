@@ -44,11 +44,14 @@ namespace DairyFarm.Web.Controllers
         }
 
         // GET: Meals/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            var meal = new Meal();
+            meal.IdHerd = id;
+            
             ViewBag.IdFood = new SelectList(_dairyFarmService.GetFoods(), "IdFood", "Label");
             ViewBag.IdHerd = new SelectList(_dairyFarmService.GetHerds(), "IdHerd", "Label");
-            return View();
+            return View(meal);
         }
 
 

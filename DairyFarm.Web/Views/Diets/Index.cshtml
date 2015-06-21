@@ -7,7 +7,7 @@
 <h2>Régimes</h2>
 
 <p>
-  @Ajax.ActionLink("Ajouter",
+    @Ajax.ActionLink("Ajouter",
         "Create", "Diets",
         new { id = "newFood" },
         new AjaxOptions
@@ -27,33 +27,37 @@
             Saison
         </th>
         <th>
-            Type de bêtes
+            nourritures
         </th>
         <th>
-            nourritures
+            Type de bêtes
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Label)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Season.Label)
-        </td>
-        <td>
-            @foreach (var food in item.Foods)
-            {
-                <label>- @food.Label</label>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Season.Label)
-        </td>
-        <td>
-            @Ajax.ActionLink("Editer",
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Season.Label)
+            </td>
+            <td>
+                @foreach (var food in item.Foods)
+                {
+                    <label>- @food.Label</label>
+                }
+            </td>
+            <td>
+                @foreach (var cattleTypes in item.CattleTypes)
+                {
+                    <label>- @cattleTypes.Label</label>
+                }
+            </td>
+            <td>
+                @Ajax.ActionLink("Editer",
              "Edit", "Diets",
                 new { id = item.IdDiet },
                 new AjaxOptions
@@ -63,9 +67,9 @@
                     UpdateTargetId = "editFood",
                     OnSuccess = "dialogBox('editFood');"
                 }, htmlAttributes: new { @class = "btn btn-primary" })
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
 <div id="createFood" class="DisplayNone"></div>
@@ -79,14 +83,7 @@
     @Scripts.Render("~/bundles/bootstrap-dialog")
 
     <script>
-        function DietSelect2() {
-            $("#IdSeason").select2();
-            $("#IdFood").select2();
-            $("#IdCattleType").select2();
-        }
         $(document).ready(function () {
-            
-
             @if (@ViewBag.Message != null)
        {
         <text>

@@ -682,5 +682,21 @@ namespace DairyFarm.Service
         {
             throw new NotImplementedException();
         }
+
+
+        public Diet getDietByDate(DateTime date, int id)
+        {
+            //return _db.Diets.Where(m => m.Season.StartDate.Year >= date.Year 
+            //    && m.Season.StartDate.Month >= date.Month 
+            //    && m.Season.StartDate.Day >= date.Day
+            //    && m.Season.EndDate.Year <= date.Year
+            //    && m.Season.EndDate.Month <= date.Month
+            //    && m.Season.EndDate.Day <= date.Day
+            //    && m.IdCattleTypes.Contains()
+            //    );
+            return null;
+        }
+
+
     }
 }
