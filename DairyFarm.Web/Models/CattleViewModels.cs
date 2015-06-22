@@ -32,6 +32,7 @@ namespace DairyFarm.Web.Models
         [Required(ErrorMessage = "Entrez un {0}")]
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Code Bête")]
+        [RegularExpression(@"^[A-Z]{2}-[0-9]{2}-[0-9]{3}$", ErrorMessage = "Code invalide.")]
         public string CodeCattle { get; set; }
 
         [Required(ErrorMessage = "Select un {0}")]
@@ -44,9 +45,10 @@ namespace DairyFarm.Web.Models
 
         [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Date de naissance")]
+        [DataType(DataType.Text)]
         public System.DateTime DateBirth { get; set; }
 
-        [Display(Name = "Parent Mal")]
+        [Display(Name = "Parent Male")]
         public Nullable<int> MalParent { get; set; }
 
         [Display(Name = "Parent femelle")]
@@ -59,7 +61,6 @@ namespace DairyFarm.Web.Models
         [Display(Name = "Est malade ?")]
         public bool HealthState { get; set; }
         public DiseasesHistory CurrentDisease { get; set; }
-        public ICollection<int> IdMedicalTreatments { get; set; }
 
         // End Disease 
 

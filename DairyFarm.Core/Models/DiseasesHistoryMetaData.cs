@@ -21,14 +21,20 @@ namespace DairyFarm.Core.DAL
         [Display(Name = "Maladie")]
         public int IdDisease { get; set; }
 
-        [Required(ErrorMessage = "Entrez une {0}")]
+        [Required(ErrorMessage = "Entrez la {0}")]
         [Display(Name = "Date du debut")]
+        //[DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
 
         [Display(Name = "Date de fin")]
+        //[DataType(DataType.Date)]
         public Nullable<System.DateTime> EndDate { get; set; }
 
-        [Display(Name = "visite du veterinaire ?")]
+        [Display(Name = "Visite du veterinaire ?")]
         public bool VeterinaryVisit { get; set; }
+
+        [Required(ErrorMessage = "Entrez {0}")]
+        [Display(Name = "Traitements medical")]
+        public ICollection<int> IdMedicalTreatments { get; set; }
     }
 }

@@ -52,6 +52,7 @@ namespace DairyFarm.Web
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                 "~/Content/Scripts/jquery-ui.js",
+                "~/Content/Scripts/jquery.ui.datepicker-fr.js",
                 "~/Content/Scripts/dairy-farm.js"
                 ));
 

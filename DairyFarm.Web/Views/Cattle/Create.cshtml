@@ -5,9 +5,6 @@
     ViewBag.Title = "Créer";
 }
 
-<h2>Créer</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -27,29 +24,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control date" } })
                 @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @{
-    var listItems = new List<ListItem>
-        {
-              new ListItem { Text = "F", Value = "F" },
-              new ListItem { Text = "M", Value = "M" },
-        };
-        }
-
-
         <div class="form-group">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Sex", new SelectList(listItems, "Text", "Value"), "select sex", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("Sex", null, "select sex", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.IdCattletype, "IdCattletype", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdCattletype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdCattletype", null, "select Cattletype", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdCattletype, "", new { @class = "text-danger" })
@@ -57,7 +45,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdHerd, "IdHerd", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdHerd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control" })
                 <input id="btnNewHerd" type="button" value="Nouveau troupeau" class="btn btn-default" />
@@ -166,9 +154,8 @@
 
 
             @if (@ViewBag.Message != null)
-       {
-        <text>
-
+            {
+            <text>
             var jsMessage = '@ViewBag.Message';
             var jsState = '@ViewBag.State';
 
@@ -188,10 +175,17 @@
                 });
             }
             </text>
-    }
+        }
 
 
         });
-
+        $(function () {
+            $('#DateBirth').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate: '01/01/2000',
+                language: 'fr'
+            });
+        });
     </script>
+
 }

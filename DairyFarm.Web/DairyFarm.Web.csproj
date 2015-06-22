@@ -332,6 +332,7 @@
     <Content Include="Content\Scripts\jquery.dataTables.js" />
     <Content Include="Content\Scripts\jquery.dataTables.min.js" />
     <Content Include="Content\Scripts\jquery.js" />
+    <Content Include="Content\Scripts\jquery.ui.datepicker-fr.js" />
     <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Content\Scripts\jquery.validate-vsdoc.js" />

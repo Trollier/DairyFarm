@@ -18,7 +18,7 @@ namespace DairyFarm.Web.Controllers
         {
             if (idCattleType == null)return null;
             var herds = new List<Object>();
-            foreach (var herd in _db.Herds.Where(h => h.IdCattleType == idCattleType && h.Active==true).ToList())
+            foreach (var herd in _db.Herds.Where(h => h.IdCattleType == idCattleType && h.Active).ToList())
             {
                 herds.Add(new { Value = herd.IdHerd, Text = herd.Label });
             }

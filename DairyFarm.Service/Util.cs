@@ -31,7 +31,8 @@ namespace DairyFarm.Service
             }else if(age >6 && age<=12)
             {
                  return 1;
-            }else if(age >12 && age <=24)
+            }
+            else if ((age > 12 && age <= 24) || (age > 24 && sex == "M"))
             {
                 return 2;
             }else if(age> 24)

@@ -18,9 +18,9 @@ namespace DairyFarm.Core.DAL
         [Display(Name = "Quantité")]
         public decimal TotQuantity { get; set; }
 
-        [Required(ErrorMessage = "Entrez une {0}")]
+        [Required(ErrorMessage = "Entrez le {0}")]
         [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "Etiquette")]
+        [Display(Name = "Nom de la nourriture")]
         public string Label { get; set; }
     }
 }

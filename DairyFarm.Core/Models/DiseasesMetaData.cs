@@ -15,12 +15,12 @@ namespace DairyFarm.Core.DAL
     public class DiseasesMetaData
     {
 
-        [Required(ErrorMessage = "Entrez une {0}")]
+        [Required(ErrorMessage = "Entrez le {0}")]
         [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "Etiquette")]
+        [Display(Name = "Nom de la maladie")]
         public string Label { get; set; }
 
-        [Display(Name = "contagieux ?")]
+        [Display(Name = "Contagieux ?")]
         public bool Contagious { get; set; }
     }
 }

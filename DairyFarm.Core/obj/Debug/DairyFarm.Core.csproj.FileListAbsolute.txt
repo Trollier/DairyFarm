@@ -1,12 +1,3 @@
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.dll.config
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.dll
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.pdb
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.dll
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.SqlServer.dll
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.xml
-C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.SqlServer.xml
-C:\Repos\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.dll
-C:\Repos\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.pdb
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.dll.config
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.dll
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.pdb
@@ -17,3 +8,13 @@ C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\b
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.dll
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.pdb
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.csprojResolveAssemblyReference.cache
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.dll.config
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.dll
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\DairyFarm.Core.pdb
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.dll
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.xml
+C:\Repos\DairyFarm\DairyFarm.Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\Repos\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.csprojResolveAssemblyReference.cache
+C:\Repos\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.dll
+C:\Repos\DairyFarm\DairyFarm.Core\obj\Debug\DairyFarm.Core.pdb

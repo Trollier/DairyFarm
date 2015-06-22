@@ -91,6 +91,8 @@ namespace DairyFarm.Web.Controllers
 
         public ActionResult NewGestation()
         {
+            var CalveSex = new List<string> { "F", "M" };
+            ViewBag.CalveSex = new SelectList(CalveSex);
             return PartialView("_Gestation");
         }
 
@@ -141,6 +143,8 @@ namespace DairyFarm.Web.Controllers
                 ViewBag.Message = message;
                 ViewBag.State = state;
             }
+            var Sex = new List<string> { "F", "M" };
+            ViewBag.Sex = new SelectList(Sex);
             return View();
         }
 
@@ -174,7 +178,7 @@ namespace DairyFarm.Web.Controllers
                 {
                     cattleCreateViewModel.CurrentDisease.IdCattle = cattle.IdCattle;
 
-                    foreach (var idTreatment in cattleCreateViewModel.IdMedicalTreatments)
+                    foreach (var idTreatment in cattleCreateViewModel.CurrentDisease.IdMedicalTreatments)
                     {
                         var medic = _dairyFarmService.GetMedicalTreatmentById(idTreatment);
                         cattleCreateViewModel.CurrentDisease.MedicalTreatments.Add(medic);

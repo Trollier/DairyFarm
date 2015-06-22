@@ -155,43 +155,37 @@ $('#IsGestation').click(function () {
     }
 
 });
-
+$(document).ready(function () {
+    $('.date').each(function () {
+        //$(this).datepicker({ maxDate: "+1M +1D 1Y", regional: "fr" });
+        //$(this).datepicker("option", "dateFormat", "dd.mm.yy");
+        //$(this).datepicker($.datepicker.regional["fr"]);
+    });
+});
  function setSelect2Disease() {
 
     $("#CurrentDisease_IdDisease").select2();
     $("#IdMedicalTreatments").select2();
-    $("#IdMedicalTreatments").attr("name", "IdMedicalTreatments");
-    $("#CurrentDisease_StartDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-    $("#CurrentDisease_EndDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-    $("#StartDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
+    
+    //$("#CurrentDisease_StartDate").datepicker($.datepicker.regional["fr"]);
+
+    //$("#StartDate").datepicker($.datepicker.regional["fr"]);
+
 
 }
 
 var setSelect2Gestation = function () {
 
     $("#CurrentGestation_DeathCalve").select2();
-    $("#CurrentGestation_StartDateGestation").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-  
-    $("#CurrentGestation_EndDateGestation").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-  $("#CurrentGestation_DateCalve").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
+    //$("#CurrentGestation_StartDateGestation").datepicker({
+    //    dateFormat: 'dd/mm/yy'
+    //});
+
 }
 
 $(function () {
-    $("#DateBirth").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
+    //$("#DateBirth").datepicker($.datepicker.regional["fr"]);
+    
 
     $("#Sex").change(function() {
         console.log("ok");
@@ -210,9 +204,7 @@ $(function () {
 
 
 function NewGestation() {
-    $("#StartDateGestation").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
+    //$("#StartDateGestation").datepicker({dateFormat: 'dd/mm/yy'});
     $("#idAjaxFormG").addClass("AjaxForm");
 
     $("#newGestation").hide();
@@ -229,16 +221,15 @@ $('#closeNewGestation').click(function () {
 function NewDisease() {
     $("#CurrentDisease_IdDisease").select2();
     $("#IdMedicalTreatments").select2();
-    $("#IdMedicalTreatments").attr("name", "IdMedicalTreatments");
-    $("#CurrentDisease_StartDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-    $("#CurrentDisease_EndDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-    $("#StartDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
+    //$("#CurrentDisease_StartDate").datepicker({
+    //    dateFormat: 'dd/mm/yy'
+    //});
+    //$("#CurrentDisease_EndDate").datepicker({
+    //    dateFormat: 'dd/mm/yy'
+    //});
+    //$("#StartDate").datepicker({
+    //    dateFormat: 'dd/mm/yy'
+    //});
     $("#idAjaxFormD").addClass("AjaxForm");
 
     $("#newDisease").hide();

@@ -535,7 +535,23 @@ namespace DairyFarm.Service
         {
             return _db.Diets.Find(id);
         }
-
+        public Diet getDietByDate(DateTime date, int id)
+        {
+            var herd = GetHerdById(id);
+            var diets = _db.Diets.Where(m => m.Season.StartDate.Month <= date.Month
+                 && m.Season.StartDate.Day <= date.Day
+                 && m.Season.EndDate.Month > date.Month
+                 && m.Season.EndDate.Day > date.Day
+                 );
+            foreach (var diet in diets)
+            {
+                if (diet.CattleTypes.Contains(herd.CattleType))
+                {
+                    return diet;
+                }
+            }
+            return null;
+        }
         public IEnumerable<Diet> GetDiets()
         {
             return _db.Diets.Include(d => d.Season);
@@ -685,39 +701,14 @@ namespace DairyFarm.Service
 
             }
         }
-
-        #endregion CattleTypes
-
-
-
         public bool DeleteCattleType(int id)
         {
             throw new NotImplementedException();
         }
-
-
-        public Diet getDietByDate(DateTime date, int id)
-        {
-           var herd = GetHerdById(id);
-           var diets = _db.Diets.Where(m => m.Season.StartDate.Month <= date.Month
-                && m.Season.StartDate.Day <= date.Day
-                && m.Season.EndDate.Month > date.Month
-                && m.Season.EndDate.Day > date.Day
-                );
-            foreach (var diet in diets)
-            {
-                if (diet.CattleTypes.Contains(herd.CattleType))
-                {
-                    return diet;
-                }
-            }
-            return null;
-        }
+        #endregion CattleTypes
 
 
 
-
-      
 
     }
 }

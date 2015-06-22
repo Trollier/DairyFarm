@@ -16,6 +16,25 @@ namespace DairyFarm.Core.DAL
     }
     public class MealMetaData
     {
+        [Required(ErrorMessage = "Select une {0}")]
+        [Display(Name = "Nourriture")]
+        public int IdFood { get; set; }
 
+        [Required(ErrorMessage = "Select un {0}")]
+        [Display(Name = "Troupeau")]
+        public int IdHerd { get; set; }
+
+        [Required(ErrorMessage = "Select une {0}")]
+        [Display(Name = "Date de repas")]
+        [DataType(DataType.Date)]
+        public System.DateTime DateMeal { get; set; }
+
+        [Required(ErrorMessage = "Select une {0}")]
+        [Display(Name = "Hour de repas")]
+        public string Hours { get; set; }
+
+        [Required(ErrorMessage = "Select une {0}")]
+        [Display(Name = "Quantité")]
+        public decimal Quantity { get; set; }
     }
 }

@@ -15,6 +15,18 @@ namespace DairyFarm.Core.DAL
     }
     public class CattleProductionMetaData
     {
+        [Display(Name = "Code Bête")]
+        public int IdCattle { get; set; }
 
+        [Display(Name = "Date de Production")]
+        [DataType(DataType.Date)]
+        public System.DateTime Dateprod { get; set; }
+
+        [Display(Name = "période")]
+        [DataType(DataType.Date)]
+        public System.DateTime Period { get; set; }
+
+        [Display(Name = "Quantité")]
+        public decimal Quantity { get; set; }
     }
 }

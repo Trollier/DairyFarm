@@ -15,9 +15,9 @@ namespace DairyFarm.Core.DAL
     public class MedicalTreatmentMetaData
     {
 
-        [Required(ErrorMessage = "Entrez une {0}")]
+        [Required(ErrorMessage = "Entrez le {0}")]
         [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "Etiquette")]
+        [Display(Name = "Nom du medicament")]
         public string Label { get; set; }
     }
 }

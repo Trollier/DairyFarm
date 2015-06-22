@@ -16,6 +16,7 @@ namespace DairyFarm.Core.DAL
     {
         [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Date du debut")]
+        //[DataType(DataType.Date)]
         public System.DateTime StartDateGestation { get; set; }
 
         [Display(Name = "Date de fin")]
@@ -28,6 +29,7 @@ namespace DairyFarm.Core.DAL
         public string CalveSex { get; set; }
 
         [Display(Name = "Commentaire")]
+        [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
 
         [Display(Name = "Mort-né ?")]

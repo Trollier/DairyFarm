@@ -16,7 +16,7 @@ namespace DairyFarm.Core.DAL
     {
         [Required(ErrorMessage = "Entrez une {0}")]
         [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "Etiquette")]
+        [Display(Name = "Nom de la Saison")]
         public string Label { get; set; }
 
         [Required(ErrorMessage = "Entrez une {0}")]
