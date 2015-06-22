@@ -27,7 +27,7 @@ namespace DairyFarm.Web.Controllers
         public ActionResult GetType(string sex,DateTime date)
         {
             if (sex == null) return null;
-            var rank = Util.GetRank(date);
+            var rank = Util.GetRank(sex,date);
             if (rank != 100) { 
             var types = new List<Object>();
             var rank1 = rank == 4 ? 3 : rank;

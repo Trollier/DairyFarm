@@ -22,7 +22,7 @@ namespace DairyFarm.Service
             }
         }
 
-        public static int GetRank( DateTime date)
+        public static int GetRank(string sex, DateTime date)
         {
             var age =(( DateTime.Now.Year - date.Year) * 12) + DateTime.Now.Month - date.Month;
             if (age <= 6)
