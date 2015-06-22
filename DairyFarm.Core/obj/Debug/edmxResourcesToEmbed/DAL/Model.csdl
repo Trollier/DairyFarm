@@ -119,7 +119,7 @@
     <Property Name="IdFood" Type="Int32" Nullable="false" />
     <Property Name="IdHerd" Type="Int32" Nullable="false" />
     <Property Name="DateMeal" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="HourMeal" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="HourMeal" Type="Time" Precision="7" />
     <Property Name="Quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
     <NavigationProperty Name="Food" Relationship="Self.FK_MEALS_FOODS" FromRole="Meals" ToRole="Foods" />
     <NavigationProperty Name="Herd" Relationship="Self.FK_MEALS_HERDS" FromRole="Meals" ToRole="Herds" />

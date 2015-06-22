@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -22,9 +23,14 @@ namespace DairyFarm.Web.Controllers
             _dairyFarmService = dairyFarmService;
         }
         // GET: Meals
-        public ActionResult Index()
+        public ActionResult Index(string message, int? state)
         {
             var meals = _dairyFarmService.GetMeals();
+            if (message != null)
+            {
+                ViewBag.Message = message;
+                ViewBag.State = state;
+            }
             return View(meals.ToList());
         }
 
@@ -47,10 +53,23 @@ namespace DairyFarm.Web.Controllers
         public ActionResult Create(int id)
         {
             var meal = new Meal();
+            var diet = new Diet();
+            diet = _dairyFarmService.getDietByDate(DateTime.Now, id);
+            meal.DateMeal = DateTime.Now;
+
             meal.IdHerd = id;
-            
-            ViewBag.IdFood = new SelectList(_dairyFarmService.GetFoods(), "IdFood", "Label");
-            ViewBag.IdHerd = new SelectList(_dairyFarmService.GetHerds(), "IdHerd", "Label");
+            meal.FoodExhausted = new List<Food>();
+            meal.givenFood = new List<Meal>();
+            foreach (var VARIABLE in _dairyFarmService.FoodExhausted() )
+            {
+                meal.FoodExhausted.Add(VARIABLE);
+            }
+            foreach (var meals in _dairyFarmService.GivenFood(DateTime.Now))
+            {
+                meal.givenFood.Add(meals);
+            }
+            ViewBag.Hours = new SelectList(Util.Hours);
+            ViewBag.IdFood = new SelectList(diet.Foods.Where(f=>f.TotQuantity>0).ToList(), "IdFood", "Label");
             return View(meal);
         }
 
@@ -61,7 +80,7 @@ namespace DairyFarm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                meal.HourMeal = TimeSpan.Parse(meal.Hours);
                 var popup = new MessageInfo
                 {
                     State = 1,
@@ -69,11 +88,11 @@ namespace DairyFarm.Web.Controllers
                 };
                 if (_dairyFarmService.AddMeal(meal) == false)
                 {
-                    return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'ajout", state = 0 });
+                    return RedirectToAction("Index", "Cattle", new { message = "Erreur dans l'ajout", state = 0 });
                 }
-                return RedirectToAction("Index", "Foods", new { message = popup.Message, state = popup.State });
+                return RedirectToAction("Index", "Cattle", new { message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Index", "Cattle", new { message = "Erreur dans l'ajout", state = 0 });
         }
 
         // GET: Meals/Edit/5
@@ -89,7 +108,6 @@ namespace DairyFarm.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdFood = new SelectList(_dairyFarmService.GetFoods(), "IdFood", "Label", meal.IdFood);
-            ViewBag.IdHerd = new SelectList(_dairyFarmService.GetHerds(), "IdHerd", "Label", meal.IdHerd);
             return View(meal);
         }
 
@@ -107,11 +125,11 @@ namespace DairyFarm.Web.Controllers
                 };
                 if (_dairyFarmService.EditMeal(meal) == false)
                 {
-                    return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'édition", state = 0 });
+                    return RedirectToAction("Index", "Meals", new { message = "Erreur dans l'édition", state = 0 });
                 }
-                return RedirectToAction("Index", "Foods", new { id = popup.Id, message = popup.Message, state = popup.State });
+                return RedirectToAction("Index", "Meals", new { id = popup.Id, message = popup.Message, state = popup.State });
             }
-            return RedirectToAction("Index", "Foods", new { message = "Erreur dans l'édition", state = 0 });
+            return RedirectToAction("Index", "Meals", new { message = "Erreur dans l'édition", state = 0 });
         }
 
         //// GET: Meals/Delete/5

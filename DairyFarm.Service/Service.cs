@@ -9,15 +9,15 @@ using DairyFarm.Core.DAL;
 
 namespace DairyFarm.Service
 {
-   public class DairyFarmService : IDairyFarmService
+    public class DairyFarmService : IDairyFarmService
     {
         private readonly DairyFarmEntities _db;
         public DairyFarmService(DairyFarmEntities db)
         {
             this._db = db;
         }
-       
-       
+
+
         /* ------------------------ Cattle --------------------------------*/
         #region Cattle
 
@@ -33,7 +33,7 @@ namespace DairyFarm.Service
 
         public IQueryable<IGrouping<int, Cattle>> IndexCattle()
         {
-            return  _db.Cattles.Where(c => c.Active == true && c.Herd.Active == true ).GroupBy(c => c.IdHerd);
+            return _db.Cattles.Where(c => c.Active == true && c.Herd.Active == true).GroupBy(c => c.IdHerd);
         }
 
         public IEnumerable<Cattle> GetCattleInQuarantine()
@@ -53,7 +53,7 @@ namespace DairyFarm.Service
                 return null;
             }
         }
-       
+
         public bool AddCattle(Cattle cattle)
         {
             try
@@ -95,21 +95,21 @@ namespace DairyFarm.Service
         }
         #endregion Cattle
 
-       /* ------------------------ Herds --------------------------------*/
+        /* ------------------------ Herds --------------------------------*/
         #region Herds
         public Herd GetHerdById(int idHerd)
         {
-            return  _db.Herds.Find(idHerd);
+            return _db.Herds.Find(idHerd);
         }
         public IEnumerable<Herd> GetHerds()
         {
-            return _db.Herds.Where(h=>h.MaxAnimals-h.AvailablePlaces != 0);
+            return _db.Herds.Where(h => h.MaxAnimals - h.AvailablePlaces != 0);
         }
 
         public IEnumerable<Herd> GetHerdListById(int idHerd)
         {
             var herdSelect = _db.Herds.Find(idHerd);
-            return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd!=herdSelect.IdHerd && herdSelect.AvailablePlaces!=0 && c.Active==true).ToList();
+            return _db.Herds.Where(c => c.CattleType.Rank >= herdSelect.CattleType.Rank && c.CattleType.Sex == herdSelect.CattleType.Sex && c.IdHerd != herdSelect.IdHerd && herdSelect.AvailablePlaces != 0 && c.Active == true).ToList();
         }
         public void DecrementHerd(int id)
         {
@@ -163,7 +163,7 @@ namespace DairyFarm.Service
         }
         public IEnumerable<Cattle> GetCattlesByHerd(int idHerd)
         {
-            return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active==true).ToList();
+            return _db.Cattles.Where(c => c.IdHerd == idHerd && c.Active == true).ToList();
         }
 
         public bool AddDisease(Disease disease)
@@ -289,7 +289,7 @@ namespace DairyFarm.Service
             throw new NotImplementedException();
         }
         #endregion MedicalTreatment
-       
+
         /* ------------------------ Gestations --------------------------------*/
         #region Gestations
         public Gestation GetGestationById(int? id)
@@ -301,7 +301,7 @@ namespace DairyFarm.Service
         {
             throw new NotImplementedException();
         }
-        
+
         public bool AddGestation(Gestation gestation)
         {
             try
@@ -384,8 +384,12 @@ namespace DairyFarm.Service
                 return false;
             }
         }
-        #endregion Food 
-        
+        public IEnumerable<Food> FoodExhausted()
+        {
+            return _db.Foods.Where(f => f.TotQuantity == 0);
+        }
+        #endregion Food
+
         /* ------------------------ CattleProductions --------------------------------*/
         #region CattleProduction
         public CattleProduction GetCattleProductionById(int? id)
@@ -405,11 +409,11 @@ namespace DairyFarm.Service
         }
         public IEnumerable<CattleProduction> GetProductionsByDate(DateTime date)
         {
-            return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day &&  d.Cattle.Active==true);
+            return _db.CattleProductions.Where(d => d.Dateprod.Month == date.Month && d.Dateprod.Day == date.Day && d.Cattle.Active == true);
         }
         public IEnumerable<CattleProduction> GetProductions()
         {
-            return _db.CattleProductions.Where(d=>d.Cattle.Active == true);
+            return _db.CattleProductions.Where(d => d.Cattle.Active == true);
         }
 
         public bool AddHerd(Herd herd)
@@ -465,12 +469,12 @@ namespace DairyFarm.Service
             throw new NotImplementedException();
         }
         #endregion CattleProductions
-       
+
         /* ------------------------ Meals --------------------------------*/
         #region Meals
         public Meal GetMealById(int? id)
         {
-           return _db.Meals.Find(id);
+            return _db.Meals.Find(id);
         }
 
         public IEnumerable<Meal> GetMeals()
@@ -486,6 +490,9 @@ namespace DairyFarm.Service
 
                 _db.Meals.Add(meal);
                 _db.SaveChanges();
+                var food = GetFoodById(meal.IdFood);
+                food.TotQuantity -= meal.Quantity;
+                EditFood(food);
                 return true;
             }
             catch
@@ -514,6 +521,11 @@ namespace DairyFarm.Service
         public bool DeleteMeal(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Meal> GivenFood(DateTime date)
+        {
+            return _db.Meals.Where(m => m.DateMeal.Day == date.Day && m.DateMeal.Month == date.Month && m.DateMeal.Year == date.Year).ToList();
         }
         #endregion Meals
 
@@ -579,7 +591,7 @@ namespace DairyFarm.Service
         {
             return _db.Seasons.ToList();
         }
-        
+
 
         public bool AddSeason(Season season)
         {
@@ -640,7 +652,7 @@ namespace DairyFarm.Service
         {
             return _db.CattleTypes.ToList();
         }
-        
+
 
         public bool AddCattleType(CattleType cattleType)
         {
@@ -686,17 +698,26 @@ namespace DairyFarm.Service
 
         public Diet getDietByDate(DateTime date, int id)
         {
-            //return _db.Diets.Where(m => m.Season.StartDate.Year >= date.Year 
-            //    && m.Season.StartDate.Month >= date.Month 
-            //    && m.Season.StartDate.Day >= date.Day
-            //    && m.Season.EndDate.Year <= date.Year
-            //    && m.Season.EndDate.Month <= date.Month
-            //    && m.Season.EndDate.Day <= date.Day
-            //    && m.IdCattleTypes.Contains()
-            //    );
+           var herd = GetHerdById(id);
+           var diets = _db.Diets.Where(m => m.Season.StartDate.Month <= date.Month
+                && m.Season.StartDate.Day <= date.Day
+                && m.Season.EndDate.Month > date.Month
+                && m.Season.EndDate.Day > date.Day
+                );
+            foreach (var diet in diets)
+            {
+                if (diet.CattleTypes.Contains(herd.CattleType))
+                {
+                    return diet;
+                }
+            }
             return null;
         }
 
+
+
+
+      
 
     }
 }

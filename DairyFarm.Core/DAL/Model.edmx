@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DairyFarmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DairyFarmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CattleProductions">
           <Key>
             <PropertyRef Name="IdProduction" />
@@ -128,7 +128,7 @@
           <Property Name="IdFood" Type="int" Nullable="false" />
           <Property Name="IdHerd" Type="int" Nullable="false" />
           <Property Name="DateMeal" Type="datetime" Nullable="false" />
-          <Property Name="HourMeal" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="HourMeal" Type="time" Precision="7" />
           <Property Name="Quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="MedicalTreatments">
@@ -404,8 +404,7 @@
             <End Role="Meals" EntitySet="Meals" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DairyFarmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -528,7 +527,7 @@
           <Property Name="IdFood" Type="Int32" Nullable="false" />
           <Property Name="IdHerd" Type="Int32" Nullable="false" />
           <Property Name="DateMeal" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HourMeal" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="HourMeal" Type="Time" Precision="7" />
           <Property Name="Quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Food" Relationship="Self.FK_MEALS_FOODS" FromRole="Meals" ToRole="Foods" />
           <NavigationProperty Name="Herd" Relationship="Self.FK_MEALS_HERDS" FromRole="Meals" ToRole="Herds" />

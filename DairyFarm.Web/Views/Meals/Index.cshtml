@@ -6,9 +6,7 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table  table table-striped">
     <thead>
     <tr>
@@ -50,15 +48,23 @@
                 @Html.DisplayFor(modelItem => item.Herd.Label)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.IdMeal}) |
-                @Html.ActionLink("Details", "Details", new {id = item.IdMeal}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.IdMeal})
+                @Ajax.ActionLink("Editer",
+                "Edit", "Meals",
+                new { id = item.IdMeal },
+                new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "editFood",
+                    OnSuccess = "dialogBox('editFood');"
+                }, htmlAttributes: new { @class = "btn btn-primary" })
             </td>
         </tr>
 
     }
     </tbody>
 </table>
+<div id="editFood" class="DisplayNone"></div>
     
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

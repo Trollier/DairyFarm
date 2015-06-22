@@ -84,11 +84,15 @@
                                      <input type="checkbox" checked disabled>
                                  </td>
                              }
-                             else
+                             else if (cattle.Herd.CattleType.Sex == "F")
                              {
                                  <td>
                                      <input type="checkbox" disabled>
                                  </td>
+                             }
+                             else
+                             {
+                                 
                              }
                              @if (cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null)
                              {

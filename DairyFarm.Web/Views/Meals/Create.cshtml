@@ -4,61 +4,170 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Créer</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    if (Model.FoodExhausted.Any())
+    {
+        <div style=" border-style: solid;
+    border-color: red;">
+            <h2 >Nourriture épuisées</h2>
+            <table class="table  table table-striped">
+
+                <tr>
+                    <th>
+                        Label
+                    </th>
+                    <th>
+                        Quantité
+                    </th>
+
+                </tr>
+                @foreach (var item in Model.FoodExhausted)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Label)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotQuantity)
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </div>
+    }
+    if (Model.givenFood.Any())
+    {
+        <h2>Repas données dans la journées</h2>
+        <table class="table  table table-striped">
+
+            <tr>
+                <th>
+                    Label
+                </th>
+                <th>
+                    Heure
+                </th>
+                <th>
+                    Quantité
+                </th>
+            </tr>
+            @foreach (var item in Model.givenFood)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Food.Label)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HourMeal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
     <div class="form-horizontal">
-        <h4>Meal</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdFood, "IdFood", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdFood", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdFood, "", new { @class = "text-danger" })
+            <h4>Repas</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(x => x.DateMeal, new { @value = "1" })
+            @Html.HiddenFor(x => x.IdHerd, new { @value = "1" })
+            <label> Chargez toutes les nourritures?</label>
+            <input type="checkbox" id="loadFoods" />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateMeal, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(x => x.DateMeal, new { htmlAttributes = new { @class = "form-control", @type="date" } })
+                    @Html.ValidationMessageFor(model => model.DateMeal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HourMeal, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Hours", null, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HourMeal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdFood, "IdFood", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IdFood", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdFood, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div id="divQuantity">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdHerd, "IdHerd", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdHerd", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateMeal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateMeal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateMeal, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            @Scripts.Render("~/bundles/custom")
+            @Scripts.Render("~/bundles/select2")
+            @Scripts.Render("~/bundles/unobtrusive-ajax")
+            @Scripts.Render("~/bundles/bootstrap-dialog")
+            @Scripts.Render("~/bundles/dataTable")
+            <script>
+                $(document).ready(function () {
+                    //$("#IdFood").select2();
+                    $("#IdFood").change(function () {
+                        console.log($("#IdFood :selected").text());
+                        if ($("#IdFood :selected").text() == "Paturage") {
+                            $("#divQuantity").hide();
+                            $("#Quantity").val(0);
+                        } else {
+                            $("#divQuantity").show();
+                        }
+                    });
+                });
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                if ($("#loadFoods").click(function () {
+                         $.ajax({
+                    type: "POST",
+                    url: '/Common/LoadFoods',
+                    contentType: "application/json",
+                    success: function (data) {
+                                 var optionStr = document.getElementById("IdFood");
+                                 optionStr.length = 0;
+                                 optionStr.options[0] = new Option('Selectionnez', '');
+                                 var notEmpty = true;
+                                 $.each(data, function (key, value) {
+                                     notEmpty = false;
+                                     $('#IdFood')
+                                         .append($("<option></option>")
+                                             .attr("value", value.Value)
+                                             .text(value.Text));
+                });
+                }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+                });
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                })
+                );
+            </script>
+        }

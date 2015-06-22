@@ -87,7 +87,9 @@ namespace DairyFarm.Service
         bool AddFood(Food food);
         bool EditFood(Food food);
         bool DeleteFood(int id);
-        #endregion Food 
+        IEnumerable<Food> FoodExhausted();
+
+            #endregion Food 
         
         /* ------------------------ CattleProductions --------------------------------*/
         #region CattleProductions
@@ -109,7 +111,9 @@ namespace DairyFarm.Service
         bool AddMeal(Meal meal);
         bool EditMeal(Meal meal);
         bool DeleteMeal(int id);
-        #endregion Meals
+        IEnumerable<Meal> GivenFood(DateTime date);
+
+            #endregion Meals
 
         /* ------------------------ Diets --------------------------------*/
         #region Diets

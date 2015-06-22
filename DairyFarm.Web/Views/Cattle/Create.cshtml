@@ -23,6 +23,15 @@
                 @Html.ValidationMessageFor(model => model.CodeCattle, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         @{
     var listItems = new List<ListItem>
         {
@@ -30,6 +39,8 @@
               new ListItem { Text = "M", Value = "M" },
         };
         }
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -51,16 +62,6 @@
                 @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control" })
                 <input id="btnNewHerd" type="button" value="Nouveau troupeau" class="btn btn-default" />
                 @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -106,11 +107,11 @@
 
         <div id="divGestation" class="DisplayNone">
             <div class="form-group ">
-                @Html.LabelFor(model => model.IsGestation, htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.LabelFor(model => model.IsGestation, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.IsGestation, new {htmlAttributes = new {@class = "control-label col-md-3"}})
-                        @Html.ValidationMessageFor(model => model.IsGestation, "", new {@class = "text-danger"})
+                        @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label col-md-3" } })
+                        @Html.ValidationMessageFor(model => model.IsGestation, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -160,37 +161,37 @@
     @Scripts.Render("~/bundles/unobtrusive-ajax")
     @Scripts.Render("~/bundles/bootstrap-dialog")
 
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
 
-        @if (@ViewBag.Message != null)
+            @if (@ViewBag.Message != null)
        {
         <text>
 
-        var jsMessage = '@ViewBag.Message';
-        var jsState = '@ViewBag.State';
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
 
 
-        if (jsState == 1) {
-            BootstrapDialog.alert({
-                title: 'TYPE_SUCCESS',
-                message: jsMessage,
-                type: BootstrapDialog.TYPE_SUCCESS,
-                closable: true,
-            });
-        } else {
-            BootstrapDialog.alert({
-                message: jsMessage,
-                type: BootstrapDialog.TYPE_WARNING,
-                closable: true,
-            });
-        }
-        </text>
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
     }
 
 
-    });
+        });
 
-</script>
+    </script>
 }

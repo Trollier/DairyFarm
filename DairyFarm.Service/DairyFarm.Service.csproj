@@ -49,6 +49,7 @@
     <Compile Include="IService.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DairyFarm.Core\DairyFarm.Core.csproj">

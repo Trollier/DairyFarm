@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.Core.DAL;
+using DairyFarm.Service;
 
 namespace DairyFarm.Web.Controllers
 {
@@ -13,7 +14,7 @@ namespace DairyFarm.Web.Controllers
         private readonly DairyFarmEntities _db = new DairyFarmEntities();
         // GET: API/Common
         [HttpPost]
-        public ActionResult GetHerdsByCattleType(int? idCattleType)
+        public ActionResult GetHerdsByCattleType(int? idCattleType, int age)
         {
             if (idCattleType == null)return null;
             var herds = new List<Object>();
@@ -22,18 +23,21 @@ namespace DairyFarm.Web.Controllers
                 herds.Add(new { Value = herd.IdHerd, Text = herd.Label });
             }
             return Json(herds);
-            //, JsonRequestBehavior.AllowGet
         }
-        public ActionResult GetType(string sex)
+        public ActionResult GetType(string sex,DateTime date)
         {
             if (sex == null) return null;
+            var rank = Util.GetRank(date);
+            if (rank != 100) { 
             var types = new List<Object>();
-            foreach (var type in _db.CattleTypes.Where(h => h.Sex == sex).ToList())
+            var rank1 = rank == 4 ? 3 : rank;
+            foreach (var type in _db.CattleTypes.Where(h => h.Sex == sex && h.Rank >= rank1 && h.Rank <= rank).ToList())
             {
                 types.Add(new { Value = type.IdCattleType, Text = type.Label });
             }
             return Json(types);
-            //, JsonRequestBehavior.AllowGet
+            }
+            return null;
         }
 
         [HttpPost]
@@ -112,7 +116,17 @@ namespace DairyFarm.Web.Controllers
             return RedirectToAction("Details", "Cattle", new { id = gestation.IdCattle });
         }
 
+        public ActionResult LoadFoods()
+        {
+            var foods = new List<Object>();
+            foreach (var food in _db.Foods.ToList())
+            {
 
+                foods.Add(new { Value = food.IdFood, Text = food.Label });
+              
+            }
+            return Json(foods, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

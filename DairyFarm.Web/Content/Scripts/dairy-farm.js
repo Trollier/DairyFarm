@@ -1,4 +1,5 @@
 ﻿$("#IdCattletype").change(function () {
+
     $.ajax({
         type: "POST",
         url: '/Common/GetHerdsByCattleType/?idCattletype=' + $("#IdCattletype").val() ,
@@ -39,7 +40,7 @@
 $("#Sex").change(function() {
     $.ajax({
         type: "POST",
-        url: '/Common/GetType/?Sex=' + $("#Sex").val(),
+        url: '/Common/GetType/?Sex=' + $("#Sex").val() + '&date=' + $("#DateBirth").val(),
         contentType: "application/json",
         success: function(data) {
             var optionStr = document.getElementById("IdCattletype");
@@ -225,7 +226,31 @@ $('#closeNewGestation').click(function () {
     $("#idAjaxFormG").removeClass("AjaxForm");
 });
 
+function NewDisease() {
+    $("#CurrentDisease_IdDisease").select2();
+    $("#IdMedicalTreatments").select2();
+    $("#IdMedicalTreatments").attr("name", "IdMedicalTreatments");
+    $("#CurrentDisease_StartDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#CurrentDisease_EndDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#StartDate").datepicker({
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#idAjaxFormD").addClass("AjaxForm");
 
+    $("#newDisease").hide();
+    $("#closeNewDisease").show();
+}
+
+$('#closeNewDisease').click(function () {
+    $("#newDisease").show();
+    $("#divDisease").empty();
+    $("#closeNewDisease").hide();
+    $("#idAjaxFormD").removeClass("AjaxForm");
+});
 
 function openDialog() {
 

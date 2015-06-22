@@ -123,7 +123,7 @@
     <Property Name="IdFood" Type="int" Nullable="false" />
     <Property Name="IdHerd" Type="int" Nullable="false" />
     <Property Name="DateMeal" Type="datetime" Nullable="false" />
-    <Property Name="HourMeal" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="HourMeal" Type="time" Precision="7" />
     <Property Name="Quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
   </EntityType>
   <EntityType Name="MedicalTreatments">

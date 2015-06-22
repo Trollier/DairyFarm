@@ -103,7 +103,7 @@
             </dd>
     <div id="idAjaxFormG">
 
-        @Ajax.ActionLink("New Gestation",
+        @Ajax.ActionLink("Nouvelle gestation",
         "NewGestation", "Gestations", new { id = @Model.idCattle },
         new AjaxOptions
         {
@@ -116,10 +116,10 @@
         <div id="divGestation"></div>
     </div>
         }
-
-
         <h2>Maladies</h2>
-        @Ajax.ActionLink("new Disease",
+        <div id="idAjaxFormD">
+            
+            @Ajax.ActionLink("Nouvelle maladie",
                 "Create",
                  "DiseasesHistories", new { id = @Model.idCattle },
                  new AjaxOptions
@@ -127,72 +127,74 @@
                      HttpMethod = "GET",
                      InsertionMode = InsertionMode.Replace,
                      UpdateTargetId = "divDisease",
-                     OnSuccess = "setSelect2Disease();"
+                     OnSuccess = "NewDisease();"
                  }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
+            <input type="button" id="closeNewDisease" class="btn btn-danger DisplayNone" value="X" />
+            <div id="divDisease"></div>
+        </div>
+            @if (Model.currentDiseases.Any())
+            {
 
-        <div id="divDisease"></div>
-        @if (Model.currentDiseases.Any())
-        {
-
-            <table class="table table-striped">
-                <tr></tr>
-                <tr>
-                    <th>
-                        Maladie
-                    </th>
-                    <th>
-                        Traitements
-                    </th>
-                    <th>
-                        Contagieux
-                    </th>
-                    <th>
-                        Visite veterinaire
-                    </th>
-                </tr>
-                @foreach (var item in Model.currentDiseases)
-                {
-                   if (item.EndDate == null) { 
+                <table class="table table-striped">
+                    <tr></tr>
                     <tr>
-                        <td>
-                            <label> @item.Disease.Label</label>
-                        </td>
-                        <td>
-                            @foreach (var treatment in item.MedicalTreatments)
-                            {
-                                <label>- @treatment.Label </label>
-                            }
+                        <th>
+                            Maladie
+                        </th>
+                        <th>
+                            Traitements
+                        </th>
+                        <th>
+                            Contagieux
+                        </th>
+                        <th>
+                            Visite veterinaire
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.currentDiseases)
+                    {
+                        if (item.EndDate == null)
+                        {
+                            <tr>
+                                <td>
+                                    <label> @item.Disease.Label</label>
+                                </td>
+                                <td>
+                                    @foreach (var treatment in item.MedicalTreatments)
+                                    {
+                                        <label>- @treatment.Label </label>
+                                    }
 
-                        </td>
+                                </td>
 
-                        <td>
-                            <input type="checkbox" checked=@item.Disease.Contagious disabled>
-                        </td>
+                                <td>
+                                    <input type="checkbox" checked=@item.Disease.Contagious disabled>
+                                </td>
 
-                            <td>
-                                <input type="checkbox" checked=@item.VeterinaryVisit disabled>
+                                <td>
+                                    <input type="checkbox" checked=@item.VeterinaryVisit disabled>
 
-                            </td>
+                                </td>
 
-                        <td>
-                            @Ajax.ActionLink("éditer",
+                                <td>
+                                    @Ajax.ActionLink("éditer",
                                 "edit",
-                                "DiseasesHistories", new {id = @item.IdDiseasesHistory},
+                                "DiseasesHistories", new { id = @item.IdDiseasesHistory },
                                 new AjaxOptions
                                 {
                                     HttpMethod = "GET",
                                     InsertionMode = InsertionMode.Replace,
                                     UpdateTargetId = "editDisease",
                                     OnSuccess = "openDialog();"
-                                }, htmlAttributes: new {id = "newDisease", @class = "btn btn-primary"})
-                        </td>
-                        
-                    </tr>
-                   }
-                }
-            </table>
-        }
-    </dl>
+                                }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </table>
+            }
+</dl>
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.idCattle }) |
