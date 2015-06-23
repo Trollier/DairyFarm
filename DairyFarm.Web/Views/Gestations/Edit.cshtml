@@ -63,7 +63,7 @@
             @Html.LabelFor(model => model.DeathCalve, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.DeathCalve)
+                    @Html.EditorFor(model => model.DeathCalve, new { htmlAttributes = new { @type = "checkbox" } })
                     @Html.ValidationMessageFor(model => model.DeathCalve, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -78,5 +78,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retour", "Detail","Cattle",new {id=Model.IdCattle},null)
 </div>

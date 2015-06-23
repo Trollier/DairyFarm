@@ -6,10 +6,14 @@
 
 <h2>Index</h2>
 
-<div class="addProd col-md-3">
-
-    @Html.ActionLink("Ajout Traite du matin", "SetProductions", "CattleProductions", new {period = "matin"}, new {@class = "btn btn-default"})
-    @Html.ActionLink("Ajout Traite du soir", "SetProductions", "CattleProductions", new {period = "soir"}, new {@class = "btn btn-default"})
+<div class="addProd col-md-6">
+    <form role="form" action="/CattleProductions/DifferentDateProd">
+        <label>date</label>
+        <input type="date" name="dateProdDifferent" />
+        <label><input type="radio" value="matin" name="period">Matin</label>
+        <label><input type="radio" value="soir" name="period">Soir</label>
+        <input type="submit" value="Envoyer" class="btn btn-primary" />
+    </form>
 </div>
 
 <div >

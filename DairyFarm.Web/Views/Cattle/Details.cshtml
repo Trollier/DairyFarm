@@ -73,37 +73,53 @@
         <dd>
             @Html.DisplayFor(model => model.Sex)
         </dd>
+    </dl>
+    
+        
+
         @if (Model.CurrentGestation != null && Model.Sex == "F")
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.CurrentGestation.StartDateGestation)
-            </dt>
+            <dl class=" dl-horizontal dlGestation ">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentGestation.StartDateGestation)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.CurrentGestation.StartDateGestation)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.CurrentGestation.Comment)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CurrentGestation.StartDateGestation)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentGestation.Comment)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.CurrentGestation.Comment)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.CurrentGestation.Comment)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentGestation.DateCalve)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CurrentGestation.DateCalve)
+                </dd>
 
-    @Html.ActionLink("Editer gestation", "Edit","Gestations", new { id = Model.CurrentGestation.IdGestation }, htmlAttributes: new { @class = "btn btn-primary" }) 
+
+                @Html.ActionLink("Editer gestation", "Edit", "Gestations", new { id = Model.CurrentGestation.IdGestation }, htmlAttributes: new { @class = "btn btn-primary" })
+            </dl>
 
         }
+
         else if (Model.CurrentGestation == null && Model.Sex == "F")
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.CurrentGestation)
-            </dt>
-            <dd>
-                Il n'y a pas de gestation en cours
-            </dd>
-    <div id="idAjaxFormG">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CurrentGestation)
+                </dt>
+                <dd>
+                    Il n'y a pas de gestation en cours
+                </dd>
+            </dl>
+                <div id="idAjaxFormG">
 
-        @Ajax.ActionLink("Nouvelle gestation",
+                    @Ajax.ActionLink("Nouvelle gestation",
         "NewGestation", "Gestations", new { id = @Model.idCattle },
         new AjaxOptions
         {
@@ -112,14 +128,14 @@
             UpdateTargetId = "divGestation",
             OnSuccess = "NewGestation();"
         }, htmlAttributes: new { id = "newGestation", @class = "btn btn-primary" })
-        <input type="button" id="closeNewGestation" class="btn btn-danger DisplayNone" value="X" />
-        <div id="divGestation"></div>
-    </div>
-        }
-        <h2>Maladies</h2>
-        <div id="idAjaxFormD">
-            
-            @Ajax.ActionLink("Nouvelle maladie",
+                    <input type="button" id="closeNewGestation" class="btn btn-danger DisplayNone" value="X" />
+                    <div id="divGestation"></div>
+                </div>
+                }
+                <h2>Maladies</h2>
+                <div id="idAjaxFormD">
+
+                    @Ajax.ActionLink("Nouvelle maladie",
                 "Create",
                  "DiseasesHistories", new { id = @Model.idCattle },
                  new AjaxOptions
@@ -129,55 +145,55 @@
                      UpdateTargetId = "divDisease",
                      OnSuccess = "NewDisease();"
                  }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
-            <input type="button" id="closeNewDisease" class="btn btn-danger DisplayNone" value="X" />
-            <div id="divDisease"></div>
-        </div>
-            @if (Model.currentDiseases.Any())
-            {
+                    <input type="button" id="closeNewDisease" class="btn btn-danger DisplayNone" value="X" />
+                    <div id="divDisease"></div>
+                </div>
+                @if (Model.currentDiseases.Any())
+        {
 
-                <table class="table table-striped">
-                    <tr></tr>
-                    <tr>
-                        <th>
-                            Maladie
-                        </th>
-                        <th>
-                            Traitements
-                        </th>
-                        <th>
-                            Contagieux
-                        </th>
-                        <th>
-                            Visite veterinaire
-                        </th>
-                    </tr>
-                    @foreach (var item in Model.currentDiseases)
+                    <table class="table table-striped">
+                        <tr></tr>
+                        <tr>
+                            <th>
+                                Maladie
+                            </th>
+                            <th>
+                                Traitements
+                            </th>
+                            <th>
+                                Contagieux
+                            </th>
+                            <th>
+                                Visite veterinaire
+                            </th>
+                        </tr>
+                        @foreach (var item in Model.currentDiseases)
+                {
+                    if (item.EndDate == null)
                     {
-                        if (item.EndDate == null)
-                        {
-                            <tr>
-                                <td>
-                                    <label> @item.Disease.Label</label>
-                                </td>
-                                <td>
-                                    @foreach (var treatment in item.MedicalTreatments)
-                                    {
-                                        <label>- @treatment.Label </label>
-                                    }
+                        <tr>
+                            <td>
+                                <label> @item.Disease.Label</label>
+                            </td>
+                            <td>
+                                @foreach (var treatment in item.MedicalTreatments)
+                                {
+                                    <label>- @treatment.Label </label>
+                                }
 
-                                </td>
+                            </td>
 
-                                <td>
-                                    <input type="checkbox" checked=@item.Disease.Contagious disabled>
-                                </td>
+                            <td>
+                                <input type="checkbox" checked=@item.Disease.Contagious disabled>
+                            </td>
 
-                                <td>
-                                    <input type="checkbox" checked=@item.VeterinaryVisit disabled>
+                            <td>
+                                <input type="checkbox" checked=@item.VeterinaryVisit disabled>
 
-                                </td>
+                            </td>
 
-                                <td>
-                                    @Ajax.ActionLink("éditer",
+                            <td>
+                                @Ajax.ActionLink("éditer",
                                 "edit",
                                 "DiseasesHistories", new { id = @item.IdDiseasesHistory },
                                 new AjaxOptions
@@ -187,21 +203,22 @@
                                     UpdateTargetId = "editDisease",
                                     OnSuccess = "openDialog();"
                                 }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
-                                </td>
+                            </td>
 
-                            </tr>
-                        }
+                        </tr>
                     }
-                </table>
-            }
-</dl>
+                }
+                    </table>
+        }
+           
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.idCattle }) |
-    @Html.ActionLink("Back to List", "Index")*@
+        @Html.ActionLink("Back to List", "Index")*@
 
-    @if (Model.Sex == "F") { 
-    @Ajax.ActionLink("historique gestation",
+    @if (Model.Sex == "F")
+    {
+        @Ajax.ActionLink("historique gestation",
                         "index",
                          "Gestations", new { id = @Model.idCattle },
                  new AjaxOptions
@@ -210,7 +227,7 @@
                      InsertionMode = InsertionMode.Replace,
                      UpdateTargetId = "gestationHistory",
                  }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
-    <div id="gestationHistory"></div>
+        <div id="gestationHistory"></div>
     }
     @Ajax.ActionLink("historique maladie",
                         "index",
@@ -230,31 +247,31 @@
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
     @Scripts.Render("~/bundles/bootstrap-dialog")
-   <script>
-    $(document).ready(function () {
-        @if (@ViewBag.Message != null)
+    <script>
+        $(document).ready(function () {
+            @if (@ViewBag.Message != null)
        {
         <text>
-        var jsMessage = '@ViewBag.Message';
-        var jsState = '@ViewBag.State';
-        if (jsState == 1) {
-            BootstrapDialog.alert({
-                title: 'TYPE_SUCCESS',
-                message: jsMessage,
-                type: BootstrapDialog.TYPE_SUCCESS,
-                closable: true,
-            });
-        } else {
-            BootstrapDialog.alert({
-                message: jsMessage,
-                type: BootstrapDialog.TYPE_WARNING,
-                closable: true,
-            });
-        }
-        </text>
+            var jsMessage = '@ViewBag.Message';
+            var jsState = '@ViewBag.State';
+            if (jsState == 1) {
+                BootstrapDialog.alert({
+                    title: 'TYPE_SUCCESS',
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_SUCCESS,
+                    closable: true,
+                });
+            } else {
+                BootstrapDialog.alert({
+                    message: jsMessage,
+                    type: BootstrapDialog.TYPE_WARNING,
+                    closable: true,
+                });
+            }
+            </text>
     }
-    });
-</script> 
+        });
+    </script>
 }
 
 <div id="editDisease" class="DisplayNone"></div>

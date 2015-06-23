@@ -15,14 +15,15 @@ namespace DairyFarm.Core.DAL
     public class GestationMetaData
     {
         [Required(ErrorMessage = "Entrez une {0}")]
-        [Display(Name = "Date du debut")]
-        //[DataType(DataType.Date)]
+        [Display(Name = "Date début gestation")]
+        [DataType(DataType.Date)]
         public System.DateTime StartDateGestation { get; set; }
 
         [Display(Name = "Date de fin")]
         public Nullable<System.DateTime> EndDateGestation { get; set; }
 
-        [Display(Name = "Date du foetus")]
+        [Display(Name = "Date de mise bas prévu")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> DateCalve { get; set; }
 
         [Display(Name = "Sexe du foetus")]

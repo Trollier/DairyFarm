@@ -32,7 +32,7 @@ namespace DairyFarm.Web.Models
         [Required(ErrorMessage = "Entrez un {0}")]
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Code Bête")]
-        [RegularExpression(@"^[A-Z]{2}-[0-9]{2}-[0-9]{3}$", ErrorMessage = "Code invalide.")]
+        [RegularExpression(@"^[A-Z]{2}-[0-9]{2}-[0-9]{7}$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
         public string CodeCattle { get; set; }
 
         [Required(ErrorMessage = "Select un {0}")]

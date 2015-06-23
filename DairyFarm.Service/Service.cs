@@ -420,7 +420,7 @@ namespace DairyFarm.Service
         {
             try
             {
-
+                herd.Active = true;
                 _db.Herds.Add(herd);
                 _db.SaveChanges();
                 return true;

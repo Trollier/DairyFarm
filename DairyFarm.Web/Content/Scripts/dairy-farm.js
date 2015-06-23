@@ -187,10 +187,9 @@ $(function () {
     //$("#DateBirth").datepicker($.datepicker.regional["fr"]);
     
 
-    $("#Sex").change(function() {
-        console.log("ok");
-
-        if ($("#Sex option:selected").text() === "F") {
+    $("#IdCattletype").change(function () {
+        var type = $("#IdCattletype option:selected").text();
+        if (type === "Genisse plus 2 ans" || type === "Taries" || type === "Production") {
 
             $("#divGestation").show();
 
