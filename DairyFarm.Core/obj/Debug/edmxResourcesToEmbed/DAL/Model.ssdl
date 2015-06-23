@@ -29,7 +29,7 @@
     </Key>
     <Property Name="IdCattleType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Label" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Sex" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Sex" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="Rank" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Diets">
@@ -99,10 +99,10 @@
     <Property Name="IdCattle" Type="int" Nullable="false" />
     <Property Name="StartDateGestation" Type="date" Nullable="false" />
     <Property Name="EndDateGestation" Type="date" />
-    <Property Name="DateCalve" Type="date" />
+    <Property Name="DateCalve" Type="date" Nullable="false" />
     <Property Name="CalveSex" Type="char" MaxLength="1" />
     <Property Name="Comment" Type="nchar" MaxLength="256" />
-    <Property Name="DeathCalve" Type="bit" />
+    <Property Name="DeathCalve" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Herds">
     <Key>
@@ -123,7 +123,7 @@
     <Property Name="IdFood" Type="int" Nullable="false" />
     <Property Name="IdHerd" Type="int" Nullable="false" />
     <Property Name="DateMeal" Type="datetime" Nullable="false" />
-    <Property Name="HourMeal" Type="time" Precision="7" />
+    <Property Name="HourMeal" Type="time" Precision="7" Nullable="false" />
     <Property Name="Quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
   </EntityType>
   <EntityType Name="MedicalTreatments">

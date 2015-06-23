@@ -264,10 +264,14 @@ function dialogBox(variable, title) {
     $('#' + variable + ' ').dialog({
         title: title,
         width: '600',
-        modal: true
+        modal: true,
+        open: function (event, ui) {
+            $('#' + variable + '  form').validate();
+    }
     });
     $('#' + variable + ' ').dialog("open");
     $('#' + variable + '  select').select2();
+    jQuery.validator.unobtrusive.parse('form');
 }
 
 function getUrlParameter(sParam) {
@@ -279,4 +283,23 @@ function getUrlParameter(sParam) {
             return sParameterName[1];
         }
     }
+}
+
+function ValidateForm() {
+    var isValid = 1;
+    $('form').each(function () {
+        $(this).find("[datarequired ='true']").each(function() {
+            var elm = $(this);
+            console.log(elm.attr('name'));
+            if (!elm.val()) {
+                isValid *= 0;
+                var message = "Veuillez insérer un(e) " + elm.attr("name");
+                $('[data-valmsg-for="' + elm.attr('name') + '"]').text(message);
+            } else {
+                isValid *= 1;
+                $('[data-valmsg-for="' + elm.attr('name') + '"]').text("");
+            }
+        });
+    });
+    return isValid;
 }

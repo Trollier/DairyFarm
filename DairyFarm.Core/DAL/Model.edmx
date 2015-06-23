@@ -34,7 +34,7 @@
           </Key>
           <Property Name="IdCattleType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Label" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Sex" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Sex" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Rank" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Diets">
@@ -104,10 +104,10 @@
           <Property Name="IdCattle" Type="int" Nullable="false" />
           <Property Name="StartDateGestation" Type="date" Nullable="false" />
           <Property Name="EndDateGestation" Type="date" />
-          <Property Name="DateCalve" Type="date" />
+          <Property Name="DateCalve" Type="date" Nullable="false" />
           <Property Name="CalveSex" Type="char" MaxLength="1" />
           <Property Name="Comment" Type="nchar" MaxLength="256" />
-          <Property Name="DeathCalve" Type="bit" />
+          <Property Name="DeathCalve" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Herds">
           <Key>
@@ -128,7 +128,7 @@
           <Property Name="IdFood" Type="int" Nullable="false" />
           <Property Name="IdHerd" Type="int" Nullable="false" />
           <Property Name="DateMeal" Type="datetime" Nullable="false" />
-          <Property Name="HourMeal" Type="time" Precision="7" />
+          <Property Name="HourMeal" Type="time" Precision="7" Nullable="false" />
           <Property Name="Quantity" Type="decimal" Precision="9" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="MedicalTreatments">
@@ -442,7 +442,7 @@
           </Key>
           <Property Name="IdCattleType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Rank" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Herds" Relationship="Self.FK_Herds_CattleTypes" FromRole="CattleTypes" ToRole="Herds" />
           <NavigationProperty Name="Diets" Relationship="Self.Diets_CattleTypes" FromRole="CattleTypes" ToRole="Diets" />
@@ -499,10 +499,10 @@
           <Property Name="IdCattle" Type="Int32" Nullable="false" />
           <Property Name="StartDateGestation" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndDateGestation" Type="DateTime" Precision="0" />
-          <Property Name="DateCalve" Type="DateTime" Precision="0" />
+          <Property Name="DateCalve" Type="DateTime" Precision="0" Nullable="false" />
           <Property Name="CalveSex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Comment" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
-          <Property Name="DeathCalve" Type="Boolean" />
+          <Property Name="DeathCalve" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Cattle" Relationship="Self.FK_Gestations_Cattles" FromRole="Gestations" ToRole="Cattles" />
         </EntityType>
         <EntityType Name="Herd">
@@ -527,7 +527,7 @@
           <Property Name="IdFood" Type="Int32" Nullable="false" />
           <Property Name="IdHerd" Type="Int32" Nullable="false" />
           <Property Name="DateMeal" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HourMeal" Type="Time" Precision="7" />
+          <Property Name="HourMeal" Type="Time" Precision="7" Nullable="false" />
           <Property Name="Quantity" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Food" Relationship="Self.FK_MEALS_FOODS" FromRole="Meals" ToRole="Foods" />
           <NavigationProperty Name="Herd" Relationship="Self.FK_MEALS_HERDS" FromRole="Meals" ToRole="Herds" />

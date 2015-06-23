@@ -17,8 +17,6 @@
         @Html.HiddenFor(model => model.IdGestation)
         @Html.HiddenFor(model => model.IdCattle)
 
-
-
         <div class="form-group">
             @Html.LabelFor(model => model.StartDateGestation, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -80,3 +78,22 @@
 <div>
     @Html.ActionLink("Retour", "Details","Cattle",new {id=Model.IdCattle},null)
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap-dialog")
+    <script>
+        $("#DeathCalve").click(function() {
+            if ($("#DeathCalve").is(':checked')) {
+                $("#EndDateGestation").attr("required", true);
+                var message = "Veuillez insérer une date de fin";
+                $('[data-valmsg-for="EndDateGestation"]').text(message);
+            } else {
+                $("#EndDateGestation").attr("required", false);
+                $('[data-valmsg-for="EndDateGestation"]').text('');
+            }
+        });
+    </script>
+}

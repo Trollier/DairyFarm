@@ -43,10 +43,7 @@
                 }
             </td>
             <td>
-                @if (item.DateCalve.HasValue)
-                {
-                    @item.DateCalve.Value.ToShortDateString()
-                }
+                @item.DateCalve.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CalveSex)

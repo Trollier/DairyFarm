@@ -19,6 +19,7 @@ namespace DairyFarm.Core.DAL
         [Display(Name = "Type bête")]
         public int IdCattleType { get; set; }
 
+        [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Max Animaux")]
         public int MaxAnimals { get; set; }
 

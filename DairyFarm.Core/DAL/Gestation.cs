@@ -18,10 +18,10 @@ namespace DairyFarm.Core.DAL
         public int IdCattle { get; set; }
         public System.DateTime StartDateGestation { get; set; }
         public Nullable<System.DateTime> EndDateGestation { get; set; }
-        public Nullable<System.DateTime> DateCalve { get; set; }
+        public System.DateTime DateCalve { get; set; }
         public string CalveSex { get; set; }
         public string Comment { get; set; }
-        public Nullable<bool> DeathCalve { get; set; }
+        public bool DeathCalve { get; set; }
     
         public virtual Cattle Cattle { get; set; }
     }

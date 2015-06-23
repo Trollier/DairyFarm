@@ -18,7 +18,7 @@ namespace DairyFarm.Core.DAL
         public int IdFood { get; set; }
         public int IdHerd { get; set; }
         public System.DateTime DateMeal { get; set; }
-        public Nullable<System.TimeSpan> HourMeal { get; set; }
+        public System.TimeSpan HourMeal { get; set; }
         public decimal Quantity { get; set; }
     
         public virtual Food Food { get; set; }
