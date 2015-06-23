@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using DairyFarm.Core.DAL;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,8 +6,8 @@ namespace DairyFarm.Web.Models
 {
     public class CattleViewModel
     {
-       
-        public int idCattle { get; set; }
+
+        public string IdCattle { get; set; }
 
         [Display(Name = "Code Bête")]
         public string CodeCattle { get; set; }
@@ -21,7 +18,6 @@ namespace DairyFarm.Web.Models
         [Display(Name = "Troupeau")]
         public string Herd { get; set; }
 
-        public string IdCattle { get; set; }
         public bool CurrentGestation { get; set; }
         public bool CurrentDisease { get; set; }
         public int Age { get; set; }
@@ -30,7 +26,6 @@ namespace DairyFarm.Web.Models
     {
 
         [Required(ErrorMessage = "Entrez un {0}")]
-        [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Code Bête")]
         [RegularExpression(@"^[A-Z]{2}-[0-9]{2}-[0-9]{7}$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
         public string CodeCattle { get; set; }
@@ -49,11 +44,12 @@ namespace DairyFarm.Web.Models
         public System.DateTime DateBirth { get; set; }
 
         [Display(Name = "Parent Male")]
-        public Nullable<int> MalParent { get; set; }
+        public int? MalParent { get; set; }
 
         [Display(Name = "Parent femelle")]
-        public Nullable<int> FemaleParent { get; set; }
+        public int? FemaleParent { get; set; }
 
+        [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Sexe")]
         public string Sex { get; set; }
 
@@ -75,9 +71,9 @@ namespace DairyFarm.Web.Models
     {
         public CattleDetailViewModel()
         {
-            currentDiseases = new List<DiseasesHistory>();
+            CurrentDiseases = new List<DiseasesHistory>();
         }
-        public int idCattle { get; set; }
+        public int IdCattle { get; set; }
 
         [Display(Name = "Code Bête")]
         public string CodeCattle { get; set; }
@@ -88,18 +84,21 @@ namespace DairyFarm.Web.Models
         [Display(Name = "Troupeau")]
         public string LabelHerd { get; set; }
 
+        [Display(Name = "Age-année")]
         public int AgeYear { get; set; }
+
+        [Display(Name = "Age-mois")]
         public int AgeMonth { get; set; }
 
-        [Display(Name = "Parent Mal")]
-        public Nullable<int> MalParent { get; set; }
+        [Display(Name = "Parent male")]
+        public int? MalParent { get; set; }
 
         [Display(Name = "Parent femelle")]
-        public Nullable<int> FemaleParent { get; set; }
+        public int? FemaleParent { get; set; }
 
         [Display(Name = "Sexe")]
         public string Sex { get; set; }
-        public List<DiseasesHistory> currentDiseases { get; set; }
+        public List<DiseasesHistory> CurrentDiseases { get; set; }
         public Gestation CurrentGestation { get; set; }
     }
 
@@ -113,9 +112,9 @@ namespace DairyFarm.Web.Models
         public int AgeYear { get; set; }
         public int AgeMonth { get; set; }
         [Display(Name = "Parent Mal")]
-        public Nullable<int> MalParent { get; set; }
+        public int? MalParent { get; set; }
         [Display(Name = "Parent femelle")]
-        public Nullable<int> FemaleParent { get; set; }
+        public int? FemaleParent { get; set; }
 
     }
 }

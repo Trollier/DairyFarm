@@ -137,6 +137,7 @@ $('#HealthState').click(function() {
         $('#newDisease').click();
 
     } else {
+        $("#divDisease").removeClass("divDisease");
         $('#divDisease').empty();
     }
 
@@ -151,6 +152,7 @@ $('#IsGestation').click(function () {
         $('#newGestation').click();
 
     } else {
+        $("#divDeGestation").removeClass("divDeGestation");
         $('#divDeGestation').empty();
     }
 
@@ -242,29 +244,6 @@ $('#closeNewDisease').click(function () {
     $("#idAjaxFormD").removeClass("AjaxForm");
 });
 
-function openDialog() {
-
-
-
-    //set the diaglog properties
-    $("#editDisease").dialog({
-        title: 'Assign',
-        width: '600',
-        height: '600',
-        modal: true
-    });
-
-    $("#editDisease").dialog("open");
-    $("#StartDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-    $("#EndDate").datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-    $("#IdDisease").select2();
-    $("#IdMedicalTreatments").select2();
-}
-
 
 $("#ListItem").change(function () {
     $("#viewPlaceHolder").empty();
@@ -279,22 +258,16 @@ $("#ListItem").change(function () {
 //
 //
 //URGENT
-function dialogBox(variable) {
-   
+function dialogBox(variable, title) {
+    if (!title) title = "Dialog - ";
     //set the diaglog properties
     $('#' + variable + ' ').dialog({
-        title: 'Assign',
+        title: title,
         width: '600',
-        height: '600',
         modal: true
     });
-
     $('#' + variable + ' ').dialog("open");
-    $("#IdChangeCattle").select2();
-    $("#IdChangeHerd").select2();
-    $("#IdSeason").select2();
-    $("#IdFoods").select2();
-    $("#IdCattleTypes").select2();
+    $('#' + variable + '  select').select2();
 }
 
 function getUrlParameter(sParam) {

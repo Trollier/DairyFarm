@@ -28,7 +28,7 @@
     @Html.LabelFor(model => model.VeterinaryVisit, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
         <div class="checkbox">
-            @Html.EditorFor(model => model.VeterinaryVisit)
+            @Html.EditorFor(model => model.VeterinaryVisit, new { htmlAttributes = new { @class = "control-label", style = "margin-left: 0px;" } })
             @Html.ValidationMessageFor(model => model.VeterinaryVisit, "", new { @class = "text-danger" })
         </div>
     </div>

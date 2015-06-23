@@ -26,7 +26,7 @@ namespace DairyFarm.Core.DAL
 
         [Required(ErrorMessage = "Select une {0}")]
         [Display(Name = "Date de repas")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Text)]
         public System.DateTime DateMeal { get; set; }
 
         [Required(ErrorMessage = "Select une {0}")]

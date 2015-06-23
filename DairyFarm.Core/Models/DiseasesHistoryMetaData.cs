@@ -23,12 +23,12 @@ namespace DairyFarm.Core.DAL
 
         [Required(ErrorMessage = "Entrez la {0}")]
         [Display(Name = "Date du debut")]
-        //[DataType(DataType.Date)]
+        [DataType(DataType.Text)]
         public System.DateTime StartDate { get; set; }
 
         [Display(Name = "Date de fin")]
-        //[DataType(DataType.Date)]
-        public Nullable<System.DateTime> EndDate { get; set; }
+        [DataType(DataType.Text)]
+        public DateTime? EndDate { get; set; }
 
         [Display(Name = "Visite du veterinaire ?")]
         public bool VeterinaryVisit { get; set; }
@@ -36,5 +36,8 @@ namespace DairyFarm.Core.DAL
         [Required(ErrorMessage = "Entrez {0}")]
         [Display(Name = "Traitements medical")]
         public ICollection<int> IdMedicalTreatments { get; set; }
+
+        [Display(Name = "Traitements medical")]
+        public virtual ICollection<MedicalTreatment> MedicalTreatments { get; set; }
     }
 }

@@ -19,11 +19,11 @@ namespace DairyFarm.Core.DAL
         public int IdCattle { get; set; }
 
         [Display(Name = "Date de Production")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Text)]
         public System.DateTime Dateprod { get; set; }
 
         [Display(Name = "période")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Text)]
         public System.DateTime Period { get; set; }
 
         [Display(Name = "Quantité")]

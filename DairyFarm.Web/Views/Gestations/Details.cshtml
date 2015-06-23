@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details Gestation</h2>
 
 <div>
-    <h4>Gestation</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,7 +14,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StartDateGestation)
+            @Model.StartDateGestation.ToShortDateString()
         </dd>
 
         <dt>
@@ -23,7 +22,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EndDateGestation)
+            @if (@Model.EndDateGestation.HasValue)
+            {
+                @Model.EndDateGestation.Value.ToShortDateString()
+            }
         </dd>
 
         <dt>
@@ -31,7 +33,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateCalve)
+            @if (@Model.DateCalve.HasValue)
+            {
+                @Model.DateCalve.Value.ToShortDateString()
+            }
         </dd>
 
         <dt>

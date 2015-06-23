@@ -5,9 +5,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index gestation de @ViewBag.codeCattle </h2>
+<h2>Liste - gestation de @ViewBag.codeCattle </h2>
 
-<table class="table">
+<table class="table liste">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.StartDateGestation)
@@ -27,9 +27,6 @@
         <th>
             @Html.DisplayNameFor(model => model.DeathCalve)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
-        </th>
         <th></th>
     </tr>
 
@@ -37,13 +34,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDateGestation)
+                @item.StartDateGestation.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDateGestation)
+                @if (item.EndDateGestation.HasValue)
+                {
+                    @item.EndDateGestation.Value.ToShortDateString()
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateCalve)
+                @if (item.DateCalve.HasValue)
+                {
+                    @item.DateCalve.Value.ToShortDateString()
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CalveSex)
@@ -60,9 +63,6 @@
                 {
                     <input type="checkbox" disabled="disabled">}
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
             </td>
         </tr>
 

@@ -54,7 +54,7 @@ namespace DairyFarm.Web.Controllers
             var currentDisease = cattle.DiseasesHistories.Where(d => d.EndDate == null).ToList();
             var cattleDetailViewModel = new CattleDetailViewModel
             {
-                idCattle = cattle.IdCattle,
+                IdCattle = cattle.IdCattle,
                 CodeCattle = cattle.CodeCattle,
                 Cattletype = cattle.Herd.CattleType.Label,
                 LabelHerd = cattle.Herd.Label,
@@ -69,7 +69,7 @@ namespace DairyFarm.Web.Controllers
             {
                 if (disease != null)
                 {
-                    cattleDetailViewModel.currentDiseases.Add(disease);
+                    cattleDetailViewModel.CurrentDiseases.Add(disease);
                 }
             }
             if (message != null)
@@ -91,8 +91,7 @@ namespace DairyFarm.Web.Controllers
 
         public ActionResult NewGestation()
         {
-            var CalveSex = new List<string> { "F", "M" };
-            ViewBag.CalveSex = new SelectList(CalveSex);
+            ViewBag.CalveSex = new SelectList(Util.Sexe);
             return PartialView("_Gestation");
         }
 
@@ -131,7 +130,7 @@ namespace DairyFarm.Web.Controllers
             return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
 
             }
-            return RedirectToAction("Create", new { message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Index", new { message = "Erreur dans le changement du troupeau !", state = 0 });
         }
         // GET: Cattle/Create
         public ActionResult Create(string message, int? state)
@@ -143,8 +142,7 @@ namespace DairyFarm.Web.Controllers
                 ViewBag.Message = message;
                 ViewBag.State = state;
             }
-            var Sex = new List<string> { "F", "M" };
-            ViewBag.Sex = new SelectList(Sex);
+            ViewBag.Sex = new SelectList(Util.Sexe);
             return View();
         }
 

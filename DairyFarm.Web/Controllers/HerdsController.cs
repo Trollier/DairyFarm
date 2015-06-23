@@ -54,7 +54,7 @@ namespace DairyFarm.Web.Controllers
         {
             ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label");
 
-            return View();
+            return PartialView();
         }
 
         // POST: Herds/Create
@@ -69,7 +69,7 @@ namespace DairyFarm.Web.Controllers
                 var popup = new MessageInfo
                 {
                     State = 1,
-                    Message = "troupeau bien créé"
+                    Message = "Troupeau bien ajouté"
                 };
                 herd.AvailablePlaces = herd.MaxAnimals;
                 if (_dairyFarmService.AddHerd(herd) == false)
@@ -83,8 +83,12 @@ namespace DairyFarm.Web.Controllers
                 }
                 return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
             }
+            if (id == "ajax")
+            {
+                return RedirectToAction("Index", "Cattle", new { message = "Erreur dans l'ajout du troupeau", state = 0 });
+            }
             ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label", herd.IdCattleType);
-            return RedirectToAction("Create", new { message = "Erreur dans l'ajout", state = 0 });
+            return RedirectToAction("Create", new { message = "Erreur dans l'ajout du troupeau", state = 0 });
         }
 
         // GET: Herds/Edit/5
@@ -113,7 +117,7 @@ namespace DairyFarm.Web.Controllers
                 var popup = new MessageInfo
                 {
                     State = 1,
-                    Message = "troupeau bien édité"
+                    Message = "Troupeau bien édité"
                 };
                 var dbHerd = _dairyFarmService.GetHerdById(herd.IdHerd);
                 dbHerd.Label = herd.Label;
@@ -123,7 +127,7 @@ namespace DairyFarm.Web.Controllers
                 if (_dairyFarmService.EditHerd(dbHerd) == false)
                 {
                     popup.State = 0;
-                    popup.Message = "erreur dans l'édition";
+                    popup.Message = "Erreur dans l'édition";
                 }
                 return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
             }
@@ -156,12 +160,12 @@ namespace DairyFarm.Web.Controllers
             var popup = new MessageInfo
             {
                 State = 1,
-                Message = "troupeau bien supprimé"
+                Message = "Troupeau bien supprimé"
             };
             if (_dairyFarmService.EditHerd(herd) == false)
             {
                 popup.State = 0;
-                popup.Message = "erreur dans la suppression";
+                popup.Message = "Erreur dans la suppression";
             }
             return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
         }

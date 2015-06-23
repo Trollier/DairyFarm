@@ -66,12 +66,11 @@ namespace DairyFarm.Web.Controllers
         {
             var popup = new MessageInfo
             {
-                Message = "Maladie Bien ajouté",
-                State = 1
+                Message = "Erreur dans l'ajout",
+                State = 0
             };
             if (ModelState.IsValid)
             {
-                
                 if (_dairyFarmService.GetDiseaseById(diseasesHistory.IdDisease).Contagious == true)
                 {
                     _dairyFarmService.GetCattleById(diseasesHistory.IdCattle).InQuarantine = true;
@@ -81,16 +80,13 @@ namespace DairyFarm.Web.Controllers
                     var medic = _dairyFarmService.GetMedicalTreatmentById(idTreatment);
                     diseasesHistory.MedicalTreatments.Add(medic);
                 }
-                if (_dairyFarmService.AddDiseasesHistory(diseasesHistory)==false)
+                if (_dairyFarmService.AddDiseasesHistory(diseasesHistory))
                 {
-                    popup.Message = "Erreur dans l'ajout";
-                    popup.State = 0;
+                    popup.Message = "Maladie Bien ajouté";
+                    popup.State = 1;
+                    return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle, message = popup.Message, state = popup.State });
                 }
-               
-                return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle, message = popup.Message, state = popup.State  });
             }
-            popup.Message = "Erreur dans l'ajout";
-            popup.State = 0;
             return RedirectToAction("Details", "Cattle", new { id = diseasesHistory.IdCattle, message = popup.Message, state = popup.State });
         }
 

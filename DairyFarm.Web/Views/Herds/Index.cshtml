@@ -4,21 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Liste des troupeaux</h2>
 
 <p>
     
-    @Ajax.ActionLink("Créer troupeau ",
+    @Ajax.ActionLink("Ajouter un troupeau ",
         "Create", "Herds", null,
         new AjaxOptions
         {
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createHerd",
-            OnSuccess = "dialogBox('createHerd');"
+            OnSuccess = "dialogBox('createHerd','Ajouter un troupeau');"
         }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
 </p>
-<table class="table">
+<table class="table liste">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.MaxAnimals)
@@ -51,25 +51,25 @@
         </td>
         <td>
           
-            @Ajax.ActionLink("Editer troupeau ",
+            @Ajax.ActionLink("Modifier",
             "Edit", "Herds", new { id = item.IdHerd },
         new AjaxOptions
         {
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createHerd",
-            OnSuccess = "dialogBox('createHerd');"
-        }, htmlAttributes: new { @class = "btn btn-default"}) 
+            OnSuccess = "dialogBox('createHerd','Modifier le troupeau');"
+        }, htmlAttributes: new { @class = "btn btn-primary"}) 
             @if (item.AvailablePlaces == item.MaxAnimals)
             {
-                @Ajax.ActionLink("supprimer", "Delete", "Herds",
+                @Ajax.ActionLink("Supprimer", "Delete", "Herds",
                                      new { id = item.IdHerd },
                                      new AjaxOptions
                                      {
                                          HttpMethod = "GET",
                                          InsertionMode = InsertionMode.Replace,
                                          UpdateTargetId = "createHerd",
-                                         OnSuccess = "dialogBox('createHerd');"
+                                         OnSuccess = "dialogBox('createHerd','Supprimer le troupeau');"
                                      }, htmlAttributes: new { @class = "btn btn-danger" })
             }
            

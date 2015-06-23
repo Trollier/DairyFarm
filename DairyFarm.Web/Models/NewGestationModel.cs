@@ -14,13 +14,16 @@ namespace DairyFarm.Web.Models
 
         [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Date du debut")]
+        [DataType(DataType.Text)]
         public System.DateTime StartDateGestation { get; set; }
 
         [Display(Name = "Date de fin")]
-        public Nullable<System.DateTime> EndDateGestation { get; set; }
+        [DataType(DataType.Text)]
+        public DateTime? EndDateGestation { get; set; }
 
         [Display(Name = "Date du foetus")]
-        public Nullable<System.DateTime> DateCalve { get; set; }
+        [DataType(DataType.Text)]
+        public DateTime? DateCalve { get; set; }
 
         [Display(Name = "Sexe du foetus")]
         public string CalveSex { get; set; }

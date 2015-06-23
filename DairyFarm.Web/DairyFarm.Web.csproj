@@ -504,7 +504,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Common\" />
     <Folder Include="Views\Meals1\" />
   </ItemGroup>
   <ItemGroup>

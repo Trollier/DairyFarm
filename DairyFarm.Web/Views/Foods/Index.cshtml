@@ -3,9 +3,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Nourritures</h2>
-
-@Ajax.ActionLink("Ajouter",
+<h2>Liste des Nourritures</h2>
+<p>
+    @Ajax.ActionLink("Ajouter",
         "Create", "Foods",
         new { id = "newFood" },
         new AjaxOptions
@@ -13,10 +13,10 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createFood",
-            OnSuccess = "dialogBox('createFood');"
-        })
-
-<table class="table">
+            OnSuccess = "dialogBox('createFood','Ajouter une nourriture');"
+        }, htmlAttributes: new { @class = "btn btn-default" })
+</p>
+<table class="table liste">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TotQuantity)
@@ -24,7 +24,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Label)
         </th>
-        <th></th>
         <th></th>
     </tr>
 
@@ -37,7 +36,7 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @Ajax.ActionLink("Editer",
+            @Ajax.ActionLink("Modifier",
                 "Edit", "Foods",
                 new {id = item.IdFood},
                 new AjaxOptions
@@ -45,10 +44,9 @@
                     HttpMethod = "GET",
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = "editFood",
-                    OnSuccess = "dialogBox('editFood');"
+                    OnSuccess = "dialogBox('editFood','Modifier la nourriture');"
                 }, htmlAttributes: new {@class = "btn btn-primary"})
-        </td>
-        <td>
+        
             @if (item.TotQuantity == 0)
             {
 

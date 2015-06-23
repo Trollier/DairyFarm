@@ -4,8 +4,8 @@
 @using (Html.BeginForm("Create", "DiseasesHistories", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
-    
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdCattle)
+    <div class="form-horizontal">
         <div class="form-group">
             @Html.LabelFor(model => model.IdDisease, "IdDisease", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -13,15 +13,14 @@
                 @Html.ValidationMessageFor(model => model.IdDisease, "", new { @class = "text-danger" })
             </div>
         </div>
-    <div class="form-group">
-        <label class="control-label col-md-2" id="IdMedicalTreatment">Traitements medical </label>
 
-        <div class="col-md-10">
-            @Html.DropDownList("IdMedicalTreatments", null, htmlAttributes: new {@class = "form-control", @multiple = "multiple", @name = "IdMedicalTreatments", @id = "IdMedicalTreatments"})
+        <div class="form-group">
+            <label class="control-label col-md-2" id="IdMedicalTreatment">Traitements medical </label>
+
+            <div class="col-md-10">
+                @Html.DropDownList("IdMedicalTreatments", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @name = "IdMedicalTreatments", @id = "IdMedicalTreatments" })
+            </div>
         </div>
-    </div>
-    
-    @Html.HiddenFor(model => model.IdCattle)
 
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -46,7 +45,5 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-   
+    </div>
 }
-
-

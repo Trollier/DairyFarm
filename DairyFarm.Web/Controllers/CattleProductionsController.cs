@@ -103,6 +103,7 @@ namespace DairyFarm.Web.Controllers
         }
 
 
+        [HttpPost]
         public ActionResult DifferentDateProd(DateTime dateProdDifferent,string period)
         {
             var p = period == "matin" ? 6 : 18;

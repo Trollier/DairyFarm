@@ -14,9 +14,8 @@
         <dt>
             @Html.DisplayNameFor(model => model.Dateprod)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Dateprod)
+            @Model.Dateprod.ToShortDateString()
         </dd>
 
         <dt>
@@ -24,15 +23,16 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Period)
+            @{ var period = Model.Period.Hour == 18 ? "Soir" : "Matin";}
+            @period
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.quantity)
+            @Html.DisplayNameFor(model => model.Quantity)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.quantity)
+            @Html.DisplayFor(model => model.Quantity)
         </dd>
 
         <dt>

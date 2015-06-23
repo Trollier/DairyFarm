@@ -3,18 +3,21 @@
 
 <h3>Etes vous sur de vouloir supprimer?</h3>
 <div>
-    <h4>Herd</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Label)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Label)
         </dd>
 
-
+        <dt>
+            @Html.DisplayNameFor(model => model.CattleType.Label)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CattleType.Label)
+        </dd>
     </dl>
 
     @using (Html.BeginForm()) {

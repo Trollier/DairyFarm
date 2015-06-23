@@ -15,7 +15,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CodeCattle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.CodeCattle, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CodeCattle, "", new { @class = "text-danger" })
             </div>
@@ -23,7 +23,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control date" } })
                 @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
             </div>
@@ -31,14 +31,14 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.DropDownList("Sex", null, "select sex", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.IdCattletype, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.DropDownList("IdCattletype", null, "select Cattletype", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdCattletype, "", new { @class = "text-danger" })
             </div>
@@ -46,7 +46,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.IdHerd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control" })
                 <input id="btnNewHerd" type="button" value="Nouveau troupeau" class="btn btn-default" />
                 @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
@@ -55,7 +55,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.MalParent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.MalParent, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MalParent, "", new { @class = "text-danger" })
             </div>
@@ -63,7 +63,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FemaleParent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.FemaleParent, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FemaleParent, "", new { @class = "text-danger" })
             </div>
@@ -72,9 +72,9 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.HealthState, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.HealthState, new { htmlAttributes = new { @class = "control-label col-md-3" } })
+                    @Html.EditorFor(model => model.HealthState, new { htmlAttributes = new { @class = "control-label", style = "margin-left: 0px;" } })
                     @Html.ValidationMessageFor(model => model.HealthState, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -90,21 +90,20 @@
                      HttpMethod = "GET",
                      InsertionMode = InsertionMode.Replace,
                      UpdateTargetId = "divDisease",
-                     OnSuccess = "setSelect2Disease();"
+                     OnSuccess = "setSelect2Disease(); $('#divDisease').addClass('divDisease');"
                  }, htmlAttributes: new { @class = "DisplayNone", id = "newDisease" })
 
         <div id="divGestation" class="DisplayNone">
             <div class="form-group ">
                 @Html.LabelFor(model => model.IsGestation, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label col-md-3" } })
+                        @Html.EditorFor(model => model.IsGestation, new { htmlAttributes = new { @class = "control-label", style = "margin-left: 0px;" } })
                         @Html.ValidationMessageFor(model => model.IsGestation, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
             <div id="divDeGestation"></div>
-            <div id="divGestation"></div>
             @Ajax.ActionLink("New Gestation",
         "NewGestation",
         new { id = "newGestation" },
@@ -113,12 +112,12 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "divDeGestation",
-            OnSuccess = "setSelect2Gestation();"
+            OnSuccess = "setSelect2Gestation(); $('#divDeGestation').addClass('divDeGestation');"
         }, htmlAttributes: new { @class = "DisplayNone", id = "newGestation" })
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-8">
                 <input type="submit" value="Créer" class="btn btn-default" />
             </div>
         </div>

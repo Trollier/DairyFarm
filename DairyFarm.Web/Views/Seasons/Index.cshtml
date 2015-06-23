@@ -16,10 +16,10 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createFood",
-            OnSuccess = "dialogBox('createFood');"
-        })
+            OnSuccess = "dialogBox('createFood','Ajouter une saison');"
+        }, htmlAttributes: new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table liste">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Label)
@@ -39,13 +39,13 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @item.StartDate.ToShortDateString()
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+            @item.EndDate.ToShortDateString()
         </td>
         <td>
-            @Ajax.ActionLink("Editer",
+            @Ajax.ActionLink("Modifier",
                 "Edit", "Seasons",
                 new { id = item.IdSeason },
                 new AjaxOptions
@@ -53,9 +53,9 @@
                     HttpMethod = "GET",
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = "editFood",
-                    OnSuccess = "dialogBox('editFood');"
+                    OnSuccess = "dialogBox('editFood','Modifier la saison');"
                 }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdSeason })
+            @Html.ActionLink("Supprimer", "Delete", new { id = item.IdSeason }, htmlAttributes: new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

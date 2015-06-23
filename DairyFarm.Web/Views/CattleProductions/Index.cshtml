@@ -1,82 +1,88 @@
 ﻿@model IEnumerable<DairyFarm.Core.DAL.CattleProduction>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Productions";
 }
 
-<h2>Index</h2>
+<h2>Productions</h2>
 
-<div class="addProd col-md-6">
-    <form role="form" action="/CattleProductions/DifferentDateProd">
-        <label>date</label>
-        <input type="date" name="dateProdDifferent" />
-        <label><input type="radio" value="matin" name="period">Matin</label>
-        <label><input type="radio" value="soir" name="period">Soir</label>
-        <input type="submit" value="Envoyer" class="btn btn-primary" />
-    </form>
-</div>
+    @using (Html.BeginForm("DifferentDateProd", "CattleProductions", FormMethod.Post))
+    {
+        <h4>Ajouter Traite <b id="showHideTraiteDiv" class="btn btn-default glyphicon glyphicon-plus" bold></b></h4>
+        <div class="addProd col-md-3 collapse" id="getTraiteDiv">
+            <div class="form-group">
+                <label class="control-label col-md-2">Date</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="date" name="dateProdDifferent" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <label class="radio-inline"><input type="radio" value="matin" name="period">Matin</label>
+                    <label class="radio-inline"><input type="radio" value="soir" name="period">Soir</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Envoyer" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
 
-<div >
-    <table class="table  table table-striped">
+<div>
+    <table class="table  table table-striped liste">
         <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Dateprod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Period)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
-            </th>
-            <th>
-                Modifer
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dateprod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Period)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cattle.CodeCattle)
+                </th>
+                <th>
+                    Modifer
+                </th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+            @foreach (var item in Model)
+            {
+                <tr>
 
-                <td>
-                     @item.Dateprod.ToShortDateString()
-                </td>
-                @if (item.Period.Hour == 6)
-                {
                     <td>
-                        matin
+                        @item.Dateprod.ToShortDateString()
                     </td>
-                }
-                else
-                {
                     <td>
-                        soir
+                        @{ var period = item.Period.Hour == 18 ? "Soir" : "Matin";}
+                        @period
                     </td>
-                }
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
-                </td>
-                <td>
-                    @Ajax.ActionLink("modifier", "Edit", "CattleProductions",
-                        new {id = item.IdProduction},
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cattle.CodeCattle)
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Modifier", "Edit", "CattleProductions",
+                        new { id = item.IdProduction },
                         new AjaxOptions
                         {
                             HttpMethod = "GET",
                             InsertionMode = InsertionMode.Replace,
                             UpdateTargetId = "divEdit",
-                            OnSuccess = "dialogBox('divEdit');"
-                        }, htmlAttributes: new {@class = "btn btn-primary"})
-                </td>
-            </tr>
-        }
+                            OnSuccess = "dialogBox('divEdit','Modifier la quantité');"
+                        }, htmlAttributes: new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
     <div id="divEdit">
@@ -93,7 +99,7 @@
     <script>
         $(document).ready(function () {
             $('.table').DataTable({
-                "order": [ 0, 'desc' ],
+                "order": [0, 'desc'],
                 language: {
                     processing: "Traitement en cours...",
                     search: "Filtre&nbsp;:",
@@ -143,6 +149,17 @@
             </text>
     }
         });
-
+        $('#showHideTraiteDiv').on('click', function (e) {
+            //e.preventDefault();
+            var $collapse = $('#getTraiteDiv');
+            if ($collapse.hasClass('in')) {
+                $(this).removeClass('glyphicon-minus');
+                $(this).addClass('glyphicon-plus');
+            } else {
+                $(this).removeClass('glyphicon-plus');
+                $(this).addClass('glyphicon-minus');
+            }
+            $collapse.collapse('toggle');
+        });
     </script>
 }

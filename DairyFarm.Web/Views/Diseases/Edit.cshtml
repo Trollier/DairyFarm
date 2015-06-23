@@ -6,22 +6,21 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Editer maladie</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdDisease)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Label, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Label, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Label, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Contagious, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Contagious, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Contagious)
                     @Html.ValidationMessageFor(model => model.Contagious, "", new { @class = "text-danger" })
@@ -30,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-4 col-md-8">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>

@@ -19,7 +19,8 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea {
+textarea,
+.readonly {
     max-width: 280px;
 }
 
@@ -31,18 +32,17 @@ textarea {
     border: black solid 1px;
     border-radius: 5px;
     background-color: #c4c4c4;
-    margin-top: 7px;
+    margin: 7px 0;
 }
 
 .InQurantine {
-    background-color: #FFE6E6;
-    opacity: 50%;
+    background-color: #FFDBDB;
 }
 
 .addProd {
-    background-color: #7A7A7A;
+    background-color: #F7F7F7;
     padding: 7px;
-    border: 1px solid black;
+    border: 1px solid #C4C4C4;
     margin-bottom: 10px;
 }
 
@@ -51,4 +51,30 @@ textarea {
     margin: 5px 0 10px 0;
     padding: 6px;
     border: black solid 1px;
+}
+.title-herd {
+    background-color: #E8F8E8;
+    border: 1px solid #E2E2E2;
+    padding: 3px;
+}
+.liste {
+    background-color: #F5F6CE;
+    border: 1px solid #E2E2E2;
+}
+.dary-info {
+    padding: 8px;
+    background-color: #e85800;
+    font-size: 12px;
+}
+.divDisease {
+    background-color: #E0F8F7;
+    border: 1px solid #E2E2E2;
+    padding: 8px 0;
+    margin-bottom: 5px;
+}
+.divDeGestation {
+    background-color: #E3F6CE;
+    border: 1px solid #E2E2E2;
+    padding: 8px 0;
+    margin-bottom: 5px;
 }

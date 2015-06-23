@@ -16,7 +16,6 @@ namespace DairyFarm.Core.DAL
     {
 
         [Required(ErrorMessage = "Entrez un {0}")]
-        [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Code Bête")]
         [RegularExpression(@"^[A-Z]{2}-[0-9]{2}-[0-9]{7}$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
         public string CodeCattle { get; set; }
@@ -30,7 +29,7 @@ namespace DairyFarm.Core.DAL
         [DataType(DataType.Text)]
         public System.DateTime DateBirth { get; set; }
 
-        [Display(Name = "Parent Male")]
+        [Display(Name = "Parent male")]
         public Nullable<int> MalParent { get; set; }
 
         [Display(Name = "Parent femelle")]

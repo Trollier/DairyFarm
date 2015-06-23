@@ -1,13 +1,13 @@
 ﻿@model IQueryable<IGrouping<int, DairyFarm.Core.DAL.Cattle>>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Liste des bovins";
 }
 
-<h2>Index</h2>
+<h2>Liste des bovins</h2>
 
 <p>
-    @Html.ActionLink("Creer nouvelle bête", "Create")
+    @Html.ActionLink("Creer nouvelle bête", "Create", null, htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 5px;" })
     @Ajax.ActionLink("Creer nouveau troupeau ",
         "Create", "Herds", new{id="ajax"},
         new AjaxOptions
@@ -15,8 +15,8 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "CreateHerd",
-            OnSuccess = "dialogBox('CreateHerd');"
-        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
+            OnSuccess = "dialogBox('CreateHerd', 'Ajouter Troupeau');"
+        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 5px;" })
 </p>
 @{
     int i = 0;
@@ -27,10 +27,11 @@
     foreach (var list in Model)
     {
 
-        <h2>
-            <a class=" colp btn btn-default " id='btnCollapseHerd[@i]' herd="@i">-</a> @list.ElementAt(0).Herd.Label
+        <h2 class="title-herd">
+            <a class=" colp btn btn-default glyphicon glyphicon-plus" id='btnCollapseHerd[@i]' herd="@i"></a> @list.ElementAt(0).Herd.Label
         </h2>
-        @Html.ActionLink("Nourriture", "Create", "Meals", new { id = @list.ElementAt(0).Herd.IdHerd }, null)
+        <div class='@i collapse'>
+        @Html.ActionLink("Nourriture", "Create", "Meals", new { id = @list.ElementAt(0).Herd.IdHerd }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 0 5px 5px 0;" })
         @Ajax.ActionLink("Transférer bête(s) ",
         "ChangeHerd", "Cattle", new { idHerd = list.ElementAt(0).IdHerd },
         new AjaxOptions
@@ -38,13 +39,13 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "divChangeHerd",
-            OnSuccess = "dialogBox('divChangeHerd');"
-        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 5px;" })
+            OnSuccess = "dialogBox('divChangeHerd', 'Changement de Troupeau');"
+        }, htmlAttributes: new { @class = "btn btn-default", @style = "margin: 0 5px 5px 0;" })
 
-        <label>Type du troupeau: @list.ElementAt(0).Herd.CattleType.Label &nbsp;&nbsp;&nbsp; Nombre de places disponibles : @list.ElementAt(0).Herd.AvailablePlaces</label>
-        <div class='@i collapse in'>
-            @{i++;}
-            <table class="table">
+        <label>Type du troupeau: <span class="label dary-info">@list.ElementAt(0).Herd.CattleType.Label</span> &nbsp;&nbsp;&nbsp; Nombre de places disponibles : <span class="badge dary-info">@list.ElementAt(0).Herd.AvailablePlaces</span></label>
+
+        @{i++;}
+            <table class="table liste">
                 <tr>
                     <th>
                         Code
@@ -52,15 +53,15 @@
                     @if (list.ElementAt(0).Herd.CattleType.Sex == "F")
                     {
                         <th>
-                            en gestation
+                            En gestation
                         </th>
                     }
-                    
+
                     <th>
                         Malade
                     </th>
                     <th>
-                        age
+                        Age
                     </th>
                     <th>
                         En quarantaine
@@ -75,66 +76,64 @@
                         inQt = "InQurantine";
                     }
                     <tr class=@inQt>
-                             <td>
-                                 @Html.DisplayFor(modelItem => cattle.CodeCattle)
-                             </td>
-                             @if (cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null) != null && cattle.Herd.CattleType.Sex=="F")
-                             {
-                                 <td>
-                                     <input type="checkbox" checked disabled>
-                                 </td>
-                             }
-                             else if (cattle.Herd.CattleType.Sex == "F")
-                             {
-                                 <td>
-                                     <input type="checkbox" disabled>
-                                 </td>
-                             }
-                             else
-                             {
-                                 
-                             }
-                             @if (cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null)
-                             {
-                                 <td>
-                                     <input type="checkbox" checked disabled>
-                                 </td>
-                             }
-                             else
-                             {
-                                 <td>
-                                     <input type="checkbox" disabled>
-                                 </td>
-                             }
-                             @{ int age = DateTime.Now.Year - cattle.DateBirth.Year; }
-                             <td>
-                                 @age
-                             </td>
-                            
-                             <td >
-                                 <input type="checkbox" disabled @{
-                                                                     var s = cattle.InQuarantine ? "checked" : "";
-                                                                 } @s>
-                             </td>
-                       
-                             <td>
-                                 @Html.ActionLink("Edit", "Edit", new {id = cattle.IdCattle}, htmlAttributes: new {@class = "btn btn-primary"})
-                                 @Html.ActionLink("Details", "Details", new {id = cattle.IdCattle}, htmlAttributes: new {@class = "btn btn-info"})
-                                 @Ajax.ActionLink("supprimer", "Delete", "Cattle",
-                                     new {id = cattle.IdCattle},
+                        <td>
+                            @Html.DisplayFor(modelItem => cattle.CodeCattle)
+                        </td>
+                        @if (cattle.Gestations.FirstOrDefault(g => g.EndDateGestation == null) != null && cattle.Herd.CattleType.Sex == "F")
+                        {
+                            <td>
+                                <input type="checkbox" checked disabled>
+                            </td>
+                        }
+                        else if (cattle.Herd.CattleType.Sex == "F")
+                        {
+                            <td>
+                                <input type="checkbox" disabled>
+                            </td>
+                        }
+                        else
+                        {
+
+                        }
+                        @if (cattle.DiseasesHistories.FirstOrDefault(g => g.EndDate == null) != null)
+                        {
+                            <td>
+                                <input type="checkbox" checked disabled>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <input type="checkbox" disabled>
+                            </td>
+                        }
+                        @{ int age = DateTime.Now.Year - cattle.DateBirth.Year; }
+                        <td>
+                            @age
+                        </td>
+
+                        <td>
+                            <input type="checkbox" disabled @{ var s = cattle.InQuarantine ? "checked" : ""; } @s>
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = cattle.IdCattle }, htmlAttributes: new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = cattle.IdCattle }, htmlAttributes: new { @class = "btn btn-info" })
+                            @Ajax.ActionLink("supprimer", "Delete", "Cattle",
+                                     new { id = cattle.IdCattle },
                                      new AjaxOptions
                                      {
                                          HttpMethod = "GET",
                                          InsertionMode = InsertionMode.Replace,
                                          UpdateTargetId = "divDelete",
-                                         OnSuccess = "dialogBox('divDelete');"
-                                     }, htmlAttributes: new {@class = "btn btn-danger"})
-                             </td>
-                         </tr>
+                                         OnSuccess = "dialogBox('divDelete', 'Confirmation de la suppression');"
+                                     }, htmlAttributes: new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
                 }
             </table>
 
-        </div>
+    </div>
     }
 
 }
@@ -155,9 +154,11 @@
             var index = $(this).attr("herd");
             var $collapse = $('.' + index + '');
             if ($collapse.hasClass('in')) {
-                $(this).text("+");
+                $(this).removeClass('glyphicon-minus');
+                $(this).addClass('glyphicon-plus');
             } else {
-                $(this).text("-");
+                $(this).removeClass('glyphicon-plus');
+                $(this).addClass('glyphicon-minus');
             }
             $collapse.collapse('toggle');
         });

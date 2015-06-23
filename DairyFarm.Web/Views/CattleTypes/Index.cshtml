@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<DairyFarm.Core.DAL.CattleType>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List CattleType";
 }
 
-<h2>Index</h2>
+<h2>Liste des types</h2>
 <p>
     @Ajax.ActionLink("Ajouter",
                         "Create", "CattleTypes",
@@ -14,10 +14,10 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createFood",
-            OnSuccess = "dialogBox('createFood');"
-        })
+            OnSuccess = "dialogBox('createFood','Ajouter un type -');"
+        }, htmlAttributes: new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table liste">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Label)
@@ -31,19 +31,20 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Label)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rank)
-        </td>
-        <td>
-            @Ajax.ActionLink("Editer",
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
+            <td>
+                @Ajax.ActionLink("Modifier",
           "Edit", "CattleTypes",
                 new { id = item.IdCattleType },
                 new AjaxOptions
@@ -51,11 +52,12 @@
                     HttpMethod = "GET",
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = "editFood",
-                    OnSuccess = "dialogBox('editFood');"
+                    OnSuccess = "dialogBox('editFood','Modifier le type -');"
                 }, htmlAttributes: new { @class = "btn btn-primary" })
-        </td>
-    </tr>
-}
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.IdCattleType }, htmlAttributes: new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
 <div id="createFood" class="DisplayNone"></div>

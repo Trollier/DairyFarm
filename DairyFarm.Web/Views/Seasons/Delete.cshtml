@@ -1,20 +1,17 @@
-﻿@model DairyFarm.Core.DAL.Season
+﻿@{ Layout = null;}
+@model DairyFarm.Core.DAL.Season
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
 <h3>Etes vous sur de vouloir supprimé cette saison?</h3>
 <div>
-    <h4>Season</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Label)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Label)
         </dd>
@@ -22,19 +19,16 @@
         <dt>
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.StartDate)
+            @Model.StartDate.ToShortDateString()
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.EndDate)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.EndDate)
+            @Model.EndDate.ToShortDateString()
         </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {

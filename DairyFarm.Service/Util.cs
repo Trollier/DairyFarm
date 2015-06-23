@@ -4,9 +4,13 @@ using System.Collections.Generic;
 
 namespace DairyFarm.Service
 {
-    public class Util
+    public static class Util
     {
-        public static ICollection<string> Hours
+        public static IEnumerable<string> Sexe
+        {
+            get { return new List<string> { "F", "M" }; }
+        }
+        public static IEnumerable<string> Hours
         {
             get
             {
@@ -28,14 +32,16 @@ namespace DairyFarm.Service
             if (age <= 6)
             {
                 return 0;
-            }else if(age >6 && age<=12)
-            {
-                 return 1;
             }
-            else if ((age > 12 && age <= 24) || (age > 24 && sex == "M"))
+            if(age >6 && age<=12)
+            {
+                return 1;
+            }
+            if ((age > 12 && age <= 24) || (age > 24 && sex == "M"))
             {
                 return 2;
-            }else if(age> 24)
+            }
+            if(age> 24)
             {
                 return 4;
             }

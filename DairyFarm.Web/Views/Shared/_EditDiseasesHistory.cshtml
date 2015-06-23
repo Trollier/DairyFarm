@@ -5,43 +5,46 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.IdCattle)
     @Html.HiddenFor(model => model.IdDiseasesHistory)
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.IdDisease, "IdDisease", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.IdDisease, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownList("IdDisease", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdDisease, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2" id="IdMedicalTreatment">Traitements medical </label>
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.IdMedicalTreatments, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownList("IdMedicalTreatments", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @name = "IdMedicalTreatments", @id = "IdMedicalTreatments" })
             </div>
         </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.TextBox("StartDate", Model.StartDate.ToShortDateString(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @{
+                var endDate = Model.EndDate.HasValue ? Model.EndDate.Value.ToShortDateString() : "";
+                }
+                @Html.TextBox("EndDate", endDate, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.VeterinaryVisit, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.VeterinaryVisit, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.VeterinaryVisit, new { style = "margin-left: 0px;" })
                     @Html.ValidationMessageFor(model => model.VeterinaryVisit, "", new { @class = "text-danger" })
@@ -50,7 +53,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-4 col-md-8">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>

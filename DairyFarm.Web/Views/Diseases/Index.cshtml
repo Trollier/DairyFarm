@@ -10,10 +10,10 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createFood",
-            OnSuccess = "dialogBox('createFood');"
-        })
+            OnSuccess = "dialogBox('createFood','Ajouter une maladie');"
+        }, htmlAttributes: new { @class = "btn btn-default" })
 </p>
-<table class="table">
+<table class="table liste">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Label)
@@ -24,16 +24,17 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Label)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contagious)
-        </td>
-        <td>
-            @Ajax.ActionLink("Editer",
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contagious)
+            </td>
+            <td>
+                @Ajax.ActionLink("Editer",
                 "Edit", "Diseases",
                 new { id = item.IdDisease },
                 new AjaxOptions
@@ -41,12 +42,12 @@
                     HttpMethod = "GET",
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = "editFood",
-                    OnSuccess = "dialogBox('editFood');"
+                    OnSuccess = "dialogBox('editFood','Modifier la maladie');"
                 }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdDisease })
-        </td>
-    </tr>
-}
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.IdDisease }, htmlAttributes: new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
 <div id="createFood" class="DisplayNone"></div>

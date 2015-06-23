@@ -21,10 +21,12 @@ namespace DairyFarm.Core.DAL
 
         [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Date du debut")]
+        [DataType(DataType.Text)]
         public System.DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "Entrez une {0}")]
         [Display(Name = "Date de fin")]
+        [DataType(DataType.Text)]
         public System.DateTime EndDate { get; set; }
     }
 }

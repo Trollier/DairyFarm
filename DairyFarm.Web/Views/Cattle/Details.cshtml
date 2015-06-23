@@ -6,22 +6,26 @@
 
 <h2>Details</h2>
 
-<div>
-    @*<h4>CattleDetailViewModel</h4>*@
+<p>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.CodeCattle)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.CodeCattle)
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Cattletype)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Cattletype)
         </dd>
@@ -29,7 +33,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.LabelHerd)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.LabelHerd)
         </dd>
@@ -37,7 +40,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.AgeYear)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.AgeYear)
         </dd>
@@ -45,7 +47,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.AgeMonth)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.AgeMonth)
         </dd>
@@ -53,7 +54,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.MalParent)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MalParent)
         </dd>
@@ -61,66 +61,61 @@
         <dt>
             @Html.DisplayNameFor(model => model.FemaleParent)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.FemaleParent)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sex)
-        </dd>
     </dl>
-    
-        
-
-        @if (Model.CurrentGestation != null && Model.Sex == "F")
-        {
-            <dl class=" dl-horizontal dlGestation ">
-                <dt>
-                    @Html.DisplayNameFor(model => model.CurrentGestation.StartDateGestation)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.CurrentGestation.StartDateGestation)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.CurrentGestation.Comment)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.CurrentGestation.Comment)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.CurrentGestation.DateCalve)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.CurrentGestation.DateCalve)
-                </dd>
 
 
-                @Html.ActionLink("Editer gestation", "Edit", "Gestations", new { id = Model.CurrentGestation.IdGestation }, htmlAttributes: new { @class = "btn btn-primary" })
-            </dl>
 
-        }
+    @if (Model.CurrentGestation != null && Model.Sex == "F")
+    {
+        <dl class=" dl-horizontal dlGestation ">
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentGestation.StartDateGestation)
+            </dt>
+            <dd>
+                @Model.CurrentGestation.StartDateGestation.ToShortDateString()
+            </dd>
 
-        else if (Model.CurrentGestation == null && Model.Sex == "F")
-        {
-            <dl>
-                <dt>
-                    @Html.DisplayNameFor(model => model.CurrentGestation)
-                </dt>
-                <dd>
-                    Il n'y a pas de gestation en cours
-                </dd>
-            </dl>
-                <div id="idAjaxFormG">
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentGestation.DateCalve)
+            </dt>
+            <dd>
+                @if (Model.CurrentGestation.DateCalve.HasValue)
+                {
+                    @Model.CurrentGestation.DateCalve.Value.ToShortDateString()
+                }
+            </dd>
 
-                    @Ajax.ActionLink("Nouvelle gestation",
-        "NewGestation", "Gestations", new { id = @Model.idCattle },
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentGestation.Comment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CurrentGestation.Comment)
+            </dd>
+
+
+            @Html.ActionLink("Editer gestation", "Edit", "Gestations", new { id = Model.CurrentGestation.IdGestation }, htmlAttributes: new { @class = "btn btn-primary" })
+        </dl>
+
+    }
+
+    else if (Model.CurrentGestation == null && Model.Sex == "F")
+    {
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentGestation)
+            </dt>
+            <dd>
+                Il n'y a pas de gestation en cours
+            </dd>
+        </dl>
+        <div id="idAjaxFormG">
+
+            @Ajax.ActionLink("Nouvelle gestation",
+        "NewGestation", "Gestations", new { id = @Model.IdCattle },
         new AjaxOptions
         {
             HttpMethod = "GET",
@@ -128,16 +123,16 @@
             UpdateTargetId = "divGestation",
             OnSuccess = "NewGestation();"
         }, htmlAttributes: new { id = "newGestation", @class = "btn btn-primary" })
-                    <input type="button" id="closeNewGestation" class="btn btn-danger DisplayNone" value="X" />
-                    <div id="divGestation"></div>
-                </div>
-                }
-                <h2>Maladies</h2>
-                <div id="idAjaxFormD">
+            <input type="button" id="closeNewGestation" class="btn btn-danger DisplayNone" value="X" />
+            <div id="divGestation"></div>
+        </div>
+    }
+    <h2>Maladies</h2>
+    <div id="idAjaxFormD">
 
-                    @Ajax.ActionLink("Nouvelle maladie",
+        @Ajax.ActionLink("Nouvelle maladie",
                 "Create",
-                 "DiseasesHistories", new { id = @Model.idCattle },
+                 "DiseasesHistories", new { id = @Model.IdCattle },
                  new AjaxOptions
                  {
                      HttpMethod = "GET",
@@ -145,55 +140,58 @@
                      UpdateTargetId = "divDisease",
                      OnSuccess = "NewDisease();"
                  }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
-                    <input type="button" id="closeNewDisease" class="btn btn-danger DisplayNone" value="X" />
-                    <div id="divDisease"></div>
-                </div>
-                @if (Model.currentDiseases.Any())
-        {
+        <input type="button" id="closeNewDisease" class="btn btn-danger DisplayNone" value="X" />
+        <div id="divDisease"></div>
+    </div>
+    @if (Model.CurrentDiseases.Any())
+    {
 
-                    <table class="table table-striped">
-                        <tr></tr>
-                        <tr>
-                            <th>
-                                Maladie
-                            </th>
-                            <th>
-                                Traitements
-                            </th>
-                            <th>
-                                Contagieux
-                            </th>
-                            <th>
-                                Visite veterinaire
-                            </th>
-                        </tr>
-                        @foreach (var item in Model.currentDiseases)
+        <table class="table table-striped liste">
+            <tr></tr>
+            <tr>
+                <th>
+                    Maladie
+                </th>
+                <th>
+                    Traitements
+                </th>
+                <th>
+                    Contagieux
+                </th>
+                <th>
+                    Visite veterinaire
+                </th>
+                <th>
+                    
+                </th>
+            </tr>
+            @foreach (var item in Model.CurrentDiseases)
+            {
+                if (item.EndDate == null)
                 {
-                    if (item.EndDate == null)
-                    {
-                        <tr>
-                            <td>
-                                <label> @item.Disease.Label</label>
-                            </td>
-                            <td>
-                                @foreach (var treatment in item.MedicalTreatments)
-                                {
-                                    <label>- @treatment.Label </label>
-                                }
+                    <tr>
+                        <td>
+                            <label> @item.Disease.Label</label>
+                        </td>
+                        <td>
+                            @foreach (var treatment in item.MedicalTreatments)
+                            {
+                                <label>- @treatment.Label </label>
+                            }
 
-                            </td>
+                        </td>
 
-                            <td>
-                                <input type="checkbox" checked=@item.Disease.Contagious disabled>
-                            </td>
+                        <td>
+                            <input type="checkbox" checked=@item.Disease.Contagious disabled>
+                        </td>
 
-                            <td>
-                                <input type="checkbox" checked=@item.VeterinaryVisit disabled>
+                        <td>
+                            <input type="checkbox" checked=@item.VeterinaryVisit disabled>
 
-                            </td>
+                        </td>
 
-                            <td>
-                                @Ajax.ActionLink("éditer",
+                        <td>
+                            @Ajax.ActionLink("Modifier",
                                 "edit",
                                 "DiseasesHistories", new { id = @item.IdDiseasesHistory },
                                 new AjaxOptions
@@ -201,17 +199,17 @@
                                     HttpMethod = "GET",
                                     InsertionMode = InsertionMode.Replace,
                                     UpdateTargetId = "editDisease",
-                                    OnSuccess = "openDialog();"
+                                    OnSuccess = "dialogBox('editDisease', 'Modifier la maladie');"
                                 }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
-                            </td>
+                        </td>
 
-                        </tr>
-                    }
+                    </tr>
                 }
-                    </table>
-        }
-           
-</div>
+            }
+        </table>
+    }
+
+</p>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.idCattle }) |
         @Html.ActionLink("Back to List", "Index")*@
@@ -220,7 +218,7 @@
     {
         @Ajax.ActionLink("historique gestation",
                         "index",
-                         "Gestations", new { id = @Model.idCattle },
+                         "Gestations", new { id = @Model.IdCattle },
                  new AjaxOptions
                  {
                      HttpMethod = "GET",
@@ -231,7 +229,7 @@
     }
     @Ajax.ActionLink("historique maladie",
                         "index",
-                        "DiseasesHistories", new { id = @Model.idCattle },
+                        "DiseasesHistories", new { id = @Model.IdCattle },
                  new AjaxOptions
                  {
                      HttpMethod = "GET",

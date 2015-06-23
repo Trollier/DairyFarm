@@ -434,7 +434,7 @@ namespace DairyFarm.Service
 
         public IQueryable<Herd> GetHerdsIncludeCattle()
         {
-            return _db.Herds.Where(c => c.Active == false).Include(h => h.CattleType);
+            return _db.Herds.Where(c => c.Active == true).Include(h => h.CattleType);
         }
         public bool AddCattleProduction(CattleProduction cattleProduction)
         {
