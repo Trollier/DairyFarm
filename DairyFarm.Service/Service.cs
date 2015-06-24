@@ -41,6 +41,11 @@ namespace DairyFarm.Service
             return _db.Cattles.Where(c => c.InQuarantine == true).ToList();
         }
 
+        public IEnumerable<Cattle> GetSickCattle()
+        {
+            return _db.Cattles.Where(c => c.InQuarantine == false && c.DiseasesHistories.FirstOrDefault().EndDate!=null).ToList();
+        }
+
         public IEnumerable<Cattle> GetCattlesMilk()
         {
             try

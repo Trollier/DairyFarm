@@ -15,6 +15,7 @@ namespace DairyFarm.Service
         IEnumerable<Cattle> GetCattles();
         IEnumerable<Cattle> GetCattlesByHerd(int idHerd);
         IEnumerable<Cattle> GetCattleInQuarantine();
+        IEnumerable<Cattle> GetSickCattle();
         IEnumerable<Cattle> GetCattlesMilk();
         IQueryable<IGrouping<int, Cattle>> IndexCattle();
         bool AddCattle(Cattle cattle);

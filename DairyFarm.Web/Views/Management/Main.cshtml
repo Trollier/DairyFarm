@@ -2,17 +2,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Tableau de Bord</h2>
 
-<div class="form-group">
-    <div class="col-md-10">
-        @Html.DropDownList("ListItem", new SelectList(ViewBag.ListItem,"Text", "Value"), htmlAttributes: new { @class = "form-control" })
-    </div>
-</div>
-@Html.Hidden("hiddenItem", (object)ViewBag.idItem)
-<div id="viewPlaceHolder">
 
+
+<div class="demo-container">
+    <div id="placeholder" class="demo-placeholder"></div>
 </div>
+
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -20,40 +20,5 @@
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/unobtrusive-ajax")
     @Scripts.Render("~/bundles/bootstrap-dialog")
-    <script>
-    $(document).ready(function () {
-       
-
-        @if (Model != null)
-        {
-            <text>
-            var jsId = '@Model.Id';
-            var jsMessage = '@Model.Message';
-            var jsState = @Model.State;
-            
-            console.log(jsId);
-            console.log(jsMessage);
-
-            $('#ListItem').val(jsId);
-            $('#ListItem').trigger('change');
-            if (jsState == 1) {
-                BootstrapDialog.alert({
-                    title: 'TYPE_SUCCESS',
-                    message: jsMessage,
-                    type: BootstrapDialog.TYPE_SUCCESS,
-                    closable: true, 
-                });
-            } else {
-                BootstrapDialog.alert({
-                    message: jsMessage,
-                    type: BootstrapDialog.TYPE_WARNING,
-                    closable: true, 
-                });
-            }
-            
-          
-            </text>
-        }
-    });
-</script>
+   @Scripts.Render("~/bundles/flot-charts")
 }

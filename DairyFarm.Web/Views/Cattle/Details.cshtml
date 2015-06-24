@@ -99,7 +99,7 @@
 
     }
 
-    else if (Model.CurrentGestation == null && Model.Sex == "F")
+    else if (Model.CurrentGestation == null && Model.canGestation==true )
     {
         <dl>
             <dt>
@@ -125,6 +125,7 @@
         </div>
     }
     <h2>Maladies</h2>
+    <hr />
     <div id="idAjaxFormD">
 
         @Ajax.ActionLink("Nouvelle maladie",
@@ -211,7 +212,7 @@
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.idCattle }) |
         @Html.ActionLink("Back to List", "Index")*@
 
-    @if (Model.Sex == "F")
+    @if (Model.canGestation == true)
     {
         @Ajax.ActionLink("historique gestation",
                         "index",

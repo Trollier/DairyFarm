@@ -62,6 +62,7 @@ C:\Repos\DairyFarm\DairyFarm.Web\bin\System.Web.Optimization.xml
 C:\Repos\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.csprojResolveAssemblyReference.cache
 C:\Repos\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.dll
 C:\Repos\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.pdb
+C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.csprojResolveAssemblyReference.cache
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bin\DairyFarm.Web.dll.config
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bin\DairyFarm.Web.dll
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bin\DairyFarm.Web.pdb
@@ -123,6 +124,5 @@ C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bi
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bin\System.Web.WebPages.Razor.xml
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\bin\System.Web.Optimization.xml
-C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.csprojResolveAssemblyReference.cache
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.dll
 C:\Users\Brahim\documents\visual studio 2013\Projects\DairyFarm\DairyFarm.Web\obj\Debug\DairyFarm.Web.pdb

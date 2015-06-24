@@ -1,35 +1,86 @@
-﻿@model IEnumerable<DairyFarm.Core.DAL.Cattle>
+﻿@model DairyFarm.Web.Models.CattleDiseaseList
 
 @{
     ViewBag.Title = "CattleInQuarantine";
 }
 
-<h2>Bete en Quarantine</h2>
+<h2>Animal en Quarantaine</h2>
 
 <table class="table liste">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CodeCattle)
+           Code
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateBirth)
+           Date de naissance
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Herd.CattleType.Label)
+            Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Herd.Label)
+            Label du troupeau
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MalParent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FemaleParent)
+            Maladie(s)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.inQuarantine)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeCattle)
+            </td>
+            <td>
+                @item.DateBirth.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Herd.CattleType.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Herd.Label)
+            </td>
+
+            <td>
+                @{ var diseases = "";}
+                @foreach (var diseaseH in item.DiseasesHistories)
+                {
+                    if (!diseaseH.EndDate.HasValue)
+                    {
+                        diseases += " - "+diseaseH.Disease.Label;
+                    }
+                }
+                @diseases
+            </td>
+            <td>
+                @Html.ActionLink("detail", "Details","Cattle", new { id = item.IdCattle }, htmlAttributes: new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Animal malade</h2>
+
+<table class="table liste">
+    <tr>
+        <th>
+            Code
+        </th>
+        <th>
+            Date de naissance
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Label du troupeau
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.sick)
     {
         <tr>
             <td>
@@ -45,10 +96,7 @@
                 @Html.DisplayFor(modelItem => item.Herd.Label)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MalParent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FemaleParent)
+                @Html.ActionLink("detail", "Details", "Cattle", new { id = item.IdCattle }, htmlAttributes: new { @class = "btn btn-primary" })
             </td>
         </tr>
     }

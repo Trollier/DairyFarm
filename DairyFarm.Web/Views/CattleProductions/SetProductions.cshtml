@@ -8,16 +8,6 @@
 <h2>Encodage des traites</h2>
 <h4>@ViewBag.message</h4>
 
-<input type="checkbox" id="differentDate"> Date différente d'aujourd'hui?<br>
-
-@using (Html.BeginForm("DifferentDateProd", "CattleProductions", FormMethod.Post, new { @id = "dateDifferentProd", @class = "DisplayNone" }))
-{
-    <input type="hidden" name="period" id="periodTime" required>
-    <input  name="dateProdDifferent" id="datedif" class="class="form-control text-box single-line hasdatepicker">
-    <div class="form-group">
-        <input type="submit" value="Soumettre" class="btn btn-primary" />
-    </div>
-}
 @using (Html.BeginForm("SetProductions", "CattleProductions", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

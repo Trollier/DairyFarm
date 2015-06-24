@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DairyFarm.Core.DAL;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace DairyFarm.Web.Models
 {
@@ -98,6 +101,8 @@ namespace DairyFarm.Web.Models
 
         [Display(Name = "Sexe")]
         public string Sex { get; set; }
+
+        public Boolean canGestation { get; set; }
         public List<DiseasesHistory> CurrentDiseases { get; set; }
         public Gestation CurrentGestation { get; set; }
     }
@@ -115,6 +120,18 @@ namespace DairyFarm.Web.Models
         public int? MalParent { get; set; }
         [Display(Name = "Parent femelle")]
         public int? FemaleParent { get; set; }
+
+    }
+
+    public class CattleDiseaseList
+    {
+        public CattleDiseaseList()
+        {
+            inQuarantine=new List<Cattle>();
+            sick = new List<Cattle>();
+        }
+        public List<Cattle> inQuarantine { get; set; }
+        public List<Cattle> sick { get; set; }
 
     }
 }

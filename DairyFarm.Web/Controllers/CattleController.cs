@@ -77,6 +77,11 @@ namespace DairyFarm.Web.Controllers
                 ViewBag.Message = message;
                 ViewBag.State = state;
             }
+
+            if (cattle.Herd.IdCattleType == 5 || cattle.Herd.IdCattleType == 6 || cattle.Herd.IdCattleType == 8)
+            {
+                cattleDetailViewModel.canGestation = true;
+            }
             return View(cattleDetailViewModel);
         }
 
@@ -97,7 +102,16 @@ namespace DairyFarm.Web.Controllers
 
         public ActionResult CattleInQuarantine()
         {
-            var cattleInquarantin = _dairyFarmService.GetCattleInQuarantine();
+            var cattleInquarantin = new CattleDiseaseList();
+            
+            foreach (var cattleI in _dairyFarmService.GetCattleInQuarantine())
+            {
+                cattleInquarantin.inQuarantine.Add(cattleI);
+            }
+            foreach (var cattleS in _dairyFarmService.GetSickCattle())
+            {
+                cattleInquarantin.sick.Add(cattleS);
+            }
             return View(cattleInquarantin);
         }
         public ActionResult ChangeHerd(int idHerd)

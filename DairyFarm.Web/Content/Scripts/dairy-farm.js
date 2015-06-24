@@ -288,12 +288,12 @@ function getUrlParameter(sParam) {
 function ValidateForm() {
     var isValid = 1;
     $('form').each(function () {
-        $(this).find("[datarequired ='true']").each(function() {
+        $(this).find("[datarequired ='1']").each(function() {
             var elm = $(this);
             console.log(elm.attr('name'));
             if (!elm.val()) {
                 isValid *= 0;
-                var message = "Veuillez insérer un(e) " + elm.attr("name");
+                var message = "Veuillez insérer un(e) " + $("[for = " + elm.attr('name')+ "]").text();
                 $('[data-valmsg-for="' + elm.attr('name') + '"]').text(message);
             } else {
                 isValid *= 1;
@@ -302,4 +302,10 @@ function ValidateForm() {
         });
     });
     return isValid;
+}
+
+function submitForm(idForm) {
+    if (ValidateForm() === 1) {
+        $(idForm).submit();
+    }
 }
