@@ -10,7 +10,10 @@ namespace DairyFarm.Core.DAL
     [MetadataType(typeof(CattleProductionMetaData))]
     public partial class CattleProduction
     {
-        public Nullable<decimal>   Quantity2 { get; set; }
+
+        [RegularExpression(@"^([0-9]{1,2})([,][0-9]{1,2})?$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
+        [DataType(DataType.Text)]
+        public string  Quantity2 { get; set; }
 
     }
     public class CattleProductionMetaData

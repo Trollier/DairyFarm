@@ -50,10 +50,13 @@ namespace DairyFarm.Web.Controllers
         }
 
         // GET: Herds/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label");
-
+            if (id != null)
+            {
+                ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label",id);
+            }
             return PartialView();
         }
 

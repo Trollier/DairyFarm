@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Resources;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -156,12 +157,22 @@ namespace DairyFarm.Web.Controllers
                     Message = "Production bien ajouté",
                     State = 1
                 };
+                foreach (var prod in cattleProductions)
+                {
+                    if (Convert.ToDecimal(prod.Quantity2) < 0 || Convert.ToDecimal(prod.Quantity2) > 50)
+                    {
+                        popup.State = 0;
+                        popup.Message = "Vous ne pouvez pas dépassez une quantié de plus de 50 litres par traites";
+                        return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
+                    }
+                }
+              
                 
                 foreach (var production in cattleProductions)
                 {
                     if (production.Quantity2 != null)
                     {
-                        production.Quantity = (decimal) production.Quantity2;
+                        production.Quantity = Convert.ToDecimal(production.Quantity2);
                         if (_dairyFarmService.AddCattleProduction(production) == false)
                         {
                             popup.Message = "Erreur dans l'ajout";

@@ -5,7 +5,7 @@
     ViewBag.Title = "Créer";
 }
 
-@using (Html.BeginForm("Create","Cattle",FormMethod.Post, htmlAttributes: new {id = "formcreateherd" }))
+@using (Html.BeginForm("Create", "Cattle", FormMethod.Post, htmlAttributes: new { id = "formcreateCattle" }))
 {
     @Html.AntiForgeryToken()
 
@@ -48,7 +48,16 @@
             @Html.LabelFor(model => model.IdHerd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
                 @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control", dataRequired = 1 })
-                <input id="btnNewHerd" type="button" value="Nouveau troupeau" class="btn btn-default" />
+                <input type="button" id="CreateHerdButton" value="Créer nouveau troupeau" />
+                @Ajax.ActionLink("Creer nouveau troupeau ",
+        "Create", "Herds", new { id = "ajax" },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "CreateHerd",
+            OnSuccess = "dialogBox('CreateHerd', 'Ajouter Troupeau');"
+        }, htmlAttributes: new {@id = "AjaxCreateHerd", @class = "btn btn-default ", @style = "margin-right: 5px; display : none;" })
                 @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -118,7 +127,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
-                <input type="button" value="soumettre" onclick="submitForm('#formcreateherd')" id="submitHerd" class="btn btn-default" />
+                <input type="button" value="soumettre" onclick="submitForm('#formcreateCattle')" id="submitCattle" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -136,7 +145,7 @@
     </form>
 </div>
 
-
+<div id="CreateHerd"></div>
 <div>
     @Html.ActionLink("Retournez à la liste", "Index")
 </div>
@@ -194,6 +203,16 @@
                         $("#CodeCattle-error").text("Existe déja");
                     }
                 });
+        });
+
+        $("#CreateHerdButton").click(function () {
+            var idCattleType = $("#IdCattletype :selected").val();
+            console.log(idCattleType);
+            if (idCattleType != null) {
+                $("#AjaxCreateHerd").attr('href', '/Herds/Create/' + idCattleType + '');
+                $("#AjaxCreateHerd").click();
+            }
+           
         });
     </script>
 

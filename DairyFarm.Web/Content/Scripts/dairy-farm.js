@@ -37,27 +37,41 @@
     });
 });
 
-$("#Sex").change(function() {
-    $.ajax({
-        type: "POST",
-        url: '/Common/GetType/?Sex=' + $("#Sex").val() + '&date=' + $("#DateBirth").val(),
-        contentType: "application/json",
-        success: function(data) {
-            var optionStr = document.getElementById("IdCattletype");
-            optionStr.length = 0;
-            optionStr.options[0] = new Option('Select type', '');
-            var notEmpty = true;
-            $.each(data, function(key, value) {
-                notEmpty = false;
-                $('#IdCattletype')
-                    .append($("<option></option>")
-                        .attr("value", value.Value)
-                        .text(value.Text));
-            });
-        }
-    });
+$("#Sex").change(function () {
+    var sex = $("#Sex").val();
+    var db = $("#DateBirth").val();
+    if (sex != null && db != null) {
+        getType(sex, db);
+    }
 });
-
+$("#DateBirth").change(function () {
+    var sex = $("#Sex").val();
+    var db = $("#DateBirth").val();
+    if (sex != null && db != null) {
+        getType(sex,db);
+    }
+});
+function getType(sex,date) {
+    
+        $.ajax({
+    type: "POST",
+    url: '/Common/GetType/?Sex=' + sex + '&date=' + date,
+    contentType: "application/json",
+    success: function(data) {
+        var optionStr = document.getElementById("IdCattletype");
+        optionStr.length = 0;
+        optionStr.options[0] = new Option('Select type', '');
+        var notEmpty = true;
+        $.each(data, function(key, value) {
+            notEmpty = false;
+            $('#IdCattletype')
+                .append($("<option></option>")
+                    .attr("value", value.Value)
+                    .text(value.Text));
+        });
+    }
+});
+};
 
 $("#btnNewHerd").click(function () {
     if ($("#IdCattletype").val() != "") {
@@ -78,7 +92,7 @@ $("#btnNewHerd").click(function () {
 });
 
 
-$('#btnCreateHerd').click(function() {
+$('#submitHerd').click(function () {
     $.ajax({
         type: "POST",
         url: '/Common/CreateHerd/?idCattletype=' + $("#IdCattletype").val() + '&maxAnimals=' + $("#MaxAnimals").val() + '&label=' + $("#Label").val(),
@@ -286,10 +300,11 @@ function getUrlParameter(sParam) {
     }
 }
 
-function ValidateForm() {
+function ValidateForm(idForm) {
+    var lengthM = $("#MaxAnimals").val();
+    console.log(lengthM);
     var isValid = 1;
-    $('form').each(function () {
-        $(this).find("[datarequired ='1']").each(function() {
+        $(idForm).find("[datarequired ='1']").each(function () {
             var elm = $(this);
             if (!elm.val()) {
                 isValid *= 0;
@@ -300,13 +315,13 @@ function ValidateForm() {
                 isValid *= 1;
                 $('[data-valmsg-for="' + elm.attr('name') + '"]').text("");
             }
-        });
     });
     return isValid;
 }
 
 function submitForm(idForm) {
-    if (ValidateForm() === 1) {
+    console.log(idForm);
+    if (ValidateForm(idForm) === 1) {
         $(idForm).submit();
     }
 }
@@ -378,8 +393,9 @@ function checkQuantity() {
 }
 
 function checkHerdMax() {
-
+    
     var lengthM = $("#MaxAnimals").val();
+    console.log(lengthM);
     if (lengthM <0 || lengthM>50) {
         var message = "Le nombre doit être compris entre 1 et 50";
         $("#submitHerd").attr("disabled", "disabled");
@@ -391,16 +407,17 @@ function checkHerdMax() {
     }
 }
 
-checkUniqueHerd
-var code = $("#Label").val();
-$.post("/Common/ChechUniqueCattleType/" + code,
-    function (data, state) {
-        if (data === "False") {
-            $('[data-valmsg-for="Label"]').text("Existe déja");
-            $("#submitHerd").attr("disabled", "disabled");
+function checkUniqueHerd() {
+    var code = $("#Label").val();
+    $.post("/Common/ChechUniqueHerd/" + code,
+        function(data, state) {
+            if (data === "False") {
+                $('[data-valmsg-for="Label"]').text("Existe déja");
+                $("#submitHerd").attr("disabled", "disabled");
 
-        } else {
-            $("#submitHerd").removeAttr("disabled");
-            $('[data-valmsg-for="Label"]').text("");
-        }
-    });
+            } else {
+                $("#submitHerd").removeAttr("disabled");
+                $('[data-valmsg-for="Label"]').text("");
+            }
+        });
+}
