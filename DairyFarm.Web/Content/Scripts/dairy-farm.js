@@ -271,6 +271,7 @@ function dialogBox(variable, title) {
     });
     $('#' + variable + ' ').dialog("open");
     $('#' + variable + '  select').select2();
+    $('.select2').attr('style', '');
     jQuery.validator.unobtrusive.parse('form');
 }
 
@@ -290,10 +291,10 @@ function ValidateForm() {
     $('form').each(function () {
         $(this).find("[datarequired ='1']").each(function() {
             var elm = $(this);
-            console.log(elm.attr('name'));
             if (!elm.val()) {
                 isValid *= 0;
-                var message = "Veuillez insérer un(e) " + $("[for = " + elm.attr('name')+ "]").text();
+                console.log(elm.attr('name'));
+                var message = "Veuillez insérer un(e) " + $('[for = ' + elm.attr('name')+ ']').text();
                 $('[data-valmsg-for="' + elm.attr('name') + '"]').text(message);
             } else {
                 isValid *= 1;
@@ -308,4 +309,48 @@ function submitForm(idForm) {
     if (ValidateForm() === 1) {
         $(idForm).submit();
     }
+}
+
+function ValidCode() {
+    var lengthM = $("#MalParent").val().length;
+    var lengthF = $("#FemaleParent").val().length;
+    if (lengthM != 9) {
+        var message = "Veuillez insérer un code de 9 chiffres";
+        $('[data-valmsg-for="MalParent"]').text(message);
+    } else {
+        $('[data-valmsg-for="MalParent"]').text("");
+
+        $("#SubmitEditCattle").removeAttr("disabled");
+    }
+    if (lengthF != 9) {
+        var message = "Veuillez insérer un code de 9 chiffres";
+        $('[data-valmsg-for="FemaleParent"]').text(message);
+        $("#SubmitEditCattle").attr("disabled", "disabled");
+    } else {
+        $('[data-valmsg-for="FemaleParent"]').text("");
+        $("#SubmitEditCattle").removeAttr("disabled");
+    }
+    CheckLabelType();
+}
+
+function CheckLabelType() {
+    console.log("ok");
+    var code = $("#Label").val();
+    $.post("/Common/ChechUniqueCattleType/" + code,
+        function (data, state) {
+            if (data === "False") {
+                $('[data-valmsg-for="Label"]').text("Existe déja");
+                $("#submitHerd").attr("disabled", "disabled");
+                
+            } else {
+                $("#submitHerd").removeAttr("disabled");
+                $('[data-valmsg-for="Label"]').text("");
+            }
+        });
+}
+
+
+function checkQuantity() {
+    var qty = $("#Quantity").val();
+    $.post("/Common/ChechQtyFood/" + code,
 }

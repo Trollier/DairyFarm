@@ -20,9 +20,9 @@ namespace DairyFarm.Web
             );
 
             routes.MapRoute(
-             "Editdisease",                                              // Route name
-            "{controller}/{action}/{idDiseaseHistory}/{idCattle}",                           // URL with parameters
-            new { controller = "DiseasesHistories", action = "Edit", idDiseaseHistory = "", idCattle = "" }  // Parameter defaults
+             "Qtyfood",                                              
+            "{controller}/{action}/{id}/{food}",                          
+            new { controller = "Common", action = "ChechQtyFood", id = 0, food = "" }  
         );
 
         }

@@ -29,7 +29,7 @@ namespace DairyFarm.Core.DAL
         [DataType(DataType.Text)]
         public System.DateTime DateMeal { get; set; }
 
-        [Required(ErrorMessage = "Select une {0}")]
+       
         [Display(Name = "Hour de repas")]
         public string Hours { get; set; }
 

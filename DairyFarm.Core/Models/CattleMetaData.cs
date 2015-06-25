@@ -14,7 +14,6 @@ namespace DairyFarm.Core.DAL
     }
     public class CattleMetaData
     {
-
         [Required(ErrorMessage = "Entrez un {0}")]
         [Display(Name = "Code Bête")]
         [RegularExpression(@"^[A-Z]{2}-[0-9]{2}-[0-9]{7}$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
@@ -30,9 +29,11 @@ namespace DairyFarm.Core.DAL
         public System.DateTime DateBirth { get; set; }
 
         [Display(Name = "Parent male")]
-        public Nullable<int> MalParent { get; set; }
+        [RegularExpression(@"[0-9]{2}-[0-9]{7}$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
+        public int? MalParent { get; set; }
 
         [Display(Name = "Parent femelle")]
-        public Nullable<int> FemaleParent { get; set; }
+        [RegularExpression(@"[0-9]{2}-[0-9]{7}$", ErrorMessage = "Code invalide. ex: MA-12-1234567")]
+        public int? FemaleParent { get; set; }
     }
 }

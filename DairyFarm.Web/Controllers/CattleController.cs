@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using DairyFarm.Core.DAL;
 using DairyFarm.Service;
 using DairyFarm.Web.Models;
@@ -241,11 +242,10 @@ namespace DairyFarm.Web.Controllers
 
         // POST: Cattle/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Cattle cattle)
         {
             try
             {
-                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }

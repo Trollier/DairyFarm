@@ -109,29 +109,25 @@ namespace DairyFarm.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Diet diet)
         {
-            if (ModelState.IsValid)
-            {
-                var dietEdit = _dairyFarmService.GetDietById(diet.IdDiet);
-                dietEdit.Foods.Clear();
-                dietEdit.CattleTypes.Clear();
+            if (ModelState.IsValid){
+                diet.Foods.Clear();
+                diet.CattleTypes.Clear();
                 foreach (var idFood in diet.IdFoods)
                 {
-                    dietEdit.Foods.Add(_dairyFarmService.GetFoodById(idFood));
+                    diet.Foods.Add(_dairyFarmService.GetFoodById(idFood));
                 }
                 foreach (var idCattleType in diet.IdCattleTypes)
                 {
-                    dietEdit.CattleTypes.Add(_dairyFarmService.GetCattleTypeById(idCattleType));
+                    diet.CattleTypes.Add(_dairyFarmService.GetCattleTypeById(idCattleType));
                 }
-
-                dietEdit.IdSeason = diet.IdSeason;
-                dietEdit.Label = diet.Label;
-                
+                diet.IdSeason = diet.IdSeason;
+                diet.Label = diet.Label;
                 var popup = new MessageInfo
                {
                    State = 1,
                    Message = "Regime bien édité"
                };
-                if (_dairyFarmService.EditDiet(dietEdit) == false)
+                if (_dairyFarmService.EditDiet(diet) == false)
                 {
                     return RedirectToAction("Index", "Diets", new { message = "Erreur dans l'édition", state = 0 });
                 }

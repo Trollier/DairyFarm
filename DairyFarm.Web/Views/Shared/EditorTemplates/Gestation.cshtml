@@ -1,10 +1,14 @@
-﻿@model DairyFarm.Core.DAL.Gestation
+﻿@if (this.ViewContext.FormContext == null)
+{
+    this.ViewContext.FormContext = new FormContext();
+}
+@model DairyFarm.Core.DAL.Gestation
 
 
         <div class="form-group">
             @Html.LabelFor(model => model.StartDateGestation, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDateGestation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StartDateGestation, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
                 @Html.ValidationMessageFor(model => model.StartDateGestation, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -12,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CalveSex, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CalveSex", null, "select sex", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CalveSex", null, "select sex", htmlAttributes: new { @class = "form-control", dataRequired = 1 })
                 @Html.ValidationMessageFor(model => model.CalveSex, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -20,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
+                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", dataRequired = 1 })
                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,7 +33,7 @@
             @Html.LabelFor(model => model.DeathCalve, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.DeathCalve, new { htmlAttributes = new { @class = "form-control", style = "margin-left: 0px;" } })
+                    @Html.EditorFor(model => model.DeathCalve, new { htmlAttributes = new { @class = "form-control", style = "margin-left: 0px;", dataRequired = 1 } })
                     @Html.ValidationMessageFor(model => model.DeathCalve, "", new { @class = "text-danger" })
                 </div>
             </div>

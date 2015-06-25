@@ -20,7 +20,8 @@
 input,
 select,
 textarea,
-.readonly {
+.readonly 
+.select2{
     max-width: 280px;
 }
 
@@ -78,3 +79,4 @@ textarea,
     padding: 8px 0;
     margin-bottom: 5px;
 }
+

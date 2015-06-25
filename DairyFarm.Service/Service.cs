@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -511,6 +512,7 @@ namespace DairyFarm.Service
         {
             try
             {
+               
                 _db.Entry(meal).State = EntityState.Modified;
                 _db.SaveChanges();
                 return true;
@@ -538,7 +540,7 @@ namespace DairyFarm.Service
         #region Diets
         public Diet GetDietById(int? id)
         {
-            return _db.Diets.Find(id);
+            return _db.Diets.Include(d => d.Foods).Include(d => d.CattleTypes).FirstOrDefault(d => d.IdDiet == id);
         }
         public Diet getDietByDate(DateTime date, int id)
         {
@@ -582,12 +584,34 @@ namespace DairyFarm.Service
         {
             try
             {
+
+                //var local = _db.Set<Diet>()
+                //         .Local
+                //         .FirstOrDefault(f => f.IdDiet == diet.IdDiet);
+                //if (local != null)
+                //{
+                //    _db.Entry(local).State = EntityState.Detached;
+                //}
+                //_db.Entry(diet).State = EntityState.Detached;
+                //var dietEdit = _db.Diets.Find(diet.IdDiet);
+                //dietEdit.Foods.Clear();
+                //dietEdit.CattleTypes.Clear();
+                //foreach (var idFood in diet.IdFoods)
+                //{
+                //    dietEdit.Foods.Add(GetFoodById(idFood));
+                //}
+                //foreach (var idCattleType in diet.IdCattleTypes)
+                //{
+                //    dietEdit.CattleTypes.Add(GetCattleTypeById(idCattleType));
+                //}
+                //dietEdit.IdSeason = diet.IdSeason;
+                //dietEdit.Label = diet.Label;
+
                 _db.Entry(diet).State = EntityState.Modified;
                 _db.SaveChanges();
                 return true;
-
             }
-            catch
+            catch (Exception e)
             {
                 return false;
 

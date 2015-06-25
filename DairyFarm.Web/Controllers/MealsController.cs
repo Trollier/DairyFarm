@@ -108,22 +108,31 @@ namespace DairyFarm.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdFood = new SelectList(_dairyFarmService.GetFoods(), "IdFood", "Label", meal.IdFood);
+            ViewBag.Hours = new SelectList(Util.Hours);
+
             return View(meal);
         }
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       [ValidateAntiForgeryToken]
         public ActionResult Edit(Meal meal)
         {
             if (ModelState.IsValid)
             {
+                var editMeal = _dairyFarmService.GetMealById(meal.IdMeal);
+                var difference = meal.Quantity - editMeal.Quantity;
+                editMeal.Food.TotQuantity -= difference;
+                editMeal.Quantity = meal.Quantity;
+                editMeal.IdFood = meal.IdFood;
+                editMeal.DateMeal = meal.DateMeal;
+                editMeal.HourMeal = TimeSpan.Parse(meal.Hours);
                 var popup = new MessageInfo
                 {
                     State = 1,
                     Message = "Repas bien édité"
                 };
-                if (_dairyFarmService.EditMeal(meal) == false)
+                if (_dairyFarmService.EditMeal(editMeal) == false)
                 {
                     return RedirectToAction("Index", "Meals", new { message = "Erreur dans l'édition", state = 0 });
                 }

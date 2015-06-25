@@ -5,7 +5,7 @@
     ViewBag.Title = "Créer";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create","Cattle",FormMethod.Post, htmlAttributes: new {id = "formcreateherd" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CodeCattle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.CodeCattle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CodeCattle, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
                 @Html.ValidationMessageFor(model => model.CodeCattle, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control date" } })
+                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control date", dataRequired = 1 } })
                 @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -32,14 +32,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.DropDownList("Sex", null, "select sex", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("Sex", null, "select sex", htmlAttributes: new { @class = "form-control", dataRequired = 1 })
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.IdCattletype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.DropDownList("IdCattletype", null, "select Cattletype", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("IdCattletype", null, "select Cattletype", htmlAttributes: new { @class = "form-control", dataRequired = 1 })
                 @Html.ValidationMessageFor(model => model.IdCattletype, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdHerd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("IdHerd", null, "select Herd", htmlAttributes: new { @class = "form-control", dataRequired = 1 })
                 <input id="btnNewHerd" type="button" value="Nouveau troupeau" class="btn btn-default" />
                 @Html.ValidationMessageFor(model => model.IdHerd, "", new { @class = "text-danger" })
             </div>
@@ -56,7 +56,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MalParent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.MalParent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.MalParent, new { htmlAttributes = new { @class = "form-control", onfocusout = "ValidCode()" } })
                 @Html.ValidationMessageFor(model => model.MalParent, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FemaleParent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.FemaleParent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FemaleParent, new { htmlAttributes = new { @class = "form-control", onfocusout = "ValidCode()"}})
                 @Html.ValidationMessageFor(model => model.FemaleParent, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,7 +74,7 @@
             @Html.LabelFor(model => model.HealthState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.HealthState, new { htmlAttributes = new { @class = "control-label", style = "margin-left: 0px;" } })
+                    @Html.EditorFor(model => model.HealthState, new { htmlAttributes = new { @class = "control-label", style = "margin-left: 0px;", dataRequired = 1 } })
                     @Html.ValidationMessageFor(model => model.HealthState, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -118,7 +118,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
-                <input type="submit" value="Créer" class="btn btn-default" />
+                <input type="button" value="soumettre" onclick="submitForm('#formcreateherd')" id="submitHerd" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@
 
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retournez à la liste", "Index")
 </div>
 
 @section Scripts {
@@ -149,12 +149,12 @@
     @Scripts.Render("~/bundles/bootstrap-dialog")
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
             @if (@ViewBag.Message != null)
             {
-            <text>
+                <text>
             var jsMessage = '@ViewBag.Message';
             var jsState = '@ViewBag.State';
 
@@ -174,16 +174,26 @@
                 });
             }
             </text>
-        }
+            }
 
 
         });
-        $(function () {
+        $(function() {
             $('#DateBirth').datepicker({
                 format: 'dd/mm/yyyy',
                 startDate: '01/01/2000',
                 language: 'fr'
             });
+        });
+
+        $("#CodeCattle").focusout(function() {
+            var code = $("#CodeCattle").val();
+            $.post("/Common/ChechUniqueCattle/" + code,
+                function (data, state) {
+                    if (data === "False") {
+                        $("#CodeCattle-error").text("Existe déja");
+                    }
+                });
         });
     </script>
 

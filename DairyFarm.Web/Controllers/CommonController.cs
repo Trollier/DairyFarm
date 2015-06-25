@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.Mvc;
 using DairyFarm.Core.DAL;
@@ -128,5 +129,49 @@ namespace DairyFarm.Web.Controllers
             return Json(foods, JsonRequestBehavior.AllowGet);
         }
 
+        public bool ChechUniqueCattle(string id)
+        {
+            return _db.Cattles.FirstOrDefault(d => d.CodeCattle == id) == null;
+        }
+
+        public bool ChechUniqueDisease(string id)
+        {
+            return _db.Diseases.FirstOrDefault(d => d.Label == id) == null;
+        }
+        public bool ChechUniqueMedicalTreatment(string id)
+        {
+            return _db.MedicalTreatments.FirstOrDefault(d => d.Label == id) == null;
+        }
+        public bool ChechUniqueHerd (string id)
+        {
+            return _db.Herds.FirstOrDefault(d => d.Label == id) == null;
+        }
+        public bool ChechUniqueCattleType(string id)
+        {
+            return _db.CattleTypes.FirstOrDefault(d => d.Label == id) == null;
+        }
+        public bool ChechUniqueFood(string id)
+        {
+            return _db.Foods.FirstOrDefault(d => d.Label == id) == null;
+        }
+        public bool ChechUniqueSeason(string id)
+        {
+            return _db.Seasons.FirstOrDefault(d => d.Label == id) == null;
+        }
+        public ActionResult ChechQtyFood(int id, string food)
+        {
+            var Qfood = _db.Foods.FirstOrDefault(f => f.Label == food);
+            var JsonQty = new List<Object>();
+            if (Qfood.TotQuantity - id < 0)
+            {
+                var qtyOk = Qfood.TotQuantity;
+                JsonQty.Add(new { Qty = qtyOk, ok = 0 });
+            }
+            else
+            {
+                JsonQty.Add(new { Qty = true, ok = 0 });
+            }
+            return Json(JsonQty, JsonRequestBehavior.AllowGet);
+        }
     }
 }

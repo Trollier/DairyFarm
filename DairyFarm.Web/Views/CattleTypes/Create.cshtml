@@ -1,7 +1,7 @@
 ﻿@{ Layout = null;}
 @model DairyFarm.Core.DAL.CattleType
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(Html.BeginForm("Create", "CattleTypes", FormMethod.Post, htmlAttributes: new { id = "formcreateherd" }))) 
 {
     @Html.AntiForgeryToken()
     
@@ -11,7 +11,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Label, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control", dataRequired = 1, onfocusout = "CheckLabelType()" } })
                 @Html.ValidationMessageFor(model => model.Label, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-               @Html.DropDownList("Sex", new SelectList(ViewBag.List, "Text", "Value"), "selectionnez le sexe", new { htmlAttributes = new { @class = "form-control" } })
+               @Html.DropDownList("Sex", new SelectList(ViewBag.List, "Text", "Value"), "selectionnez le sexe", new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,14 +27,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rank, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Rank, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Rank, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
                 @Html.ValidationMessageFor(model => model.Rank, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value ="Soumettre"onclick="submitForm('#formcreateherd')" id="submitHerd" class="btn btn-default" />
             </div>
         </div>
     </div>

@@ -7,10 +7,9 @@
 <h2>Créer</h2>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    if (Model.FoodExhausted.Any())
+
+    
+    @if (Model.FoodExhausted.Any())
     {
         <div style=" border-style: solid;
     border-color: red;">
@@ -31,9 +30,12 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Label)
+                            @Html.ValidationMessageFor(modelItem => item.Label, "", new { @class = "text-danger" })
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TotQuantity)
+
                         </td>
                     </tr>
 
@@ -41,7 +43,7 @@
             </table>
         </div>
     }
-    if (Model.givenFood.Any())
+    @if (Model.givenFood.Any())
     {
         <h2>Repas données dans la journées</h2>
         <table class="table  table table-striped">
@@ -74,56 +76,59 @@
         </table>
     }
     <div class="form-horizontal">
-            <h4>Repas</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h4>Repas</h4>
+    <hr />
+    @using (Html.BeginForm("Create", "Meals", FormMethod.Post, htmlAttributes: new { id = "formcreateherd" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @Html.HiddenFor(x => x.DateMeal, new { @value = "1" })
-            @Html.HiddenFor(x => x.IdHerd, new { @value = "1" })
-            <label> Chargez toutes les nourritures?</label>
-            <input type="checkbox" id="loadFoods" />
+        @Html.HiddenFor(x => x.DateMeal, new { @value = "1" })
+        @Html.HiddenFor(x => x.IdHerd, new { @value = "1" })
+        <label> Chargez toutes les nourritures?</label>
+        <input type="checkbox" id="loadFoods" />
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateMeal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(x => x.DateMeal, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
+                @Html.ValidationMessageFor(model => model.DateMeal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HourMeal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Hours", null, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
+                @Html.ValidationMessageFor(model => model.HourMeal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdFood, "IdFood", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdFood", null, htmlAttributes: new { @class = "form-control", dataRequired = 1 })
+                @Html.ValidationMessageFor(model => model.IdFood, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div id="divQuantity">
             <div class="form-group">
-                @Html.LabelFor(model => model.DateMeal, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(x => x.DateMeal, new { htmlAttributes = new { @class = "form-control", @type="date" } })
-                    @Html.ValidationMessageFor(model => model.DateMeal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.HourMeal, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Hours", null, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.HourMeal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.IdFood, "IdFood", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("IdFood", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdFood, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div id="divQuantity">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", dataRequired = 1, onfocusout = "checkQuantity()" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="soumettre" onclick="submitForm('#formcreateherd')" id="submitHerd" class="btn btn-default" />
+            </div>
+        </div>
 
+    }
+</div>
 
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
@@ -169,5 +174,8 @@
 
                 })
                 );
+
+
+
             </script>
         }
