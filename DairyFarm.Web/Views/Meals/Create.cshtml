@@ -100,7 +100,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HourMeal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Hours", null, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
+                @Html.DropDownList("Hours", null, htmlAttributes: new { @class = "form-control", dataRequired = 1 } )
                 @Html.ValidationMessageFor(model => model.HourMeal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -114,9 +114,9 @@
         </div>
         <div id="divQuantity">
             <div class="form-group">
-                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2" for="Quantity">Quantité (kg)</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", dataRequired = 1, onfocusout = "checkQuantity()" } })
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", dataRequired = 1, onfocusout = "checkQuantity()" } }) 
                     @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -11,19 +11,19 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DateMeal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HourMeal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.Herd.Label)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Food.Label)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Herd.Label)
+            @Html.DisplayNameFor(model => model.Quantity) (kg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateMeal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HourMeal)
         </th>
         <th></th>
     </tr>
@@ -33,31 +33,31 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Herd.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Food.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DateMeal)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HourMeal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Food.Label)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Herd.Label)
-            </td>
-            <td>
                 @Ajax.ActionLink("Editer",
-                "Edit", "Meals",
-                new { id = item.IdMeal },
-                new AjaxOptions
-                {
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "editFood",
-                    OnSuccess = "dialogBox('editFood');"
-                }, htmlAttributes: new { @class = "btn btn-primary" })
+                    "Edit", "Meals",
+                    new {id = item.IdMeal},
+                    new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "editFood",
+                        OnSuccess = "dialogBox('editFood');"
+                    }, htmlAttributes: new {@class = "btn btn-primary"})
             </td>
         </tr>
 

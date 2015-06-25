@@ -13,7 +13,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Label, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
+                @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control", dataRequired = 1, onfocusout = "checkUniqueHerd()" } })
                 @Html.ValidationMessageFor(model => model.Label, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MaxAnimals, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.MaxAnimals, new { htmlAttributes = new { @class = "form-control", dataRequired = 1 } })
+                @Html.EditorFor(model => model.MaxAnimals, new { htmlAttributes = new { @class = "form-control", dataRequired = 1, onfocusout = "checkHerdMax()" } })
                 @Html.ValidationMessageFor(model => model.MaxAnimals, "", new { @class = "text-danger" })
             </div>
         </div>

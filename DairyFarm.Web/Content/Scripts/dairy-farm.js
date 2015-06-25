@@ -59,7 +59,7 @@ $("#Sex").change(function() {
 });
 
 
-        $("#btnNewHerd").click(function () {
+$("#btnNewHerd").click(function () {
     if ($("#IdCattletype").val() != "") {
         console.log("ok");
         var idCatlleType = $("#IdCattletype").val();
@@ -67,8 +67,7 @@ $("#Sex").change(function() {
         var opt = {
             autoOpen: false,
             modal: true,
-            width: 550,
-            height: 650,
+            width: 600,
             title: 'Details'
         };
 
@@ -272,6 +271,7 @@ function dialogBox(variable, title) {
     $('#' + variable + ' ').dialog("open");
     $('#' + variable + '  select').select2();
     $('.select2').attr('style', '');
+    
     jQuery.validator.unobtrusive.parse('form');
 }
 
@@ -334,7 +334,7 @@ function ValidCode() {
 }
 
 function CheckLabelType() {
-    console.log("ok");
+ 
     var code = $("#Label").val();
     $.post("/Common/ChechUniqueCattleType/" + code,
         function (data, state) {
@@ -351,6 +351,56 @@ function CheckLabelType() {
 
 
 function checkQuantity() {
-    var qty = $("#Quantity").val();
-    $.post("/Common/ChechQtyFood/" + code,
+    var code = $("#Quantity").val();
+    var label = $("#IdFood option:selected").text();
+    var qty;
+    var ok;
+    $.ajax({
+        type: "POST",
+        url: '/Common/ChechQtyFood/' + code + "/" + label,
+        contentType: "application/json",
+        success: function (data) {
+            $.each(data, function (key, value) {
+                qty = value.Qty;
+                ok = value.ok;
+            });
+            console.log(qty, ok);
+            if (ok === 0) {
+                $('[data-valmsg-for="Quantity"]').text("La quantité maximum est de " + qty +" kg");
+                $("#submitHerd").attr("disabled", "disabled");
+            } else {
+                $("#submitHerd").removeAttr("disabled");
+                $('[data-valmsg-for="Quantity"]').text("");
+            }
+
+        }
+    });
 }
+
+function checkHerdMax() {
+
+    var lengthM = $("#MaxAnimals").val();
+    if (lengthM <0 || lengthM>50) {
+        var message = "Le nombre doit être compris entre 1 et 50";
+        $("#submitHerd").attr("disabled", "disabled");
+        $('[data-valmsg-for="MaxAnimals"]').text(message);
+    } else {
+        $('[data-valmsg-for="MaxAnimals"]').text("");
+
+        $("#submitHerd").removeAttr("disabled");
+    }
+}
+
+checkUniqueHerd
+var code = $("#Label").val();
+$.post("/Common/ChechUniqueCattleType/" + code,
+    function (data, state) {
+        if (data === "False") {
+            $('[data-valmsg-for="Label"]').text("Existe déja");
+            $("#submitHerd").attr("disabled", "disabled");
+
+        } else {
+            $("#submitHerd").removeAttr("disabled");
+            $('[data-valmsg-for="Label"]').text("");
+        }
+    });

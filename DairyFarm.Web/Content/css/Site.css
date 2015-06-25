@@ -23,6 +23,7 @@ textarea,
 .readonly 
 .select2{
     max-width: 280px;
+    min-width: 132px;
 }
 
 .DisplayNone {

@@ -167,10 +167,6 @@ namespace DairyFarm.Web.Controllers
                 var qtyOk = Qfood.TotQuantity;
                 JsonQty.Add(new { Qty = qtyOk, ok = 0 });
             }
-            else
-            {
-                JsonQty.Add(new { Qty = true, ok = 0 });
-            }
             return Json(JsonQty, JsonRequestBehavior.AllowGet);
         }
     }
