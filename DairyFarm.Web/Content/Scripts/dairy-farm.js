@@ -170,38 +170,34 @@ $('#IsGestation').click(function () {
     }
 
 });
-$(document).ready(function () {
-    $('.date').each(function () {
-        //$(this).datepicker({ maxDate: "+1M +1D 1Y", regional: "fr" });
-        //$(this).datepicker("option", "dateFormat", "dd.mm.yy");
-        //$(this).datepicker($.datepicker.regional["fr"]);
+
+function setDatePicker() {
+    $.datepicker.setDefaults($.datepicker.regional["fr"]);
+    $('.date').datepicker({
+        format: 'dd/mm/yyyy',
+        startDate: '01/01/2000',
+        defaultDate: '01/01/2015',
+        language: 'fr'
     });
-});
- function setSelect2Disease() {
-
-    $("#CurrentDisease_IdDisease").select2();
-    $("#IdMedicalTreatments").select2();
-    
-    //$("#CurrentDisease_StartDate").datepicker($.datepicker.regional["fr"]);
-
-    //$("#StartDate").datepicker($.datepicker.regional["fr"]);
-
-
-}
-
-var setSelect2Gestation = function () {
-
-    $("#CurrentGestation_DeathCalve").select2();
-    //$("#CurrentGestation_StartDateGestation").datepicker({
-    //    dateFormat: 'dd/mm/yy'
-    //});
-
 }
 
 $(function () {
-    //$("#DateBirth").datepicker($.datepicker.regional["fr"]);
-    
+    setDatePicker();
+});
 
+ function setSelect2Disease() {
+    $('.date').datepicker();
+    $("#CurrentDisease_IdDisease").select2();
+    $("#IdMedicalTreatments").select2();
+}
+
+ function setSelect2Gestation  () {
+
+    $('.date').datepicker();
+    $("#CurrentGestation_DeathCalve").select2();
+}
+
+$(function () {
     $("#IdCattletype").change(function () {
         var type = $("#IdCattletype option:selected").text();
         if (type === "Genisse plus 2 ans" || type === "Taries" || type === "Production") {
@@ -212,13 +208,9 @@ $(function () {
             $("#divGestation").hide();
         }
     });
-
-
 });
 
-
 function NewGestation() {
-    //$("#StartDateGestation").datepicker({dateFormat: 'dd/mm/yy'});
     $("#idAjaxFormG").addClass("AjaxForm");
 
     $("#newGestation").hide();
@@ -235,15 +227,6 @@ $('#closeNewGestation').click(function () {
 function NewDisease() {
     $("#CurrentDisease_IdDisease").select2();
     $("#IdMedicalTreatments").select2();
-    //$("#CurrentDisease_StartDate").datepicker({
-    //    dateFormat: 'dd/mm/yy'
-    //});
-    //$("#CurrentDisease_EndDate").datepicker({
-    //    dateFormat: 'dd/mm/yy'
-    //});
-    //$("#StartDate").datepicker({
-    //    dateFormat: 'dd/mm/yy'
-    //});
     $("#idAjaxFormD").addClass("AjaxForm");
 
     $("#newDisease").hide();
@@ -272,6 +255,7 @@ $("#ListItem").change(function () {
 //
 //URGENT
 function dialogBox(variable, title) {
+
     if (!title) title = "Dialog - ";
     //set the diaglog properties
     $('#' + variable + ' ').dialog({
@@ -285,8 +269,11 @@ function dialogBox(variable, title) {
     $('#' + variable + ' ').dialog("open");
     $('#' + variable + '  select').select2();
     $('.select2').attr('style', '');
+
+
+    setDatePicker();
+    //jQuery.validator.unobtrusive.parse('form');
     
-    jQuery.validator.unobtrusive.parse('form');
 }
 
 function getUrlParameter(sParam) {
@@ -306,14 +293,17 @@ function ValidateForm(idForm) {
     var isValid = 1;
         $(idForm).find("[datarequired ='1']").each(function () {
             var elm = $(this);
+            var elmname = elm.attr('name');
+            elmname = elmname.replace(".", "_");
             if (!elm.val()) {
                 isValid *= 0;
                 console.log(elm.attr('name'));
-                var message = "Veuillez insérer un(e) " + $('[for = ' + elm.attr('name')+ ']').text();
-                $('[data-valmsg-for="' + elm.attr('name') + '"]').text(message);
+                console.log(elmname);
+                var message = "Veuillez insérer un(e) " + $('[for = ' + elmname  + ']').text();
+                $('[data-valmsg-for="' + elmname + '"]').text(message);
             } else {
                 isValid *= 1;
-                $('[data-valmsg-for="' + elm.attr('name') + '"]').text("");
+                $('[data-valmsg-for="' + elmname + '"]').text("");
             }
     });
     return isValid;

@@ -118,7 +118,7 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "divGestation",
-            OnSuccess = "NewGestation();"
+            OnSuccess = "NewGestation(); setDatePicker();"
         }, htmlAttributes: new { id = "newGestation", @class = "btn btn-primary" })
             <input type="button" id="closeNewGestation" class="btn btn-danger DisplayNone" value="X" />
             <div id="divGestation"></div>
@@ -136,7 +136,7 @@
                      HttpMethod = "GET",
                      InsertionMode = InsertionMode.Replace,
                      UpdateTargetId = "divDisease",
-                     OnSuccess = "NewDisease();"
+                     OnSuccess = "NewDisease();setDatePicker();"
                  }, htmlAttributes: new { id = "newDisease", @class = "btn btn-primary" })
         <input type="button" id="closeNewDisease" class="btn btn-danger DisplayNone" value="X" />
         <div id="divDisease"></div>

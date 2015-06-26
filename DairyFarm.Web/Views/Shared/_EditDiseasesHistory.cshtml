@@ -26,8 +26,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.TextBox("StartDate", Model.StartDate.ToShortDateString(), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                @Html.TextBox("StartDate", Model.StartDate.ToShortDateString(), htmlAttributes: new { @class = "form-control date", dataRequired = 1 })
+                <span class="text-danger" data-valmsg-for="StartDate"></span>
+                @*@Html.TextBox("StartDate", Model.StartDate.ToShortDateString(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -37,8 +39,10 @@
                 @{
                 var endDate = Model.EndDate.HasValue ? Model.EndDate.Value.ToShortDateString() : "";
                 }
-                @Html.TextBox("EndDate", endDate, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                @Html.TextBox("EndDate", endDate, htmlAttributes: new { @class = "form-control date", dataRequired = 1 })
+                <span class="text-danger" data-valmsg-for="EndDate"></span>
+                @*@Html.TextBox("EndDate", endDate, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })*@
             </div>
         </div>
 

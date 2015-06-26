@@ -2,7 +2,7 @@
 @model DairyFarm.Core.DAL.Season
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Seasons", FormMethod.Post, htmlAttributes: new { id = "formeditseason" }))
 {
     @Html.AntiForgeryToken()
     
@@ -22,22 +22,26 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                @Html.TextBox("StartDate", Model.StartDate.ToString("dd/MM"), htmlAttributes: new { @class = "form-control", dataRequired = 1, placeholder = "dd/MM" })
+                <span class="text-danger" data-valmsg-for="StartDate"></span>
+                @*@Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                @Html.TextBox("EndDate", Model.EndDate.ToString("dd/MM"), htmlAttributes: new { @class = "form-control", dataRequired = 1 , placeholder="dd/MM"})
+                <span class="text-danger" data-valmsg-for="EndDate"></span>
+                @*@Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="button" value="soumettre" onclick="submitForm('#formeditseason')" class="btn btn-default" />
             </div>
         </div>
     </div>

@@ -39,10 +39,10 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @item.StartDate.ToShortDateString()
+            @item.StartDate.ToString("dd/MM")
         </td>
         <td>
-            @item.EndDate.ToShortDateString()
+            @item.EndDate.ToString("dd/MM")
         </td>
         <td>
             @Ajax.ActionLink("Modifier",

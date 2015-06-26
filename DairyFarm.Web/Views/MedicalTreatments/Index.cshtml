@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Traitements médicaux</h2>
 
 <p>
     @Ajax.ActionLink("Ajouter",
@@ -15,8 +15,8 @@
             HttpMethod = "GET",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "createFood",
-            OnSuccess = "dialogBox('createFood');"
-        })
+            OnSuccess = "dialogBox('createFood', 'Ajouter Traitement');"
+        }, htmlAttributes: new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -32,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.Label)
         </td>
         <td>
-            @Ajax.ActionLink("Editer",
+            @Ajax.ActionLink("Modifier",
              "Edit", "MedicalTreatments",
                 new { id = item.IdTreatment },
                 new AjaxOptions
@@ -40,7 +40,7 @@
                     HttpMethod = "GET",
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = "editFood",
-                    OnSuccess = "dialogBox('editFood');"
+                    OnSuccess = "dialogBox('editFood', 'Modifier Traitement');"
                 }, htmlAttributes: new { @class = "btn btn-primary" })
         </td>
     </tr>

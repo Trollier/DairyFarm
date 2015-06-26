@@ -65,7 +65,7 @@ namespace DairyFarm.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Herd herd, string id)
+        public ActionResult Create( Herd herd, int? id)
         {
             if (ModelState.IsValid)
             {
@@ -80,15 +80,15 @@ namespace DairyFarm.Web.Controllers
                     popup.State = 0;
                     popup.Message = "Erreur à la création";
                 }
-                if (id == "ajax")
+                if (id != null)
                 {
-                    return RedirectToAction("Index","Cattle", new { message = popup.Message, state = popup.State });
+                    return RedirectToAction("Create","Cattle", new { message = popup.Message, state = popup.State });
                 }
                 return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
             }
-            if (id == "ajax")
+            if (id != null)
             {
-                return RedirectToAction("Index", "Cattle", new { message = "Erreur dans l'ajout du troupeau", state = 0 });
+                return RedirectToAction("Create", "Cattle", new { message = "Erreur dans l'ajout du troupeau", state = 0 });
             }
             ViewBag.IdCattleType = new SelectList(_dairyFarmService.GetCattleTypes(), "IdCattleType", "Label", herd.IdCattleType);
             return RedirectToAction("Create", new { message = "Erreur dans l'ajout du troupeau", state = 0 });

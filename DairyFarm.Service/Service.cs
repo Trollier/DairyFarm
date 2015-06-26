@@ -607,7 +607,11 @@ namespace DairyFarm.Service
                 //dietEdit.IdSeason = diet.IdSeason;
                 //dietEdit.Label = diet.Label;
 
-                _db.Entry(diet).State = EntityState.Modified;
+                //_db.Entry(diet).State = EntityState.Modified;
+
+                _db.Diets.Remove(diet);
+                _db.SaveChanges();
+                _db.Diets.Add(diet);
                 _db.SaveChanges();
                 return true;
             }

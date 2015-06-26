@@ -42,13 +42,13 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateMeal)
+                @item.DateMeal.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HourMeal)
+                @item.HourMeal.ToString(@"hh\:mm")
             </td>
             <td>
-                @Ajax.ActionLink("Editer",
+                @Ajax.ActionLink("Modifier",
                     "Edit", "Meals",
                     new {id = item.IdMeal},
                     new AjaxOptions
@@ -56,7 +56,7 @@
                         HttpMethod = "GET",
                         InsertionMode = InsertionMode.Replace,
                         UpdateTargetId = "editFood",
-                        OnSuccess = "dialogBox('editFood');"
+                        OnSuccess = "dialogBox('editFood','Modifier repas');"
                     }, htmlAttributes: new {@class = "btn btn-primary"})
             </td>
         </tr>
