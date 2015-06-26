@@ -15,12 +15,12 @@ using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CattleController : Controller
     {
-        //private readonly DairyFarmEntities _db = new DairyFarmEntities();
+        private readonly DairyFarmEntities _db = new DairyFarmEntities();
         private readonly IDairyFarmService _dairyFarmService;
-        private readonly DairyFarmEntities _db;
+        //private readonly DairyFarmEntities _db;
         public CattleController(IDairyFarmService dairyFarmService)
         {
             _dairyFarmService = dairyFarmService;
@@ -118,15 +118,14 @@ namespace DairyFarm.Web.Controllers
         }
         public ActionResult ChangeHerd(int idHerd)
         {
-            var cattles = _dairyFarmService.GetCattlesByHerd(idHerd);
-            var herds = _dairyFarmService.GetHerdListById(idHerd);
-            ViewBag.Cattles = new SelectList(cattles, "IdCattle", "CodeCattle");
-            ViewBag.Herds = new SelectList(herds, "IdHerd", "Label");
+            ViewBag.Cattles = new SelectList(_dairyFarmService.GetCattlesByHerd(idHerd), "IdCattle", "CodeCattle");
+            ViewBag.Herds = new SelectList(_dairyFarmService.GetHerdListById(idHerd), "IdHerd", "Label");
             return View();
         }
         [HttpPost]
         public ActionResult ChangeHerd(ChangeHerdViewModel changeHerd)
         {
+
             if (ModelState.IsValid) {
                 var popup = new MessageInfo
                 {
@@ -134,15 +133,21 @@ namespace DairyFarm.Web.Controllers
                     Message = "troupeau bien changé"
                 };
                
-            foreach (var cattle in changeHerd.IdChangeCattle)
+            foreach (var idCattle in changeHerd.IdChangeCattle)
             {
-                 var herdDecrement =_dairyFarmService.GetCattleById(cattle);
-                 _dairyFarmService.DecrementHerd(changeHerd.IdChangeHerd);
-                 _dairyFarmService.IncrementHerd(herdDecrement.IdHerd);
-               var cattleToEdit = _dairyFarmService.GetCattleById(cattle);
-                cattleToEdit.IdHerd = changeHerd.IdChangeHerd;
-                _db.Entry(cattleToEdit).State = EntityState.Modified;
-                _db.SaveChanges();
+                var herdDecrement = _dairyFarmService.GetCattleById(idCattle);
+                _dairyFarmService.DecrementHerd(changeHerd.IdChangeHerd);
+                _dairyFarmService.IncrementHerd(herdDecrement.IdHerd);
+               ////var cattleToEdit = _dairyFarmService.GetCattleById(idCattle);
+               //  herdDecrement.IdHerd = changeHerd.IdChangeHerd;
+                //_db.Detach(order);
+                int noOfRowUpdated = _db.Database.ExecuteSqlCommand("Update Cattles set IdHerd =" + changeHerd.IdChangeHerd + " where IdCattle=" + idCattle + "");
+                if (noOfRowUpdated != 1)
+                {
+                    popup.State *= 0;
+                }
+                //_db.Entry(cattleToEdit).State = EntityState.Modified;
+                //_db.SaveChanges();
             }
             return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
 
@@ -237,7 +242,10 @@ namespace DairyFarm.Web.Controllers
         // GET: Cattle/Edit/5
         public ActionResult Edit(int id)
         {
-            ParentViewModel parent = new ParentViewModel();
+            var parent = new ParentViewModel();
+            var cattle = _db.Cattles.Find(id);
+            parent.MalParent = cattle.MalParent;
+            parent.FemaleParent = cattle.FemaleParent;
             parent.IdCattle = id;
             return View(parent);
         }
@@ -246,22 +254,16 @@ namespace DairyFarm.Web.Controllers
         [HttpPost]
         public ActionResult Edit(ParentViewModel parentViewModel)
         {
-            Cattle cattle = _db.Cattles.FirstOrDefault(c=>c.IdCattle==10);
-            cattle.MalParent = parentViewModel.MalParent;
-            cattle.FemaleParent = parentViewModel.FemaleParent;
-            _db.Entry(cattle).State = EntityState.Modified;
-            _db.SaveChanges();
-            if (_dairyFarmService.EditParentCattle(parentViewModel))
+            int noOfRowUpdated = _db.Database.ExecuteSqlCommand("Update Cattles set MalParent =" + parentViewModel.MalParent + ", FemaleParent=" + parentViewModel.FemaleParent + " where IdCattle=" + parentViewModel.IdCattle + "");
+            if (noOfRowUpdated == 1)
             {
-                return RedirectToAction("Detail", new { id = parentViewModel.IdCattle, message = "Bien editer", state = 1 });
-
+                return RedirectToAction("Details", new { id = parentViewModel.IdCattle, message = "Bien editer", state = 1 });
             }
             else
             {
-                return RedirectToAction("Detail", new { id = parentViewModel.IdCattle, message = "Erreur dans l'edition", state = 0 });
-
+                return RedirectToAction("Details", new { id = parentViewModel.IdCattle, message = "Erreur dans l'edition", state = 0 });
             }
-        
+            return RedirectToAction("Details", new { id = parentViewModel.IdCattle, message = "Bien editer", state = 1 });
 
         }
 
@@ -286,5 +288,13 @@ namespace DairyFarm.Web.Controllers
             }
 
         }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

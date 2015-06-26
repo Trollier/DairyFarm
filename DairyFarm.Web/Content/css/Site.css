@@ -1,4 +1,7 @@
-﻿body {
+﻿html {
+    /*background-image: url("~/Content/images/home-image.jpg");*/
+}
+body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
 }

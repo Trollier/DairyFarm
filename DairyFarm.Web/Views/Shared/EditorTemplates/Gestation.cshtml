@@ -34,7 +34,7 @@
             @Html.LabelFor(model => model.DeathCalve, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.DeathCalve, new { htmlAttributes = new { @class = "form-control", style = "margin-left: 0px;", dataRequired = 1 } })
+                    @Html.EditorFor(model => model.DeathCalve, new { htmlAttributes = new { @class = "control-label", style = "margin-left: 0px;", dataRequired = 1 } })
                     @Html.ValidationMessageFor(model => model.DeathCalve, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -172,12 +172,13 @@ $('#IsGestation').click(function () {
 });
 
 function setDatePicker() {
-    $.datepicker.setDefaults($.datepicker.regional["fr"]);
+    //$.datepicker.setDefaults($.datepicker.regional["fr"]);
     $('.date').datepicker({
         format: 'dd/mm/yyyy',
         startDate: '01/01/2000',
         defaultDate: '01/01/2015',
-        language: 'fr'
+        language: 'fr',
+        maxDate: '0D + 0M'
     });
 }
 
@@ -272,7 +273,6 @@ function dialogBox(variable, title) {
 
 
     setDatePicker();
-    //jQuery.validator.unobtrusive.parse('form');
     
 }
 

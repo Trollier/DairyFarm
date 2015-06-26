@@ -13,6 +13,7 @@ using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
+    [Authorize]
     public class FoodsController : Controller
     {
         //private DairyFarmEntities db = new DairyFarmEntities();

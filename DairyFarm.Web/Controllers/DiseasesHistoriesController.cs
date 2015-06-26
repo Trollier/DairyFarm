@@ -12,6 +12,7 @@ using DairyFarm.Web.Models;
 
 namespace DairyFarm.Web.Controllers
 {
+    [Authorize]
     public class DiseasesHistoriesController : Controller
     {
         private DairyFarmEntities _db = new DairyFarmEntities();

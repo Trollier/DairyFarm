@@ -10,6 +10,7 @@ using DairyFarm.Core.DAL;
 
 namespace DairyFarm.Web.Controllers
 {
+    [Authorize]
     public class GestationsController : Controller
     {
         private DairyFarmEntities db = new DairyFarmEntities();

@@ -4,31 +4,36 @@
 
 <h2>Tableau de Bord</h2>
 
-
-<h3 class="text-primary text-center">
-    Morris js charts
-</h3>
-<div class"row">
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+        <label class="label label-success">Repartition nourriture</label>
+        <div id="pie-chart"></div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+        <label class="label label-success">Repartition par type</label>
+        <div id="pie-chart2"></div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+        <label class="label label-success">Repartition troupeaux</label>
+        <div id="pie-chart3"></div>
+    </div>
     <div class="col-sm-6 text-center">
-        <label class="label label-success">Area Chart</label>
+        <label class="label label-success">Nourriture consommé journalier (kg)</label>
         <div id="area-chart"></div>
     </div>
     <div class="col-sm-6 text-center">
-        <label class="label label-success">Line Chart</label>
+        <label class="label label-success">Nourriture consommé journalier (kg)</label>
         <div id="line-chart"></div>
     </div>
     <div class="col-sm-6 text-center">
-        <label class="label label-success">Bar Chart</label>
+        <label class="label label-success">Production lait</label>
         <div id="bar-chart"></div>
     </div>
     <div class="col-sm-6 text-center">
-        <label class="label label-success">Bar stacked</label>
+        <label class="label label-success">Production lait</label>
         <div id="stacked"></div>
     </div>
-    <div class="col-sm-6 col-sm-offset-3 text-center">
-        <label class="label label-success">Pie Chart</label>
-        <div id="pie-chart"></div>
-    </div>
+
 
 </div>
 
@@ -38,27 +43,31 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
     <script>
-    
+
         var data = [
-                { y: '2014', a: 50 },
-                { y: '2015', a: 65 },
-                { y: '2016', a: 50 },
-                { y: '2017', a: 75 },
-                { y: '2018', a: 80 },
-                { y: '2019', a: 90 },
-                { y: '2020', a: 100 },
-                { y: '2021', a: 115 },
-                { y: '2022', a: 120 },
-                { y: '2023', a: 145 },
-                { y: '2024', a: 160 }
-            ],
+                { y: '01/2014', a: 18000 },
+                { y: '02/2014', a: 18000 },
+                { y: '03/2014', a: 11800 },
+                { y: '04/2014', a: 16000 },
+                { y: '05/2014', a: 18300 },
+                { y: '06/2014', a: 17800 },
+                { y: '01/2015', a: 16900 },
+                { y: '02/2015', a: 17900 },
+                { y: '03/2015', a: 18200 },
+                { y: '04/2015', a: 17900 },
+                { y: '05/2015', a: 18900 },
+                { y: '06/2015', a: 17100 },
+                { y: '07/2015', a: 16400 },
+                { y: '08/2015', a: 17900 }
+
+        ],
             config = {
                 data: data,
                 xkey: 'y',
                 ykeys: ['a'],
-                labels: ['Total Income', 'Total Outcome'],
+                labels: ['Total'],
                 fillOpacity: 0.6,
                 hideHover: 'auto',
                 behaveLikeLine: true,
@@ -67,22 +76,102 @@
                 pointStrokeColors: ['black'],
                 lineColors: ['gray', 'red']
             };
-        config.element = 'area-chart';
-        Morris.Area(config);
-        config.element = 'line-chart';
-        Morris.Line(config);
-        config.element = 'bar-chart';
-        Morris.Bar(config);
+        var data2 = [
+                { y: '01/2014', a: 590 },
+                { y: '02/2014', a: 560 },
+                { y: '03/2014', a: 578 },
+                { y: '04/2014', a: 560 },
+                { y: '05/2014', a: 583 },
+                { y: '06/2014', a: 578 },
+                { y: '07/2014', a: 526 },
+                { y: '08/2014', a: 549 },
+                { y: '09/2014', a: 532 },
+                { y: '10/2014', a: 577 },
+                { y: '11/2014', a: 549 },
+                { y: '12/2014', a: 561 },
+        ],
+            config2 = {
+                data: data2,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Total'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors: ['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors: ['gray', 'red']
+            };
+
+        var data3 = [
+        { y: '01/2014', a: 11000 },
+        { y: '02/2014', a: 11000 },
+        { y: '03/2014', a: 11800 },
+        { y: '04/2014', a: 13000 },
+        { y: '05/2014', a: 12930 },
+        { y: '06/2014', a: 12100 },
+        { y: '07/2014', a: 11900 },
+        { y: '08/2014', a: 12500 },
+        { y: '09/2014', a: 12100 },
+        { y: '10/2014', a: 13000 },
+        { y: '11/2014', a: 14000 },
+        { y: '12/2015', a: 13800 },
+
+        ],
+    config3 = {
+        data: data3,
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Total'],
+        fillOpacity: 0.6,
+        hideHover: 'auto',
+        behaveLikeLine: true,
+        resize: true,
+        pointFillColors: ['#ffffff'],
+        pointStrokeColors: ['black'],
+        lineColors: ['gray', 'red']
+    };
+
+        config2.element = 'area-chart';
+        Morris.Area(config2);
+        config2.element = 'line-chart';
+        Morris.Line(config2);
+        config3.element = 'bar-chart';
+        Morris.Bar(config3);
         config.element = 'stacked';
         config.stacked = true;
         Morris.Bar(config);
         Morris.Donut({
             element: 'pie-chart',
             data: [
-                { label: "Friends", value: 30 },
-                { label: "Allies", value: 15 },
-                { label: "Enemies", value: 45 },
-                { label: "Neutral", value: 10 }
+                { label: "Luzerne verte", value: 30 },
+                { label: "Paturage", value: 15 },
+                { label: "Ensilage de mais", value: 25 },
+                { label: "Orge", value: 10 },
+                { label: "Lait maternel", value: 10 },
+                { label: "Concentré", value: 25 }
+            ]
+        });
+        Morris.Donut({
+            element: 'pie-chart2',
+            data: [
+                { label: "Veau_avant_sevrage", value: 30 },
+                { label: "Production", value: 15 },
+                { label: "Genisse", value: 25 },
+                { label: "Taries", value: 10 },
+                { label: "Vache_Reforme", value: 10 },
+                { label: "Veau_velle", value: 10 }
+            ]
+        });
+        Morris.Donut({
+            element: 'pie-chart3',
+            data: [
+                { label: "vache_laitiére_1", value: 30 },
+                { label: "vache_laitiére_2", value: 15 },
+                { label: "genisse_1", value: 25 },
+                { label: "veau_1", value: 10 },
+                { label: "taries_1", value: 10 }
             ]
         });
     </script>

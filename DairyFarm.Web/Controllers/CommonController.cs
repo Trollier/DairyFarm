@@ -9,6 +9,7 @@ using DairyFarm.Service;
 
 namespace DairyFarm.Web.Controllers
 {
+    [Authorize]
     public class CommonController : Controller
     {
 
