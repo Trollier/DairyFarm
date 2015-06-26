@@ -5,20 +5,85 @@
 <h2>Tableau de Bord</h2>
 
 
+<h3 class="text-primary text-center">
+    Morris js charts
+</h3>
+<div class"row">
+    <div class="col-sm-6 text-center">
+        <label class="label label-success">Area Chart</label>
+        <div id="area-chart"></div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <label class="label label-success">Line Chart</label>
+        <div id="line-chart"></div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <label class="label label-success">Bar Chart</label>
+        <div id="bar-chart"></div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <label class="label label-success">Bar stacked</label>
+        <div id="stacked"></div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+        <label class="label label-success">Pie Chart</label>
+        <div id="pie-chart"></div>
+    </div>
 
-<div class="demo-container">
-    <div id="placeholder" class="demo-placeholder"></div>
 </div>
 
 
-
-
-
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/custom")
-    @Scripts.Render("~/bundles/select2")
-    @Scripts.Render("~/bundles/unobtrusive-ajax")
-    @Scripts.Render("~/bundles/bootstrap-dialog")
-   @Scripts.Render("~/bundles/flot-charts")
+    @Scripts.Render("~/bundles/morris-charts")
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script>
+    
+        var data = [
+                { y: '2014', a: 50 },
+                { y: '2015', a: 65 },
+                { y: '2016', a: 50 },
+                { y: '2017', a: 75 },
+                { y: '2018', a: 80 },
+                { y: '2019', a: 90 },
+                { y: '2020', a: 100 },
+                { y: '2021', a: 115 },
+                { y: '2022', a: 120 },
+                { y: '2023', a: 145 },
+                { y: '2024', a: 160 }
+            ],
+            config = {
+                data: data,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Total Income', 'Total Outcome'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors: ['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors: ['gray', 'red']
+            };
+        config.element = 'area-chart';
+        Morris.Area(config);
+        config.element = 'line-chart';
+        Morris.Line(config);
+        config.element = 'bar-chart';
+        Morris.Bar(config);
+        config.element = 'stacked';
+        config.stacked = true;
+        Morris.Bar(config);
+        Morris.Donut({
+            element: 'pie-chart',
+            data: [
+                { label: "Friends", value: 30 },
+                { label: "Allies", value: 15 },
+                { label: "Enemies", value: 45 },
+                { label: "Neutral", value: 10 }
+            ]
+        });
+    </script>
 }

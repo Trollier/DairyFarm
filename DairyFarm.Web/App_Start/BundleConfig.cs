@@ -23,10 +23,17 @@ namespace DairyFarm.Web
                       "~/Content/Scripts/bootstrap.js",
                       "~/Content/Scripts/respond.js"));
 
+            bundles.Add(new StyleBundle("~/Content/morris-charts").Include(
+            "~/Content/css/morris.css",
+            "~/Content/css/example.css"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/morris-charts").Include(
-                      "~/Content/Scripts/plugins/morris/raphael.js",
-                      "~/Content/Scripts/plugins/morris/morris.js",
-                      "~/Content/Scripts/plugins/morris/morris-data.js"));
+                      "~/Content/Scripts/Gruntfile.js",
+                      "~/Content/Scripts/morris.js",
+                      "~/Content/Scripts/morris.min.js",
+                      "~/Content/Scripts/example.js"
+                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/flot-charts").Include(
                       "~/Content/Scripts/plugins/flot/jquery.flot.js",

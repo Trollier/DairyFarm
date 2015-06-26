@@ -134,4 +134,5 @@ namespace DairyFarm.Web.Models
         public List<Cattle> sick { get; set; }
 
     }
+
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DairyFarm.Core.DAL;
+using DairyFarm.Core.Models;
 
 namespace DairyFarm.Service
 {
@@ -20,6 +21,7 @@ namespace DairyFarm.Service
         IQueryable<IGrouping<int, Cattle>> IndexCattle();
         bool AddCattle(Cattle cattle);
         bool EditCattle(Cattle cattle);
+        bool EditParentCattle(ParentViewModel parentViewModel);
         bool DeleteCattle(int id);
         #endregion Cattles
 

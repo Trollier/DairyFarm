@@ -225,6 +225,7 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\example.css" />
     <Content Include="Content\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\images\ui-bg_flat_10_000000_40x100.png" />
@@ -277,13 +278,14 @@
     <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\plugins\morris.css" />
     <Content Include="Content\Scripts\bootstrap-dialog.js" />
     <Content Include="Content\Scripts\bootstrap.js" />
     <Content Include="Content\Scripts\bootstrap.min.js" />
     <Content Include="Content\Scripts\dairy-farm.js" />
+    <Content Include="Content\Scripts\example.js" />
     <Content Include="Content\Scripts\excanvas.min.js" />
     <Content Include="Content\Scripts\flot-data.js" />
+    <Content Include="Content\Scripts\Gruntfile.js" />
     <Content Include="Content\Scripts\i18n\az.js" />
     <Content Include="Content\Scripts\i18n\bg.js" />
     <Content Include="Content\Scripts\i18n\ca.js" />
@@ -347,6 +349,9 @@
     <Content Include="Content\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\css\morris.css" />
+    <Content Include="Content\Scripts\morris.js" />
+    <Content Include="Content\Scripts\morris.min.js" />
     <Content Include="Content\Scripts\npm.js" />
     <Content Include="Content\Scripts\plugins\flot\excanvas.min.js" />
     <Content Include="Content\Scripts\plugins\flot\flot-data.js" />
@@ -355,11 +360,6 @@
     <Content Include="Content\Scripts\plugins\flot\jquery.flot.resize.js" />
     <Content Include="Content\Scripts\plugins\flot\jquery.flot.tooltip.js" />
     <Content Include="Content\Scripts\plugins\flot\jquery.flot.tooltip.min.js" />
-    <Content Include="Content\Scripts\plugins\morris\morris-data.js" />
-    <Content Include="Content\Scripts\plugins\morris\morris.js" />
-    <Content Include="Content\Scripts\plugins\morris\morris.min.js" />
-    <Content Include="Content\Scripts\plugins\morris\raphael.js" />
-    <Content Include="Content\Scripts\plugins\morris\raphael.min.js" />
     <Content Include="Content\Scripts\respond.js" />
     <Content Include="Content\Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Content\Scripts\respond.matchmedia.addListener.min.js" />
@@ -510,6 +510,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\plugins\" />
     <Folder Include="Views\Meals1\" />
   </ItemGroup>
   <ItemGroup>

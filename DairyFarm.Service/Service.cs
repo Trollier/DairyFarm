@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DairyFarm.Core.DAL;
+using DairyFarm.Core.Models;
 
 
 namespace DairyFarm.Service
@@ -82,6 +83,24 @@ namespace DairyFarm.Service
         {
             try
             {
+                _db.Entry(cattle).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+        public bool EditParentCattle(ParentViewModel parentViewModel)
+        {
+            try
+            {
+                Cattle cattle = GetCattleById(parentViewModel.IdCattle);
+                cattle.MalParent = parentViewModel.MalParent;
+                cattle.FemaleParent = parentViewModel.FemaleParent;
                 _db.Entry(cattle).State = EntityState.Modified;
                 _db.SaveChanges();
                 return true;

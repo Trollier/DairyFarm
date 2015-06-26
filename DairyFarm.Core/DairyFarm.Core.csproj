@@ -110,6 +110,7 @@
     <Compile Include="Models\HerdMetaData.cs" />
     <Compile Include="Models\MealMetaData.cs" />
     <Compile Include="Models\MedicalTreatmentMetaData.cs" />
+    <Compile Include="Models\ParentViewModel.cs" />
     <Compile Include="Models\SeasonMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

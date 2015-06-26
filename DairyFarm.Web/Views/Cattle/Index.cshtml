@@ -117,16 +117,6 @@
                         </td>
 
                         <td>
-                            @Ajax.ActionLink("Editer", "Edit", "Cattle",
-                                     new { id = cattle.IdCattle },
-                                     new AjaxOptions
-                                     {
-                                         HttpMethod = "GET",
-                                         InsertionMode = InsertionMode.Replace,
-                                         UpdateTargetId = "divEdit",
-                                         OnSuccess = "dialogBox('divEdit', 'Edition animal');"
-                                     }, htmlAttributes: new { @class = "btn btn-default" })
-
                             @Html.ActionLink("Details", "Details", new { id = cattle.IdCattle }, htmlAttributes: new { @class = "btn btn-info" })
                             @Ajax.ActionLink("supprimer", "Delete", "Cattle",
                                      new { id = cattle.IdCattle },
@@ -150,7 +140,7 @@
 <div id="divChangeHerd"></div>
 <div id="divDelete"></div>
 <div id="CreateHerd"></div>
-<div id="divEdit"></div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/custom")

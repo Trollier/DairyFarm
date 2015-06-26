@@ -8,65 +8,79 @@
 
 <p>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CodeCattle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CodeCattle)
-        </dd>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.CodeCattle)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.CodeCattle)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Sex)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Sex)
-        </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Sex)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Sex)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cattletype)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cattletype)
-        </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Cattletype)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Cattletype)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LabelHerd)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LabelHerd)
-        </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.LabelHerd)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.LabelHerd)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AgeYear)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AgeYear)
-        </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.AgeYear)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.AgeYear)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AgeMonth)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AgeMonth)
-        </dd>
-
+    <dt>
+        @Html.DisplayNameFor(model => model.AgeMonth)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.AgeMonth)
+    </dd>
+    @if (Model.MalParent != null)
+    {
         <dt>
             @Html.DisplayNameFor(model => model.MalParent)
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MalParent)
-        </dd>
 
+        <dd>
+            MA @Html.DisplayFor(model => model.MalParent)
+        </dd>
+    }
+    @if (Model.FemaleParent != null)
+    {
         <dt>
             @Html.DisplayNameFor(model => model.FemaleParent)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FemaleParent)
+            MA @Html.DisplayFor(model => model.FemaleParent)
         </dd>
-    </dl>
+    }
+</dl>
 
-
+    @Ajax.ActionLink("Editer Parent", "Edit", "Cattle",
+                                     new { id = Model.IdCattle },
+                                     new AjaxOptions
+                                     {
+                                         HttpMethod = "GET",
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = "divEdit",
+                                         OnSuccess = "dialogBox('divEdit', 'Edition animal');"
+                                     }, htmlAttributes: new { @class = "btn btn-default" })
+    <div id="divEdit"></div>
 
     @if (Model.CurrentGestation != null && Model.Sex == "F")
     {

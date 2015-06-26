@@ -1,5 +1,5 @@
 ﻿@{ Layout = null;}
-@model DairyFarm.Core.DAL.Cattle
+@model DairyFarm.Core.Models.ParentViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -10,13 +10,7 @@
     
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(m=> m.IdCattle)
-        @Html.HiddenFor(m => m.CodeCattle)
-        @Html.HiddenFor(m => m.IdHerd)
-        @Html.HiddenFor(m => m.DateBirth)
-        @Html.HiddenFor(m => m.CodeCattle)
-
-
+        @Html.HiddenFor(m => m.IdCattle)
         <div class="form-group">
             @Html.LabelFor(model => model.MalParent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,11 +33,4 @@
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-
-    </script>
 }

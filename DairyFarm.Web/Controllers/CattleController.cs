@@ -9,6 +9,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using DairyFarm.Core.DAL;
+using DairyFarm.Core.Models;
 using DairyFarm.Service;
 using DairyFarm.Web.Models;
 
@@ -19,7 +20,7 @@ namespace DairyFarm.Web.Controllers
     {
         //private readonly DairyFarmEntities _db = new DairyFarmEntities();
         private readonly IDairyFarmService _dairyFarmService;
-
+        private readonly DairyFarmEntities _db;
         public CattleController(IDairyFarmService dairyFarmService)
         {
             _dairyFarmService = dairyFarmService;
@@ -140,7 +141,8 @@ namespace DairyFarm.Web.Controllers
                  _dairyFarmService.IncrementHerd(herdDecrement.IdHerd);
                var cattleToEdit = _dairyFarmService.GetCattleById(cattle);
                 cattleToEdit.IdHerd = changeHerd.IdChangeHerd;
-                bool edited = _dairyFarmService.EditCattle(cattleToEdit);
+                _db.Entry(cattleToEdit).State = EntityState.Modified;
+                _db.SaveChanges();
             }
             return RedirectToAction("Index", new { message = popup.Message, state = popup.State });
 
@@ -235,24 +237,32 @@ namespace DairyFarm.Web.Controllers
         // GET: Cattle/Edit/5
         public ActionResult Edit(int id)
         {
-            var cattle = _dairyFarmService.GetCattleById(id);
-
-            return View(cattle);
+            ParentViewModel parent = new ParentViewModel();
+            parent.IdCattle = id;
+            return View(parent);
         }
 
         // POST: Cattle/Edit/5
         [HttpPost]
-        public ActionResult Edit(Cattle cattle)
+        public ActionResult Edit(ParentViewModel parentViewModel)
         {
-            try
+            Cattle cattle = _db.Cattles.FirstOrDefault(c=>c.IdCattle==10);
+            cattle.MalParent = parentViewModel.MalParent;
+            cattle.FemaleParent = parentViewModel.FemaleParent;
+            _db.Entry(cattle).State = EntityState.Modified;
+            _db.SaveChanges();
+            if (_dairyFarmService.EditParentCattle(parentViewModel))
             {
+                return RedirectToAction("Detail", new { id = parentViewModel.IdCattle, message = "Bien editer", state = 1 });
 
-                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Detail", new { id = parentViewModel.IdCattle, message = "Erreur dans l'edition", state = 0 });
+
             }
+        
+
         }
 
         // GET: Cattle/Delete/5
